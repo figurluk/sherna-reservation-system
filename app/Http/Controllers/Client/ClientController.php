@@ -31,7 +31,7 @@ class ClientController extends Controller
 
             $url = $currentUri->getRelativeUri();
 
-            return redirect()->to($url);
+            header('Location: ' . $url);
         }
 
         return view('welcome');
@@ -46,7 +46,7 @@ class ClientController extends Controller
 
         $url = $service->getAuthorizationUri();
 
-        return redirect()->to($url);
+        header('Location: ' . $url);
     }
 
     public function getLogout()
@@ -66,7 +66,7 @@ class ClientController extends Controller
         \Auth::logout();
         $url = $currentUri->getRelativeUri();
 
-        return redirect()->to($url);
+        header('Location: ' . $url);
     }
 
     /**
