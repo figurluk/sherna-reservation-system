@@ -69,9 +69,9 @@
     <div class="top-right links">
         @if (Auth::check())
             <a href="{{ url('/home') }}">Home</a>
-            <a href="{{ route('logout-url') }}">Logout</a>
+            <a href="{{ action('Client\ClientController@getLogout') }}">Logout</a>
         @else
-            <a href="{{ route('authorize-url') }}">Login</a>
+            <a href="{{ action('Client\ClientController@getAuthorize') }}">Login</a>
         @endif
     </div>
 
