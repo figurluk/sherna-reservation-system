@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'Client\ClientController@index');
+Route::get('/authorize', 'Client\ClientController@getAuthorize');
+Route::get('/logout', 'Client\ClientController@getLogout');
+
