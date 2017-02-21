@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 38);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11190,7 +11190,7 @@ module.exports = g;
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-__webpack_require__(33);
+__webpack_require__(32);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -12058,12 +12058,11 @@ module.exports = function spread(callback) {
 
 
 /***/ }),
-/* 32 */,
-/* 33 */
+/* 32 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {
-window._ = __webpack_require__(35);
+window._ = __webpack_require__(34);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12073,7 +12072,7 @@ window._ = __webpack_require__(35);
 
 window.$ = __webpack_provided_window_dot_jQuery = __webpack_require__(1);
 
-__webpack_require__(34);
+__webpack_require__(33);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12081,7 +12080,7 @@ __webpack_require__(34);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(39);
+window.Vue = __webpack_require__(35);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12111,7 +12110,7 @@ window.axios.defaults.headers.common = {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 34 */
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -14495,7 +14494,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 35 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31584,13 +31583,10 @@ if (typeof jQuery === 'undefined') {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(40)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(36)(module)))
 
 /***/ }),
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40166,7 +40162,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
-/* 40 */
+/* 36 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -40194,8 +40190,8 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 41 */,
-/* 42 */
+/* 37 */,
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(11);

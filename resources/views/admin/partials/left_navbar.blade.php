@@ -1,8 +1,3 @@
-<?php
-$controller = str_replace('App\\Http\\Controllers\\', '', substr(Route::currentRouteAction(), 0, (strpos(Route::currentRouteAction(), '@'))));
-$controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::currentRouteAction(), (strpos(Route::currentRouteAction(), '@') + 1)));
-?>
-
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
         <a href="{{action('Admin\AdminController@index')}}" class="site_title">
@@ -13,18 +8,6 @@ $controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::cu
     </div>
 
     <div class="clearfix"></div>
-
-    <!-- menu profile quick info -->
-    <div class="profile">
-        <div class="profile_info">
-            <span>Vítajte,</span>
-{{--            <h2>{{Auth::user()->name}} {{Auth::user()->surname}}</h2>--}}
-            Admin adminko
-            <br>
-        </div>
-    </div>
-    <!-- /menu profile quick info -->
-
     <br/>
 
     <!-- sidebar menu -->
@@ -32,7 +15,15 @@ $controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::cu
         <div class="menu_section">
             <h3>Administrácia</h3>
             <ul class="nav side-menu">
-                <li><a href="{{action('Admin\AdminController@index')}}"><i class="fa fa-fw fa-home"></i> Domov</a></li>
+                <li><a href="{{action('Admin\AdminController@index')}}"><i class="fa fa-fw fa-home"></i> Home</a></li>
+                <li><a href="{{action('Admin\ReservationsController@index')}}"><i class="fa fa-fw fa-address-card"></i> Reservations</a></li>
+                <li><a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-fw fa-users"></i> Users</a></li>
+                <li><a href="{{action('Admin\BadgesController@index')}}"><i class="fa fa-fw fa-id-badge"></i> Badges</a></li>
+                <li><a href="{{action('Admin\LocationsController@index')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a></li>
+                <li><a href="{{action('Admin\GamesController@index')}}"><i class="fa fa-fw fa-soccer-ball-o"></i> Games</a></li>
+                <li><a href="{{action('Admin\ConsolesController@index')}}"><i class="fa fa-fw fa-gamepad"></i> Consoles</a></li>
+                <li><a href="{{action('Admin\InventoryController@index')}}"><i class="fa fa-fw fa-cubes"></i> Inventory</a></li>
+                <li><a href="{{action('Admin\ContestController@index')}}"><i class="fa fa-fw fa-sitemap"></i> Contests</a></li>
             </ul>
         </div>
 
