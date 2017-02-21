@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUsersTable extends Migration
+class CreateTableShernaGames extends Migration
 {
     /**
      * Run the migrations.
@@ -13,18 +13,11 @@ class CreateUsersTable extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('sherna_games', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('uid');
             $table->string('name');
-            $table->string('surname');
-            $table->string('email');
-            $table->string('role');
-
-            $table->integer('block_number');
-
-            $table->timestamps();
-
+            $table->integer('possible_players')->default(1);
+            $table->nullableTimestamps();
             $table->softDeletes();
         });
     }
@@ -36,6 +29,6 @@ class CreateUsersTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('sherna_games');
     }
 }

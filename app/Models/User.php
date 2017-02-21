@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -24,14 +25,20 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUpdatedAt($value)
- * @property string $uid
- * @property string $surname
+ * @property string                                                                                                         $uid
+ * @property string                                                                                                         $surname
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereSurname($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUid($value)
+ * @property string $role
+ * @property int $block_number
+ * @property \Carbon\Carbon $deleted_at
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereBlockNumber($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRole($value)
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, SoftDeletes;
 
     /**
      * The attributes that are mass assignable.
@@ -39,7 +46,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'surname', 'email',
+        'uid', 'name', 'surname', 'email', 'role', 'block_number'
     ];
+
+    protected $dates = ['deleted_at'];
 
 }
