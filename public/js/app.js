@@ -11183,8 +11183,7 @@ module.exports = g;
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
-/**
+/* WEBPACK VAR INJECTION */(function($) {/**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
@@ -11203,6 +11202,9 @@ __webpack_require__(32);
 // const app = new Vue({
 //     el: '#app'
 // });
+
+$('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 12 */

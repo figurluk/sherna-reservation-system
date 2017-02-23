@@ -1,4 +1,3 @@
-
 /**
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
@@ -18,3 +17,5 @@ require('./bootstrap');
 // const app = new Vue({
 //     el: '#app'
 // });
+
+$('div.alert').not('.alert-important').delay(3000).fadeOut(350);

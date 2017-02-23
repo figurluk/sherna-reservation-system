@@ -14,8 +14,8 @@ const {mix} = require('laravel-mix');
 mix.js('resources/assets/js/app.js', 'public/js');
 mix.js('resources/assets/gentellela/custom.js', 'public/js');
 
-mix.less('resources/assets/less/bootstrap/bootstrap.less','../resources/assets/css')
-	.less('resources/assets/less/app.less','../resources/assets/css');
+mix.less('resources/assets/less/bootstrap/bootstrap.less', '../resources/assets/css')
+	.less('resources/assets/less/app.less', '../resources/assets/css');
 
 mix.combine([
 	'resources/assets/css/bootstrap.css',

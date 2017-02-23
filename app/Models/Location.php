@@ -16,9 +16,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Location
  *
- * @property int $id
- * @property int $location_status_id
- * @property string $name
+ * @property int            $id
+ * @property int            $location_status_id
+ * @property string         $name
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
@@ -41,6 +41,10 @@ class Location extends Model
         'name'
     ];
 
+    public function status()
+    {
+        return $this->belongsTo(LocationStatus::class,'location_status_id');
+    }
 
     protected static function boot()
     {

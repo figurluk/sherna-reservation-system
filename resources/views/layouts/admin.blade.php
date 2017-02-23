@@ -44,6 +44,7 @@ $controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::cu
 
         <!-- page content -->
         <div class="right_col" role="main">
+            @include('admin.partials.flash')
             @yield('content')
         </div>
         <!-- footer content -->
