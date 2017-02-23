@@ -1,0 +1,12 @@
+<IfModule mod_rewrite.c>
+    <IfModule mod_negotiation.c>
+        Options -MultiViews
+    </IfModule>
+
+
+    RewriteEngine On
+    RewriteBase /
+    RewriteRule ^(.*)$ public/$1 [L]
+
+    RewriteRule ^.env - [F,L,NC]
+</IfModule>

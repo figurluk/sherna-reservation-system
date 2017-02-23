@@ -11,6 +11,16 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', 'Client\ClientController@index');
+
+Route::get('/login',function (){
+    return redirect()->action('Client\ClientController@getAuthorize');
 });
+
+Route::get('/authorize', 'Client\ClientController@getAuthorize');
+Route::get('/logout', 'Client\ClientController@getLogout');
+
+Route::group(['prefix' => 'admin'], function () {
+    Route::get('/', 'Admin\AdminController@index');
+});
+

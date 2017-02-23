@@ -11183,8 +11183,12 @@ module.exports = g;
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
+<<<<<<< HEAD
 
 /**
+=======
+/* WEBPACK VAR INJECTION */(function($) {/**
+>>>>>>> lukas
  * First we will load all of this project's JavaScript dependencies which
  * includes Vue and other libraries. It is a great starting point when
  * building robust, powerful web applications using Vue and Laravel.
@@ -11198,11 +11202,22 @@ __webpack_require__(32);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+<<<<<<< HEAD
 Vue.component('example', __webpack_require__(112));
 
 var app = new Vue({
   el: '#app'
 });
+=======
+// Vue.component('example', require('./components/Example.vue'));
+//
+// const app = new Vue({
+//     el: '#app'
+// });
+
+$('div.alert').not('.alert-important').delay(3000).fadeOut(350);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+>>>>>>> lukas
 
 /***/ }),
 /* 12 */
@@ -40199,6 +40214,7 @@ __webpack_require__(12);
 module.exports = __webpack_require__(13);
 
 
+<<<<<<< HEAD
 /***/ }),
 /* 39 */,
 /* 40 */,
@@ -40416,5 +40432,7 @@ if (false) {
   }
 }
 
+=======
+>>>>>>> lukas
 /***/ })
 /******/ ]);
