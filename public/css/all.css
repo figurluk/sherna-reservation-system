@@ -5871,6 +5871,8 @@ button.close {
   }
 }
 
+<<<<<<< HEAD
+=======
 .left_col {
     background: #2A3F54
 }
@@ -11004,14 +11006,20 @@ ul.notifications {
     margin-left: auto;
     margin-right: auto;
 }
+>>>>>>> lukas
 .left_col.menu_fixed {
   -webkit-transition: width .5s;
   /* Safari */
   transition: width .5s;
 }
+<<<<<<< HEAD
 textarea.form-control {
   resize: vertical;
 }
+=======
+<<<<<<< HEAD
+=======
+>>>>>>> master
 
 /*!
  *  Font Awesome 4.7.0 by @davegandy - http://fontawesome.io - @fontawesome
@@ -13350,3 +13358,4 @@ textarea.form-control {
   overflow: visible;
   clip: auto;
 }
+>>>>>>> lukas
