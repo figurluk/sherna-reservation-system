@@ -6,6 +6,8 @@
         {!! csrf_field() !!}
         <div class="row">
             <div class="col-md-12">
+                @include('admin.partials.form_errors')
+
                 <div class="x_panel">
                     <div class="x_title">
                         <h2>Edit game</h2>
@@ -29,6 +31,26 @@
                                     <label for="input2" class="col-sm-4 control-label">Max possible players</label>
                                     <div class="col-sm-8">
                                         <input type="number" min="1" class="form-control" id="input2" name="possible_players" value="{{$game->possible_players}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input2" class="col-sm-4 control-label">Console type</label>
+                                    <div class="col-sm-8">
+                                        <select name="console_type_id" id="input2" class="form-control">
+                                            @foreach(\App\Models\ConsoleType::get() as $consoleType)
+                                                <option value="{{$consoleType->id}}" {{$game->consoleType->id == $consoleType->id ? 'selected':''}}>{{$consoleType->name}}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="input2" class="col-sm-4 control-label">Location</label>
+                                    <div class="col-sm-8">
+                                        <select name="location_id[]" id="input2" class="form-control" multiple>
+                                            @foreach(\App\Models\Location::get() as $location)
+                                                <option value="{{$location->id}}" {{$game->locations->contains($location) ? 'selected':''}}>{{$location->name}}</option>
+                                            @endforeach
+                                        </select>
                                     </div>
                                 </div>
                             </div>

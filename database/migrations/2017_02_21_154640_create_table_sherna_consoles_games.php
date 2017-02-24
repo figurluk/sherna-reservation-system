@@ -13,10 +13,11 @@ class CreateTableShernaConsolesGames extends Migration
      */
     public function up()
     {
-        Schema::create('sherna_consoles_games', function (Blueprint $table) {
+        Schema::create('sherna_consoles_types', function (Blueprint $table) {
             $table->increments('id');
-            $table->unsignedInteger('game_id');
-            $table->unsignedInteger('console_id');
+            $table->string('name');
+            $table->nullableTimestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +28,6 @@ class CreateTableShernaConsolesGames extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sherna_consoles_games');
+        Schema::dropIfExists('sherna_consoles_types');
     }
 }

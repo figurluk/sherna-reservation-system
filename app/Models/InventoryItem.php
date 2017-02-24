@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\InventoryItem
  *
- * @property int $id
- * @property int $location_id
- * @property string $name
- * @property string $serial_id
- * @property string $inventory_id
- * @property string $note
+ * @property int            $id
+ * @property int            $location_id
+ * @property string         $name
+ * @property string         $serial_id
+ * @property string         $inventory_id
+ * @property string         $note
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem whereSerialId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\Location $location
  */
 class InventoryItem extends Model
 {
@@ -49,6 +50,11 @@ class InventoryItem extends Model
         'inventory_id',
         'note'
     ];
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'location_id');
+    }
 
 
     protected static function boot()

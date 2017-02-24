@@ -29,23 +29,16 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereUpdatedAt($value)
  * @mixin \Eloquent
- * @property-read \App\Models\LocationStatus $status
  */
-class Location extends Model
+class ConsoleType extends Model
 {
     use SoftDeletes;
 
-    protected $table = "sherna_locations";
+    protected $table = "sherna_consoles_types";
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'location_status_id',
         'name'
     ];
-
-    public function status()
-    {
-        return $this->belongsTo(LocationStatus::class,'location_status_id');
-    }
 
     protected static function boot()
     {

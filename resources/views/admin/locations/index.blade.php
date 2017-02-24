@@ -73,14 +73,13 @@
                                     <span class="label label-{{$locationStatus->opened ? 'success':'danger'}}">{{$locationStatus->opened ? 'Opened':'Closed'}}</span>
                                 </td>
                                 <td>
-                                    <a class="btn btn-warning" href="{{action('Admin\LocationsController@editStatus',$location->id)}}"><i
+                                    <a class="btn btn-warning" href="{{action('Admin\LocationsController@editStatus',$locationStatus->id)}}"><i
                                                 class="fa fa-pencil"></i></a>
                                 </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    {{$locations->render()}}
                 </div>
             </div>
         </div>

@@ -34,7 +34,7 @@ class ClientController extends Controller
             header('Location: ' . $url);
         }
 
-        return view('welcome');
+        return view('client.index');
     }
 
     public function getAuthorize()

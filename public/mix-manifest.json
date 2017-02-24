@@ -1,7 +1,9 @@
 {
   "/js/app.js": "/js/app.js",
   "../resources/assets/css/bootstrap.css": "../resources/assets/css/bootstrap.css",
-  "../resources/assets/css/app.css": "../resources/assets/css/app.css",
+  "../resources/assets/css/admin.css": "../resources/assets/css/admin.css",
+  "../resources/assets/css/client.css": "../resources/assets/css/client.css",
   "/js/custom.js": "/js/custom.js",
-  "/css/all.css": "/css/all.css"
+  "/css/admin.css": "/css/admin.css",
+  "/css/client.css": "/css/client.css"
 }

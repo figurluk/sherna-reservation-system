@@ -32,9 +32,12 @@ class GamesController extends Controller
         $this->validate($request, [
             'name'             => 'required|string|max:255',
             'possible_players' => 'required|numeric',
+            'console_type_id'  => 'required',
+            'location_id'      => 'required'
         ]);
 
-        Game::create($request->all());
+        $game = Game::create($request->except('location_id'));
+        $game->locations()->sync($request->location_id);
         flash()->success('Game successfully created');
 
         return redirect()->action('Admin\GamesController@index');
@@ -46,10 +49,13 @@ class GamesController extends Controller
         $this->validate($request, [
             'name'             => 'required|string|max:255',
             'possible_players' => 'required|numeric',
+            'console_type_id'  => 'required',
+            'location_id'      => 'required'
         ]);
 
         $game = Game::find($id);
-        $game->update($request->all());
+        $game->update($request->except('location_id'));
+        $game->locations()->sync($request->location_id);
         flash()->success('Game successfully updated');
 
         return redirect()->action('Admin\GamesController@index');

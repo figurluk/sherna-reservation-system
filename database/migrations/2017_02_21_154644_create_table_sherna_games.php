@@ -15,6 +15,7 @@ class CreateTableShernaGames extends Migration
     {
         Schema::create('sherna_games', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('console_type_id');
             $table->string('name');
             $table->integer('possible_players')->default(1);
             $table->nullableTimestamps();

@@ -15,6 +15,8 @@ class CreateTableShernaConsoles extends Migration
     {
         Schema::create('sherna_consoles', function (Blueprint $table) {
             $table->increments('id');
+            $table->unsignedInteger('location_id');
+            $table->unsignedInteger('console_type_id');
             $table->string('name');
             $table->nullableTimestamps();
             $table->softDeletes();

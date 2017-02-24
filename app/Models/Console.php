@@ -16,8 +16,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Console
  *
- * @property int $id
- * @property string $name
+ * @property int            $id
+ * @property string         $name
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
@@ -27,6 +27,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Console whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Console whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property int            $location_id
+ * @property int            $console_type_id
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Console whereConsoleTypeId($value)
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Console whereLocationId($value)
+ * @property-read \App\Models\Location $location
+ * @property-read \App\Models\ConsoleType $type
  */
 class Console extends Model
 {
@@ -35,9 +41,20 @@ class Console extends Model
     protected $table = "sherna_consoles";
     protected $dates = ['deleted_at'];
     protected $fillable = [
-        'name'
+        'name',
+        'console_type_id',
+        'location_id'
     ];
 
+    public function type()
+    {
+        return $this->belongsTo(ConsoleType::class, 'console_type_id');
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
 
     protected static function boot()
     {

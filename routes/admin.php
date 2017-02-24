@@ -31,6 +31,10 @@ Route::group(['prefix' => 'consoles'], function () {
     Route::post('/store', 'Admin\ConsolesController@store');
     Route::post('/update/{id}', 'Admin\ConsolesController@update');
     Route::post('/delete/{id}', 'Admin\ConsolesController@delete');
+    Route::get('/type/create', 'Admin\ConsolesController@createConsoleType');
+    Route::get('/type/edit/{id}', 'Admin\ConsolesController@editConsoleType');
+    Route::post('/type/store', 'Admin\ConsolesController@storeConsoleType');
+    Route::post('/type/update/{id}', 'Admin\ConsolesController@updateConsoleType');
 });
 Route::group(['prefix' => 'games'], function () {
     Route::get('/', 'Admin\GamesController@index');

@@ -19,6 +19,7 @@
                         <tr>
                             <th>Name</th>
                             <th>Max possible players</th>
+                            <th>Console type</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -27,6 +28,7 @@
                             <tr>
                                 <td>{{$game->name}}</td>
                                 <td>{{$game->possible_players}}</td>
+                                <td>{{$game->consoleType->name}}</td>
                                 <td>
                                     <form action="{{action('Admin\GamesController@delete',$game->id)}}" class="inline" method="post">
                                         {!! csrf_field() !!}
