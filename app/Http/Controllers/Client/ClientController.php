@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Page;
 use App\Models\User;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\Common\Http\Uri\UriFactory;
@@ -31,10 +32,20 @@ class ClientController extends Controller
 
             $url = $currentUri->getRelativeUri();
 
-            header('Location: ' . $url);
+            header('Location: '.$url);
         }
 
-        return view('client.index');
+        $page = Page::whereCode('domu')->first();
+
+        return view('client.index', compact(['page']));
+    }
+
+    public function show($code)
+    {
+        $page = Page::whereCode($code)->first();
+        if ($page == null || !$page->public) return redirect()->action('Client\ClientController@index');
+
+        return view('client.show', compact(['page']));
     }
 
     public function getAuthorize()
@@ -46,7 +57,7 @@ class ClientController extends Controller
 
         $url = $service->getAuthorizationUri();
 
-        header('Location: ' . $url);
+        header('Location: '.$url);
     }
 
     public function getLogout()
@@ -66,7 +77,7 @@ class ClientController extends Controller
         \Auth::logout();
         $url = $currentUri->getRelativeUri();
 
-        header('Location: ' . $url);
+        header('Location: '.$url);
     }
 
     /**

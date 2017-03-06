@@ -7,6 +7,8 @@
  */
 
 Route::get('/', 'Admin\AdminController@index');
+Route::get('/sumernote/getImage/{name}', 'Admin\AdminController@getImage');
+Route::post('/sumernote/saveImage', 'Admin\AdminController@saveImage');
 
 Route::group(['prefix' => 'reservations'], function () {
     Route::get('/', 'Admin\ReservationsController@index');
@@ -16,6 +18,18 @@ Route::group(['prefix' => 'reservations'], function () {
     Route::post('/update/{id}', 'Admin\ReservationsController@update');
     Route::post('/delete/{id}', 'Admin\GamesController@delete');
 });
+
+Route::group(['prefix' => 'pages'], function () {
+    Route::get('/', 'Admin\PagesController@index');
+//    Route::get('/create', 'Admin\PagesController@create');
+    Route::get('/edit/{id}', 'Admin\PagesController@edit');
+    Route::get('/visible/{id}', 'Admin\PagesController@visible');
+    Route::get('/unvisible/{id}', 'Admin\PagesController@unvisible');
+//    Route::post('/store', 'Admin\PagesController@store');
+    Route::post('/update/{id}', 'Admin\PagesController@update');
+//    Route::post('/delete/{id}', 'Admin\PagesController@delete');
+});
+
 Route::group(['prefix' => 'badges'], function () {
     Route::get('/', 'Admin\BadgesController@index');
     Route::get('/create', 'Admin\BadgesController@create');

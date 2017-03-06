@@ -11,16 +11,12 @@ const {mix} = require('laravel-mix');
  |
  */
 
-mix.js('resources/assets/js/app.js', 'public/js');
-mix.js('resources/assets/gentellela/custom.js', 'public/js');
-
 mix.less('resources/assets/less/bootstrap/bootstrap.less', '../resources/assets/css')
 	.less('resources/assets/less/admin.less', '../resources/assets/css')
 	.less('resources/assets/less/client.less', '../resources/assets/css');
 
 mix.combine([
 	'resources/assets/css/bootstrap.css',
-	'resources/assets/gentellela/custom.css',
 	'resources/assets/css/admin.css',
 	'resources/assets/css/font-awesome.css'
 ], 'public/css/admin.css');

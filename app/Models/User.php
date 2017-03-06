@@ -29,9 +29,9 @@ use Illuminate\Notifications\Notifiable;
  * @property string                                                                                                         $surname
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereSurname($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereUid($value)
- * @property string $role
- * @property int $block_number
- * @property \Carbon\Carbon $deleted_at
+ * @property string                                                                                                         $role
+ * @property int                                                                                                            $block_number
+ * @property \Carbon\Carbon                                                                                                 $deleted_at
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereBlockNumber($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRole($value)
@@ -50,5 +50,10 @@ class User extends Authenticatable
     ];
 
     protected $dates = ['deleted_at'];
+
+    public function admin()
+    {
+        return $this->role > 1;
+    }
 
 }

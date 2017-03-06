@@ -16,6 +16,7 @@
             <h3>Administrácia</h3>
             <ul class="nav side-menu">
                 <li><a href="{{action('Admin\AdminController@index')}}"><i class="fa fa-fw fa-home"></i> Home</a></li>
+                <li><a href="{{action('Admin\PagesController@index')}}"><i class="fa fa-fw fa-file-text-o"></i> Stranky</a></li>
                 <li><a href="{{action('Admin\ReservationsController@index')}}"><i class="fa fa-fw fa-address-card"></i> Reservations</a></li>
                 <li><a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-fw fa-users"></i> Users</a></li>
                 <li><a href="{{action('Admin\BadgesController@index')}}"><i class="fa fa-fw fa-id-badge"></i> Badges</a></li>

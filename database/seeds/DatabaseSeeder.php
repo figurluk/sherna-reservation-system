@@ -14,5 +14,7 @@ class DatabaseSeeder extends Seeder
         $this->call(LocationStatusSeeder::class);
 
         $this->call(ConsolesTypesSeeder::class);
+
+        $this->call(PagesSeeder::class);
     }
 }

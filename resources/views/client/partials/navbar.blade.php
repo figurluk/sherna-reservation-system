@@ -8,30 +8,44 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="#">SHerna</a>
+            <a class="navbar-brand" href="{{action('Client\ClientController@index')}}">SHerna</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-                <li class="active"><a href="#">Home</a></li>
-                <li><a href="#about">About</a></li>
-                <li><a href="#contact">Contact</a></li>
+            <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O Projektu</a>
                     <ul class="dropdown-menu">
-                        <li><a href="#">Action</a></li>
-                        <li><a href="#">Another action</a></li>
-                        <li><a href="#">Something else here</a></li>
-                        <li role="separator" class="divider"></li>
-                        <li class="dropdown-header">Nav header</li>
-                        <li><a href="#">Separated link</a></li>
-                        <li><a href="#">One more separated link</a></li>
+                        <li><a href="{{action('Client\ClientController@show','o-sherne')}}">O SHerne</a></li>
+                        <li><a href="{{action('Client\ClientController@show','clenove')}}">Clenove</a></li>
+                        <li><a href="{{action('Client\ClientController@show','vyrocni-spravy')}}">Vyrocni spravy</a></li>
                     </ul>
                 </li>
-            </ul>
-            <ul class="nav navbar-nav navbar-right">
-                <li>
-                    <a href="{{action('Admin\AdminController@index')}}">Admin</a>
-                </li>
+                <li><a href="{{action('Client\ClientController@show','rezervace')}}">Rezervace</a></li>
+                <li><a href="{{action('Client\ClientController@show','turnaje')}}">Turnaje</a></li>
+                <li><a href="{{action('Client\ClientController@show','vybaveni')}}">Vybaveni</a></li>
+                @if(Auth::check() && Auth::user()->admin)
+                    @if(Auth::user()->admin())
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Meno
+                                                                                                                                                priezvisko</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{action('Admin\AdminController@index')}}">Administrace</a></li>
+                            </ul>
+                        </li>
+                    @else
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Meno
+                                                                                                                                                priezvisko</a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#contact">Muj profil</a></li>
+                                <li><a href="#contact">Rezervace</a></li>
+                                <li><a href="#contact">Odhlaseni</a></li>
+                            </ul>
+                        </li>
+                    @endif
+                @else
+                    <li><a href="#contact">Prihlasit pres IS</a></li>
+                @endif
             </ul>
         </div><!--/.nav-collapse -->
     </div>

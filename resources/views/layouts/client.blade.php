@@ -10,16 +10,17 @@
     <!-- Styles -->
     <link href="{{mix('css/client.css')}}" rel="stylesheet">
 
+    @yield('styles')
 </head>
 <body>
 
 @include('client.partials.navbar')
 
-<div class="container">
-    @yield('content')
-</div>
+@yield('content')
 
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
+
+@yield('scripts')
 </body>
 </html>

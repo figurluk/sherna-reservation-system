@@ -42,23 +42,6 @@ class InventoryController extends Controller
         return redirect()->action('Admin\InventoryController@index');
     }
 
-
-    public function update($id, Request $request)
-    {
-        $this->validate($request, [
-            'name'         => 'required|string|max:255',
-            'serial_id'    => '',
-            'inventory_id' => '',
-            'location_id'  => 'required'
-        ]);
-
-        $inventoryItem = InventoryItem::find($id);
-        $inventoryItem->update($request->all());
-        flash()->success('Inventory item successfully updated');
-
-        return redirect()->action('Admin\InventoryController@index');
-    }
-
     public function delete($id, Request $request)
     {
         $inventoryItem = InventoryItem::find($id);

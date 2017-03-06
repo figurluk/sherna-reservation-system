@@ -12,6 +12,7 @@
 
     <!-- Styles -->
     <link href="{{mix('css/admin.css')}}" rel="stylesheet">
+    <link href="{{asset('gentellela/custom.css')}}" rel="stylesheet">
 
     <!-- Scripts -->
     <script>
@@ -19,6 +20,8 @@
             'csrfToken' => csrf_token(),
         ]) !!};
     </script>
+
+    @yield('styles')
 </head>
 <body>
 
@@ -61,8 +64,14 @@ $controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::cu
 
 
 <!-- Scripts -->
-<script src="{{mix('js/app.js')}}"></script>
-<script src="{{mix('js/custom.js')}}"></script>
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
+<script src="{{asset('gentellela/vendors/switchery/dist/switchery.min.js')}}"></script>
+<script src="{{asset('gentellela/custom.js')}}"></script>
+<script type="text/javascript">
+	$.ajaxSetup({headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'}});
+</script>
+<script src="{{asset('js/app.js')}}"></script>
 
 @yield('scripts')
 </body>
