@@ -33,6 +33,12 @@
                             @foreach(\App\Models\Language::all() as $lang)
                                 <div class="tab-pane fade {{($lang->id==1 ? "active":"")}} in" id="{{$lang->id}}">
                                     <div class="form-group">
+                                        <label class="col-sm-2 control-label" for="content">Názov:</label>
+                                        <div class="col-sm-10">
+                                            <input type="text" name="name-{{$lang->id}}" class="form-control" value="{{$page->pageText()->ofLang($lang->code)->first()->name}}">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
                                         <label class="col-sm-2 control-label" for="content">Obsah:</label>
                                         <div class="col-sm-10">
                                             <input type="hidden" name="content-{{$lang->id}}" value="{{$page->pageText()->ofLang($lang->code)->first()->content}}" class="input-info" data-langID="{{$lang->id}}">

@@ -3,8 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
-use App\Models\Page;
 use App\Models\Language;
+use App\Models\Page;
 use App\Models\PageText;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Input;
@@ -35,6 +35,7 @@ class PagesController extends Controller
             $subpageText = $subpage->pageText()->ofLang($language->code)->first();
             if ($subpageText == null) {
                 $subpageText = PageText::create([
+                    'name'    => Input::get('name-'.$language->id),
                     'content' => Input::get('content-'.$language->id),
                 ]);
 
@@ -43,6 +44,7 @@ class PagesController extends Controller
                 $subpageText->save();
             } else {
                 $subpageText->update([
+                    'name'    => Input::get('name-'.$language->id),
                     'content' => Input::get('content-'.$language->id),
                 ]);
             }

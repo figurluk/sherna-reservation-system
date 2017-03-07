@@ -15,7 +15,6 @@ class CreatePagesTable extends Migration
     {
         Schema::create('sherna_pages', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
             $table->string('code')->nullable();
             $table->boolean('public')->default(false);
             $table->nullableTimestamps();
@@ -25,6 +24,7 @@ class CreatePagesTable extends Migration
             $table->increments('id');
             $table->unsignedInteger('page_id')->nullable();
             $table->unsignedInteger('language_id')->nullable();
+            $table->string('name');
             $table->text('content')->nullable();
             $table->nullableTimestamps();
         });

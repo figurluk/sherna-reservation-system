@@ -32,6 +32,12 @@ class CreateTableLanguages extends Migration
             'code' => 'cz',
             'name' => 'český'
         ]);
+
+        DB::table('languages')->insert([
+            'id'   => 3,
+            'code' => 'en',
+            'name' => 'anglický'
+        ]);
     }
 
     /**

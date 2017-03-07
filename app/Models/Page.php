@@ -28,7 +28,6 @@ class Page extends Model
 {
     protected $table = "sherna_pages";
     protected $fillable = [
-        'name',
         'code',
         'public',
     ];

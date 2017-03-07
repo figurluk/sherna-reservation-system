@@ -22,7 +22,7 @@
                         <tbody>
                         @foreach($pages as $page)
                             <tr>
-                                <td>{{$page->name}}</td>
+                                <td>{{$page->pageText()->ofLang('cz')->first()->name}}</td>
                                 <td><span class="label label-{{$page->public ? 'success':'warning'}}">{{$page->public ? 'Public':'In prepare'}}</span></td>
                                 <td>
                                     <a class="btn btn-warning" href="{{action('Admin\PagesController@edit',$page->id)}}"><i

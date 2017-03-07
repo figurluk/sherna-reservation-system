@@ -1,4 +1,7 @@
 <?php
+use App\Models\Language;
+use App\Models\Page;
+use App\Models\PageText;
 use Illuminate\Database\Seeder;
 
 /**
@@ -13,40 +16,57 @@ class PagesSeeder extends Seeder
     public function run()
     {
         \App\Models\Page::create([
-            'name'    => 'Domů',
-            'code'    => 'domu',
-            'public'  => true,
+            'code'   => 'domu',
+            'public' => true,
         ]);
         \App\Models\Page::create([
-            'name'    => 'O SHerne',
-            'code'    => 'o-sherne',
-            'public'  => false,
+            'code'   => 'o-sherne',
+            'public' => false,
         ]);
         \App\Models\Page::create([
-            'name'    => 'Clenove',
-            'code'    => 'clenove',
-            'public'  => false,
+            'code'   => 'clenove',
+            'public' => false,
         ]);
         \App\Models\Page::create([
-            'name'    => 'Vyrocni spravy',
-            'code'    => 'vyrocni-spravy',
-            'public'  => false,
+            'code'   => 'vyrocni-spravy',
+            'public' => false,
         ]);
         \App\Models\Page::create([
-            'name'    => 'Rezervace',
-            'code'    => 'rezervace',
-            'public'  => false,
+            'code'   => 'rezervace',
+            'public' => false,
         ]);
         \App\Models\Page::create([
-            'name'    => 'Turnaje',
-            'code'    => 'turnaje',
-            'public'  => false,
+            'code'   => 'turnaje',
+            'public' => false,
         ]);
         \App\Models\Page::create([
-            'name'    => 'Vybaveni',
-            'code'    => 'vybaveni',
-            'public'  => false,
+            'code'   => 'vybaveni',
+            'public' => false,
         ]);
+
+        $arr = ['Domů', 'O SHerne', 'Členové', 'Výroční zprávy', 'Rezervace', 'Turnaje', 'Vybavení'];
+
+        foreach (Language::all() as $language) {
+            $i = 0;
+            foreach (Page::get() as $page) {
+                if ($language->code == 'cz') {
+                    $subpageText = PageText::create([
+                        'name'    => $arr[ $i ],
+                        'content' => 'asdsad',
+                    ]);
+                } else {
+                    $subpageText = PageText::create([
+                        'name'    => 'name',
+                        'content' => 'asdsad',
+                    ]);
+                }
+
+                $subpageText->page()->associate($page);
+                $subpageText->languages()->associate($language);
+                $subpageText->save();
+                $i++;
+            }
+        }
     }
 
 }

@@ -9,6 +9,7 @@
 
     <!-- Styles -->
     <link href="{{mix('css/client.css')}}" rel="stylesheet">
+    <link href="{{asset('css/flag-icon.min.css')}}" rel="stylesheet">
 
     @yield('styles')
 </head>

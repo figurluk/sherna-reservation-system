@@ -23,6 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\PageText wherePageId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\PageText whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $name
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\PageText whereName($value)
  */
 class PageText extends Model
 {

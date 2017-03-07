@@ -25,4 +25,5 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/', 'Admin\AdminController@index');
 });
 
+Route::get('/lang/{code}', 'Client\ClientController@changeLang');
 Route::get('/{code}', 'Client\ClientController@show');

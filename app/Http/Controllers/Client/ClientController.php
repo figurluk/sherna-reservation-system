@@ -139,4 +139,13 @@ class ClientController extends Controller
 
         return [$currentUri, $service];
     }
+
+    public function changeLang($langCode)
+    {
+        if ($langCode == 'sk' || $langCode == 'cz' || $langCode == 'en') {
+            \Session::put('lang', $langCode);
+        }
+
+        return redirect()->back();
+    }
 }

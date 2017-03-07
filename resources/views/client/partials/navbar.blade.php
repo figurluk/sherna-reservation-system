@@ -13,16 +13,16 @@
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">O Projektu</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{trans('general.navbar.about-project')}}</a>
                     <ul class="dropdown-menu">
-                        <li><a href="{{action('Client\ClientController@show','o-sherne')}}">O SHerne</a></li>
-                        <li><a href="{{action('Client\ClientController@show','clenove')}}">Clenove</a></li>
-                        <li><a href="{{action('Client\ClientController@show','vyrocni-spravy')}}">Vyrocni spravy</a></li>
+                        <li><a href="{{action('Client\ClientController@show','o-sherne')}}">{{getName('o-sherne')}}</a></li>
+                        <li><a href="{{action('Client\ClientController@show','clenove')}}">{{getName('clenove')}}</a></li>
+                        <li><a href="{{action('Client\ClientController@show','vyrocni-spravy')}}">{{getName('vyrocni-spravy')}}</a></li>
                     </ul>
                 </li>
-                <li><a href="{{action('Client\ClientController@show','rezervace')}}">Rezervace</a></li>
-                <li><a href="{{action('Client\ClientController@show','turnaje')}}">Turnaje</a></li>
-                <li><a href="{{action('Client\ClientController@show','vybaveni')}}">Vybaveni</a></li>
+                <li><a href="{{action('Client\ClientController@show','rezervace')}}">{{getName('rezervace')}}</a></li>
+                <li><a href="{{action('Client\ClientController@show','turnaje')}}">{{getName('turnaje')}}</a></li>
+                <li><a href="{{action('Client\ClientController@show','vybaveni')}}">{{getName('vybaveni')}}</a></li>
                 @if(Auth::check() && Auth::user()->admin)
                     @if(Auth::user()->admin())
                         <li class="dropdown">
@@ -44,8 +44,18 @@
                         </li>
                     @endif
                 @else
-                    <li><a href="#contact">Prihlasit pres IS</a></li>
+                    <li><a href="#contact">{{trans('general.navbar.login')}}</a></li>
                 @endif
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+                        <span class="flag-icon flag-icon-{{Session::get('lang') =='en' ? 'gb':Session::get('lang')}}"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li><a href="{{action('Client\ClientController@changeLang','sk')}}"><span class="flag-icon flag-icon-sk"></span></a></li>
+                        <li><a href="{{action('Client\ClientController@changeLang','cz')}}"><span class="flag-icon flag-icon-cz"></span></a></li>
+                        <li><a href="{{action('Client\ClientController@changeLang','en')}}"><span class="flag-icon flag-icon-gb"></span></a></li>
+                    </ul>
+                </li>
             </ul>
         </div><!--/.nav-collapse -->
     </div>
