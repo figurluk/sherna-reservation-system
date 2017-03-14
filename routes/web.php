@@ -13,11 +13,10 @@
 
 Route::get('/', 'Client\ClientController@index');
 
-Route::get('/login', function () {
-    return redirect()->action('Client\ClientController@getAuthorize');
-});
-
+Route::get('/oauth', 'Client\ClientController@oAuthCallback');
+Route::get('/login', 'Client\ClientController@getAuthorize');
 Route::get('/authorize', 'Client\ClientController@getAuthorize');
+
 Route::get('/logout', 'Client\ClientController@getLogout');
 
 

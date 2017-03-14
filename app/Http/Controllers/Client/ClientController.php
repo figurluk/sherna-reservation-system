@@ -14,27 +14,6 @@ class ClientController extends Controller
 {
     public function index()
     {
-        list($currentUri, $service) = $this->getISService();
-
-        if (!empty($_GET['code'])) {
-            // This was a callback request from is, get the token
-            $service->requestAccessToken($_GET['code']);
-
-            // Get UID, fullname and photo
-            $result = json_decode($service->request('users/me.json'), true);
-            $_SESSION['user'] = [
-                'uid'      => $result['id'],
-                'fullname' => $result['first_name']." ".$result['surname'],
-                'photo'    => $result['photo_file_small'],
-            ];
-
-            $this->controlLoginUser($result);
-
-            $url = $currentUri->getRelativeUri();
-
-            header('Location: '.$url);
-        }
-
         $page = Page::whereCode('domu')->first();
 
         return view('client.index', compact(['page']));
@@ -147,5 +126,28 @@ class ClientController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function oAuthCallback()
+    {
+        if (!empty($_GET['code'])) {
+            list($currentUri, $service) = $this->getISService();
+            // This was a callback request from is, get the token
+            $service->requestAccessToken($_GET['code']);
+
+            // Get UID, fullname and photo
+            $result = json_decode($service->request('users/me.json'), true);
+            $_SESSION['user'] = [
+                'uid'      => $result['id'],
+                'fullname' => $result['first_name']." ".$result['surname'],
+                'photo'    => $result['photo_file_small'],
+            ];
+
+            $this->controlLoginUser($result);
+
+            $url = $currentUri->getRelativeUri();
+
+            header('Location: '.$url);
+        }
     }
 }

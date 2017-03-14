@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Http\Middleware\LanguageMiddleware;
+use App\Http\Middleware\SSLMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -35,7 +36,8 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
-            LanguageMiddleware::class
+            LanguageMiddleware::class,
+            SSLMiddleware::class
         ],
 
         'admin' => [
@@ -46,6 +48,7 @@ class Kernel extends HttpKernel
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
             \App\Http\Middleware\VerifyCsrfToken::class,
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
+            SSLMiddleware::class
         ],
 
         'api' => [
