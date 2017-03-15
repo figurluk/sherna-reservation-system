@@ -2,7 +2,7 @@
     <div class="navbar nav_title" style="border: 0;">
         <a href="{{action('Admin\AdminController@index')}}" class="site_title">
             {{--<i class="fa fa-paw"></i>--}}
-            <img src="{{asset('assets_admin/img/logo.png')}}" alt="SHerna logo">
+            <img src="{{secure_asset('assets_admin/img/logo.png')}}" alt="SHerna logo">
             <span>SHerna</span>
         </a>
     </div>

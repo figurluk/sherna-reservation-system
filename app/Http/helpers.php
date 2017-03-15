@@ -12,3 +12,8 @@ function getName($code)
 {
     return Page::whereCode($code)->first()->pageText()->ofLang(App::getLocale())->first()->name;
 }
+
+function secure_action($name, $parameters = [], $absolute = true)
+{
+    return 'https://'.app('url')->action($name, $parameters, $absolute);
+}

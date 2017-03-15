@@ -1,8 +1,8 @@
 @extends('layouts.client')
 
 @section('styles')
-    <link href="{{'gentellela/vendors/fullcalendar/dist/fullcalendar.min.css'}}" rel="stylesheet">
-    <link href="{{'gentellela/vendors/fullcalendar/dist/fullcalendar.print.css'}}" rel="stylesheet" media="print">
+    <link href="{{secure_asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.css')}}" rel="stylesheet">
+    <link href="{{secure_asset('gentellela/vendors/fullcalendar/dist/fullcalendar.print.css')}}" rel="stylesheet" media="print">
     <style>
         #calendar {
             max-width: 900px;
@@ -61,9 +61,9 @@
 
 @section('scripts')
 
-    <script src="{{asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-    <script src="{{asset('gentellela/vendors/fullcalendar/dist/locale-all.js')}}"></script>
+    <script src="{{secure_asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>
+    <script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
+    <script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/locale-all.js')}}"></script>
 
     <script>
 

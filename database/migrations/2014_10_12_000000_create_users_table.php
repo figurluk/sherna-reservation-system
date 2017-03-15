@@ -23,7 +23,7 @@ class CreateUsersTable extends Migration
 
             $table->integer('block_number');
 
-            $table->timestamps();
+            $table->nullableTimestamps();
 
             $table->softDeletes();
         });

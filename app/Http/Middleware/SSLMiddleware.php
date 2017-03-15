@@ -16,11 +16,11 @@ class SSLMiddleware
      */
     public function handle($request, Closure $next)
     {
-        if (!$request->secure() && env('APP_ENV') === 'prod') {
-            $request->setTrustedProxies([$request->getClientIp()]);
-
-            return redirect()->secure($request->getRequestUri());
-        }
+//        if (!$request->secure() && env('APP_ENV') === 'prod') {
+        $request->setTrustedProxies([$request->getClientIp()]);
+//
+//            return redirect()->secure($request->getRequestUri());
+//        }
 
         return $next($request);
     }
