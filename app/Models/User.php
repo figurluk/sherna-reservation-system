@@ -55,5 +55,4 @@ class User extends Authenticatable
     {
         return $this->role > 1;
     }
-
 }

@@ -23,7 +23,7 @@
                 <li><a href="{{action('Client\ClientController@show','rezervace')}}">{{getName('rezervace')}}</a></li>
                 <li><a href="{{action('Client\ClientController@show','turnaje')}}">{{getName('turnaje')}}</a></li>
                 <li><a href="{{action('Client\ClientController@show','vybaveni')}}">{{getName('vybaveni')}}</a></li>
-                @if(Auth::check() && Auth::user()->admin)
+                @if(Auth::check())
                     @if(Auth::user()->admin())
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Meno
@@ -34,17 +34,16 @@
                         </li>
                     @else
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Meno
-                                                                                                                                                priezvisko</a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{Auth::user()->name}} {{Auth::user()->surname}}</a>
                             <ul class="dropdown-menu">
                                 <li><a href="#contact">Muj profil</a></li>
                                 <li><a href="#contact">Rezervace</a></li>
-                                <li><a href="#contact">Odhlaseni</a></li>
+                                <li><a href="{{action('Client\ClientController@getLogout')}}">Odhlaseni</a></li>
                             </ul>
                         </li>
                     @endif
                 @else
-                    <li><a href="#contact">{{trans('general.navbar.login')}}</a></li>
+                    <li><a href="{{action('Client\ClientController@getAuthorize')}}">{{trans('general.navbar.login')}}</a></li>
                 @endif
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

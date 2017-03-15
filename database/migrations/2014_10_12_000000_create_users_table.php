@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateUsersTable extends Migration
 {
@@ -19,9 +19,9 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('surname');
             $table->string('email');
-            $table->string('role');
+            $table->string('role')->default('uzivatel');
 
-            $table->integer('block_number');
+            $table->integer('block_number')->nullable();
 
             $table->nullableTimestamps();
 
