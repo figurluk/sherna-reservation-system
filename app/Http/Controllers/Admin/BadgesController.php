@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Badge;
 use Illuminate\Http\Request;
 
 class BadgesController extends Controller
 {
     public function index()
     {
-        return view('admin.badges.index');
+        $badges = Badge::paginate(15);
+
+        return view('admin.badges.index', compact(['badges']));
     }
 
     public function create()

@@ -46,13 +46,34 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'surname', 'email', 'role', 'block_number'
+        'uid', 'name', 'surname', 'email', 'block_number'
     ];
 
     protected $dates = ['deleted_at'];
 
+    public function role()
+    {
+        if ($this->isSuperAdmin()) {
+            return 'super_admin';
+        } else if ($this->isAdmin()) {
+            return 'admin';
+        } else {
+            return 'uzivatel';
+        }
+    }
+
+    public function isAdmin()
+    {
+        return ($this->admin != null && ($this->admin->role == 'admin' || $this->admin->role == 'super_admin')) || (in_array($this->uid, explode(',', env('SUPER_ADMINS'))));
+    }
+
+    public function isSuperAdmin()
+    {
+        return ($this->admin != null && $this->admin->role == 'super_admin') || (in_array($this->uid, explode(',', env('SUPER_ADMINS'))));
+    }
+
     public function admin()
     {
-        return $this->role > 1;
+        return $this->hasOne(Admin::class, 'uid', 'uid');
     }
 }

@@ -6,6 +6,7 @@
  * Time: 17:58
  */
 
+//Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], function () {
 Route::group(['before' => 'force.ssl'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::get('/sumernote/getImage/{name}', 'Admin\AdminController@getImage');
@@ -86,6 +87,12 @@ Route::group(['before' => 'force.ssl'], function () {
         Route::post('/store', 'Admin\UsersController@store');
         Route::post('/update/{id}', 'Admin\UsersController@update');
         Route::post('/delete/{id}', 'Admin\UsersController@delete');
+    });
+    Route::group(['prefix' => 'admins'], function () {
+        Route::get('/', 'Admin\AdminsController@index');
+        Route::get('/create', 'Admin\AdminsController@create');
+        Route::post('/store', 'Admin\AdminsController@store');
+        Route::post('/delete/{id}', 'Admin\AdminsController@delete');
     });
     Route::group(['prefix' => 'contests'], function () {
         Route::get('/', 'Admin\ContestController@index');

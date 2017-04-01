@@ -67,10 +67,9 @@ $controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::cu
 <script src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('gentellela/vendors/switchery/dist/switchery.min.js')}}"></script>
+<!-- NProgress -->
+<script src="{{asset('gentellela/vendors/nprogress/nprogress.js')}}"></script>
 <script src="{{asset('gentellela/custom.js')}}"></script>
-<script type="text/javascript">
-	$.ajaxSetup({headers: {'X-CSRF-TOKEN': '{{ csrf_token() }}'}});
-</script>
 <script src="{{asset('js/app.js')}}"></script>
 
 @yield('scripts')

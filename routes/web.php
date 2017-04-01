@@ -20,6 +20,10 @@ Route::group(['before' => 'force.ssl'], function () {
 
     Route::get('/logout', 'Client\ClientController@getLogout');
 
+    Route::post('/user', 'Client\ClientController@postUserData');
+    Route::post('/events', 'Client\ClientController@postEvents');
+    Route::post('/events/create', 'Client\ClientController@postCreateEvent');
+
 
     Route::group(['prefix' => 'admin'], function () {
         Route::get('/', 'Admin\AdminController@index');

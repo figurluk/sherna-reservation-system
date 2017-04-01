@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Page;
+use App\Models\Reservation;
 use App\Models\User;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\Common\Http\Uri\UriFactory;
@@ -75,8 +77,17 @@ class ClientController extends Controller
                 'name'     => $result['first_name'],
                 'surname'  => $result['surname'],
                 'email'    => $result['email'],
-                'password' => uniqid()
+                'password' => uniqid(),
             ]);
+
+            if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {
+                $user->role = 'super_admin';
+                $user->save();
+            } else if (Admin::where('uid', $result['id'])->where('role', 'admin')->exists()) {
+                $user->role = 'admin';
+                $user->save();
+            }
+
             \Auth::attempt(['uid' => $result['id'], 'email' => $result['email']]);
         } else {
             \Auth::attempt(['uid' => $result['id'], 'email' => $result['email']]);
@@ -90,6 +101,12 @@ class ClientController extends Controller
             }
             if ($user->email != $result['email']) {
                 $user->email = $result['email'];
+            }
+
+            if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {
+                $user->role = 'super_admin';
+            } else if (Admin::where('uid', $result['id'])->where('role', 'admin')->exists()) {
+                $user->role = 'admin';
             }
 
             $user->save();
@@ -156,5 +173,24 @@ class ClientController extends Controller
 //            header('Location: '.$url);
             return redirect()->action('Client\ClientController@index');
         }
+    }
+
+    public function postUserData()
+    {
+        if (!\Auth::check()) return response('', 401);
+
+        return \Auth::user()->toJson();
+    }
+
+    public function postCreateEvent()
+    {
+
+    }
+
+    public function postEvents()
+    {
+
+        $reservations = Reservation::get();
+
     }
 }

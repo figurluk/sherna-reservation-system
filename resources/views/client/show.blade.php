@@ -54,6 +54,25 @@
             </div>
         </div>
 
+
+        <!-- Modal -->
+        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title" id="myModalLabel">Modal title</h4>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     @endif
 
 @endsection
@@ -61,107 +80,18 @@
 
 @section('scripts')
 
-    <script src="{{secure_asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-    <script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/locale-all.js')}}"></script>
+    @if($page->code=='rezervace')
+        <script type="text/javascript">
+			var locale = "{{Session::get('lang')}}";
+			var userUrl = "{{action('Client\ClientController@postUserData')}}";
+			var createEventUrl = "{{action('Client\ClientController@postCreateEvent')}}";
+			var eventsUrl = "{{action('Client\ClientController@postEvents')}}";
+        </script>
 
-    <script>
+        <script src="{{secure_asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>
+        <script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
+        <script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/locale-all.js')}}"></script>
+        <script src="{{secure_asset('js/reservation.js')}}"></script>
+    @endif
 
-		$(document).ready(function () {
-
-			$('#calendar').fullCalendar({
-				header      : {
-					left  : 'prev,next today',
-					center: 'title',
-					right : 'agendaWeek,agendaDay'
-				},
-				views       : {
-					agendaWeek: { // name of view
-					}
-				},
-				firstDay    : 1,
-				columnFormat: 'ddd D.M.',
-				defaultDate : moment(new Date()).format('YYYY-MM-DD'),
-				defaultView : 'agendaWeek',
-				locale      : '{{Session::get('lang') =='cz' ?'cs':Session::get('lang')}}',
-				titleFormat : 'D. MMMM YYYY',
-				navLinks    : true, // can click day/week names to navigate views
-				selectable  : true,
-				selectHelper: true,
-				select      : function (start, end) {
-					var title = prompt('Event Title:');
-					var eventData;
-					if (title) {
-						eventData = {
-							title: title,
-							start: start,
-							end  : end
-						};
-						$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-					}
-					$('#calendar').fullCalendar('unselect');
-				},
-				editable    : true,
-				eventLimit  : true, // allow "more" link when too many events
-				eventOverlap: false,
-				events      : [
-					{
-						title: 'All Day Event',
-						start: '2017-02-01'
-					},
-					{
-						title: 'Long Event',
-						start: '2017-02-07',
-						end  : '2017-02-10'
-					},
-					{
-						id   : 999,
-						title: 'Repeating Event',
-						start: '2017-02-09T16:00:00'
-					},
-					{
-						id   : 999,
-						title: 'Repeating Event',
-						start: '2017-02-16T16:00:00'
-					},
-					{
-						title: 'Conference',
-						start: '2017-02-11',
-						end  : '2017-02-13'
-					},
-					{
-						title: 'Meeting',
-						start: '2017-02-12T10:30:00',
-						end  : '2017-02-12T12:30:00'
-					},
-					{
-						title: 'Lunch',
-						start: '2017-02-12T12:00:00'
-					},
-					{
-						title: 'Meeting',
-						start: '2017-02-12T14:30:00'
-					},
-					{
-						title: 'Happy Hour',
-						start: '2017-02-12T17:30:00'
-					},
-					{
-						title: 'Dinner',
-						start: '2017-02-12T20:00:00'
-					},
-					{
-						title: 'Birthday Party',
-						start: '2017-02-13T07:00:00'
-					},
-					{
-						title: 'Click for Google',
-						url  : 'http://google.com/',
-						start: '2017-02-28'
-					}
-				]
-			});
-		});
-
-    </script>
 @endsection
