@@ -8,7 +8,9 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('Client\ClientController@index')}}">SHerna</a>
+            <a class="navbar-brand" href="{{action('Client\ClientController@index')}}">
+                <img alt="SHerna logo" src="{{asset('assets_client/img/logo.jpg')}}" style="height: 100%">
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">

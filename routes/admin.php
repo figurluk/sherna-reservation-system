@@ -6,8 +6,8 @@
  * Time: 17:58
  */
 
-//Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], function () {
-Route::group(['before' => 'force.ssl'], function () {
+Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], function () {
+//Route::group(['before' => 'force.ssl'], function () {
     Route::get('/', 'Admin\AdminController@index');
     Route::get('/sumernote/getImage/{name}', 'Admin\AdminController@getImage');
     Route::post('/sumernote/saveImage', 'Admin\AdminController@saveImage');

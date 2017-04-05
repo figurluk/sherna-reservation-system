@@ -1,9 +1,10 @@
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
         <a href="{{action('Admin\AdminController@index')}}" class="site_title">
-            {{--<i class="fa fa-paw"></i>--}}
-            <img src="{{secure_asset('assets_admin/img/logo.png')}}" alt="SHerna logo">
-            <span>SHerna</span>
+            <i class="fa fa-gamepad"></i>
+            <span>
+                <img src="{{asset('assets_admin/img/logo.png')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+            </span>
         </a>
     </div>
 
