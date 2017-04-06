@@ -1,9 +1,10 @@
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
         <a href="{{action('Admin\AdminController@index')}}" class="site_title">
-            {{--<i class="fa fa-paw"></i>--}}
-            <img src="{{asset('assets_admin/img/logo.png')}}" alt="SHerna logo">
-            <span>SHerna</span>
+            <i class="fa fa-gamepad"></i>
+            <span>
+                <img src="{{asset('assets_admin/img/logo.png')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+            </span>
         </a>
     </div>
 
@@ -15,10 +16,19 @@
         <div class="menu_section">
             <h3>Administrácia</h3>
             <ul class="nav side-menu">
-                <li><a href="{{action('Admin\AdminController@index')}}"><i class="fa fa-fw fa-home"></i> Home</a></li>
-                <li><a href="{{action('Admin\PagesController@index')}}"><i class="fa fa-fw fa-file-text-o"></i> Stranky</a></li>
+                <li><a href="{{action('Admin\PagesController@index')}}"><i class="fa fa-fw fa-file-text-o"></i> Pages</a></li>
                 <li><a href="{{action('Admin\ReservationsController@index')}}"><i class="fa fa-fw fa-address-card"></i> Reservations</a></li>
-                <li><a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-fw fa-users"></i> Users</a></li>
+                @if(Auth::user()->isSuperAdmin())
+                    <li><a><i class="fa fa-fw fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-fw fa-users"></i> Users</a></li>
+                            <li><a href="{{action('Admin\AdminsController@index')}}"><i class="fa fa-fw fa-user-secret"></i> Admins</a></li>
+                        </ul>
+                    </li>
+                @else
+                    <li><a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-fw fa-users"></i> Users</a></li>
+                @endif
+
                 <li><a href="{{action('Admin\BadgesController@index')}}"><i class="fa fa-fw fa-id-badge"></i> Badges</a></li>
                 <li><a href="{{action('Admin\LocationsController@index')}}"><i class="fa fa-fw fa-map-marker"></i> Locations</a></li>
                 <li><a href="{{action('Admin\GamesController@index')}}"><i class="fa fa-fw fa-soccer-ball-o"></i> Games</a></li>

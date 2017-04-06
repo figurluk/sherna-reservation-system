@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Reservation
  *
- * @property int $id
- * @property int $location_id
- * @property int $tenant_uid
- * @property string $start
- * @property string $end
- * @property string $note
+ * @property int            $id
+ * @property int            $location_id
+ * @property int            $tenant_uid
+ * @property string         $start
+ * @property string         $end
+ * @property string         $note
  * @property \Carbon\Carbon $created_at
  * @property \Carbon\Carbon $updated_at
  * @property \Carbon\Carbon $deleted_at
@@ -35,6 +35,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation whereTenantUid($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation activeReservations()
  */
 class Reservation extends Model
 {
@@ -50,6 +51,11 @@ class Reservation extends Model
         'note'
     ];
 
+
+    public function scopeActiveReservations()
+    {
+        return Reservation::where('start', '>', date('Y-m-d H:i:s'))->get();
+    }
 
     protected static function boot()
     {

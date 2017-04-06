@@ -7,8 +7,7 @@
         <ul class="nav navbar-nav navbar-right">
             <li class="">
                 <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-{{--                    {{Auth::user()->name}} {{Auth::user()->surname}}--}}
-                    Admin adminko
+                    {{Auth::user()->name}} {{Auth::user()->surname}}
                     <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
@@ -18,12 +17,21 @@
             <li role="presentation" class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-address-card"></i>
-                    <span class="badge bg-green">5</span>
+                    <span class="badge bg-green">{{count(\App\Models\Reservation::activeReservations())}}</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                    @foreach(\App\Models\Reservation::activeReservations() as $activeReservation)
+                        <li>
+                            <div class="text-center">
+                                <a href="#">
+                                    <strong>{{$activeReservation->start}}</strong>
+                                </a>
+                            </div>
+                        </li>
+                    @endforeach
                     <li>
                         <div class="text-center">
-                            <a href="#">
+                            <a href="{{action('Admin\ReservationsController@index')}}">
                                 <strong>Všetky registrácie</strong>
                             </a>
                         </div>

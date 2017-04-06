@@ -1,3 +1,4 @@
+
 <?php
 
 return [
@@ -66,7 +67,7 @@ return [
 
     'providers' => [
         'users' => [
-            'driver' => 'eloquent',
+            'driver' => 'oauth',
             'model' => App\Models\User::class,
         ],
 

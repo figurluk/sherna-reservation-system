@@ -8,12 +8,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('Client\ClientController@index')}}">SHerna</a>
+            <a class="navbar-brand" href="{{action('Client\ClientController@index')}}">
+                <img alt="SHerna logo" src="{{asset('assets_client/img/logo.jpg')}}" style="height: 100%">
+            </a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
             <ul class="nav navbar-nav navbar-right">
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{trans('general.navbar.about-project')}}</a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{trans('general.navbar.about-project')}}</a>
                     <ul class="dropdown-menu">
                         <li><a href="{{action('Client\ClientController@show','o-sherne')}}">{{getName('o-sherne')}}</a></li>
                         <li><a href="{{action('Client\ClientController@show','clenove')}}">{{getName('clenove')}}</a></li>
@@ -23,28 +26,24 @@
                 <li><a href="{{action('Client\ClientController@show','rezervace')}}">{{getName('rezervace')}}</a></li>
                 <li><a href="{{action('Client\ClientController@show','turnaje')}}">{{getName('turnaje')}}</a></li>
                 <li><a href="{{action('Client\ClientController@show','vybaveni')}}">{{getName('vybaveni')}}</a></li>
-                @if(Auth::check() && Auth::user()->admin)
-                    @if(Auth::user()->admin())
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Meno
-                                                                                                                                                priezvisko</a>
-                            <ul class="dropdown-menu">
+                @if(Auth::check())
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                           aria-expanded="false">{{Auth::user()->name}} {{Auth::user()->surname}}</a>
+                        <ul class="dropdown-menu">
+                            <li><a href="#contact">Muj profil</a></li>
+                            <li><a href="#contact">Rezervace</a></li>
+                            <li><a href="{{action('Client\ClientController@getLogout')}}">Odhlaseni</a></li>
+
+
+                            @if(Auth::user()->admin())
+                                <li class="divider" role="separator"></li>
                                 <li><a href="{{action('Admin\AdminController@index')}}">Administrace</a></li>
-                            </ul>
-                        </li>
-                    @else
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Meno
-                                                                                                                                                priezvisko</a>
-                            <ul class="dropdown-menu">
-                                <li><a href="#contact">Muj profil</a></li>
-                                <li><a href="#contact">Rezervace</a></li>
-                                <li><a href="#contact">Odhlaseni</a></li>
-                            </ul>
-                        </li>
-                    @endif
+                            @endif
+                        </ul>
+                    </li>
                 @else
-                    <li><a href="#contact">{{trans('general.navbar.login')}}</a></li>
+                    <li><a href="{{action('Client\ClientController@getAuthorize')}}">{{trans('general.navbar.login')}}</a></li>
                 @endif
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">

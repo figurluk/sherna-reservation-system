@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Page;
+use App\Models\Reservation;
 use App\Models\User;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\Common\Http\Uri\UriFactory;
@@ -14,27 +16,6 @@ class ClientController extends Controller
 {
     public function index()
     {
-        list($currentUri, $service) = $this->getISService();
-
-        if (!empty($_GET['code'])) {
-            // This was a callback request from is, get the token
-            $service->requestAccessToken($_GET['code']);
-
-            // Get UID, fullname and photo
-            $result = json_decode($service->request('users/me.json'), true);
-            $_SESSION['user'] = [
-                'uid'      => $result['id'],
-                'fullname' => $result['first_name']." ".$result['surname'],
-                'photo'    => $result['photo_file_small'],
-            ];
-
-            $this->controlLoginUser($result);
-
-            $url = $currentUri->getRelativeUri();
-
-            header('Location: '.$url);
-        }
-
         $page = Page::whereCode('domu')->first();
 
         return view('client.index', compact(['page']));
@@ -56,8 +37,11 @@ class ClientController extends Controller
         list($currentUri, $service) = $this->getISService();
 
         $url = $service->getAuthorizationUri();
+//        dd($url, $url->getAbsoluteUri());
+//        dd($this->unparse_url($url));
 
-        header('Location: '.$url);
+        return redirect()->to($url->getAbsoluteUri());
+//        return header('Location: '.$url);
     }
 
     public function getLogout()
@@ -77,7 +61,9 @@ class ClientController extends Controller
         \Auth::logout();
         $url = $currentUri->getRelativeUri();
 
-        header('Location: '.$url);
+//        return redirect()->to($url->getAbsoluteUri());
+//        header('Location: '.$url);
+        return redirect()->action('Client\ClientController@index');
     }
 
     /**
@@ -86,15 +72,25 @@ class ClientController extends Controller
     private function controlLoginUser($result)
     {
         if (User::where('uid', $result['id'])->first() == null) {
-            User::create([
-                'uid'     => $result['id'],
-                'name'    => $result['first_name'],
-                'surname' => $result['surname'],
-                'email'   => $result['email']
+            $user = User::create([
+                'uid'      => $result['id'],
+                'name'     => $result['first_name'],
+                'surname'  => $result['surname'],
+                'email'    => $result['email'],
+                'password' => uniqid(),
             ]);
-            \Auth::attempt(['uid' => $result['id']]);
+
+            if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {
+                $user->role = 'super_admin';
+                $user->save();
+            } else if (Admin::where('uid', $result['id'])->where('role', 'admin')->exists()) {
+                $user->role = 'admin';
+                $user->save();
+            }
+
+            \Auth::attempt(['uid' => $result['id'], 'email' => $result['email']]);
         } else {
-            \Auth::attempt(['uid' => $result['id']]);
+            \Auth::attempt(['uid' => $result['id'], 'email' => $result['email']]);
 
             $user = \Auth::user();
             if ($user->name != $result['first_name']) {
@@ -105,6 +101,12 @@ class ClientController extends Controller
             }
             if ($user->email != $result['email']) {
                 $user->email = $result['email'];
+            }
+
+            if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {
+                $user->role = 'super_admin';
+            } else if (Admin::where('uid', $result['id'])->where('role', 'admin')->exists()) {
+                $user->role = 'admin';
             }
 
             $user->save();
@@ -127,7 +129,7 @@ class ClientController extends Controller
         $credentials = new Credentials(
             env('IS_OAUTH_ID'), //Application ID
             env('IS_OAUTH_SECRET'), // SECRET
-            $currentUri->getAbsoluteUri() //callback url
+            action('Client\ClientController@oAuthCallback') //callback url
         );
 
         // Session storage
@@ -147,5 +149,48 @@ class ClientController extends Controller
         }
 
         return redirect()->back();
+    }
+
+    public function oAuthCallback()
+    {
+        if (!empty($_GET['code'])) {
+            list($currentUri, $service) = $this->getISService();
+            // This was a callback request from is, get the token
+            $service->requestAccessToken($_GET['code']);
+
+            // Get UID, fullname and photo
+            $result = json_decode($service->request('users/me.json'), true);
+            $_SESSION['user'] = [
+                'uid'      => $result['id'],
+                'fullname' => $result['first_name']." ".$result['surname'],
+                'photo'    => $result['photo_file_small'],
+            ];
+
+            $this->controlLoginUser($result);
+
+//            $url = $currentUri->getRelativeUri();
+
+//            header('Location: '.$url);
+            return redirect()->action('Client\ClientController@index');
+        }
+    }
+
+    public function postUserData()
+    {
+        if (!\Auth::check()) return response('', 401);
+
+        return \Auth::user()->toJson();
+    }
+
+    public function postCreateEvent()
+    {
+
+    }
+
+    public function postEvents()
+    {
+
+        $reservations = Reservation::get();
+
     }
 }

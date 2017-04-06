@@ -3,13 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Reservation;
 use Illuminate\Http\Request;
 
 class ReservationsController extends Controller
 {
     public function index()
     {
-        return view('admin.reservations.index');
+        $reservations = Reservation::paginate(15);
+
+        return view('admin.reservations.index', compact(['reservations']));
     }
 
     public function create()

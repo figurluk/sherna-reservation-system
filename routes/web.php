@@ -11,19 +11,24 @@
 |
 */
 
-Route::get('/', 'Client\ClientController@index');
+Route::group(['before' => 'force.ssl'], function () {
+    Route::get('/', 'Client\ClientController@index');
 
-Route::get('/login', function () {
-    return redirect()->action('Client\ClientController@getAuthorize');
+    Route::get('/oauth', 'Client\ClientController@oAuthCallback');
+    Route::get('/login', 'Client\ClientController@getAuthorize');
+    Route::get('/authorize', 'Client\ClientController@getAuthorize');
+
+    Route::get('/logout', 'Client\ClientController@getLogout');
+
+    Route::post('/user', 'Client\ClientController@postUserData');
+    Route::post('/events', 'Client\ClientController@postEvents');
+    Route::post('/events/create', 'Client\ClientController@postCreateEvent');
+
+
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/', 'Admin\AdminController@index');
+    });
+
+    Route::get('/lang/{code}', 'Client\ClientController@changeLang');
+    Route::get('/{code}', 'Client\ClientController@show');
 });
-
-Route::get('/authorize', 'Client\ClientController@getAuthorize');
-Route::get('/logout', 'Client\ClientController@getLogout');
-
-
-Route::group(['prefix' => 'admin'], function () {
-    Route::get('/', 'Admin\AdminController@index');
-});
-
-Route::get('/lang/{code}', 'Client\ClientController@changeLang');
-Route::get('/{code}', 'Client\ClientController@show');
