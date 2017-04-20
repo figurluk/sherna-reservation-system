@@ -5872,7 +5872,7 @@ button.close {
 }
 
 body {
-  min-height: 2000px;
+  padding-bottom: 100px;
   padding-top: 50px;
 }
 
