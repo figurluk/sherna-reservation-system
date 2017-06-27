@@ -4,9 +4,12 @@ namespace App\Http\Controllers\Client;
 
 use App\Http\Controllers\Controller;
 use App\Models\Admin;
+use App\Models\Location;
 use App\Models\Page;
 use App\Models\Reservation;
 use App\Models\User;
+use Auth;
+use Illuminate\Http\Request;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\Common\Http\Uri\UriFactory;
 use OAuth\Common\Storage\Session;
@@ -16,6 +19,8 @@ class ClientController extends Controller
 {
     public function index()
     {
+        if (env('APP_ENV') == 'local' && !Auth::check())
+            \Auth::loginUsingId(User::first()->id);
         $page = Page::whereCode('domu')->first();
 
         return view('client.index', compact(['page']));
@@ -175,22 +180,125 @@ class ClientController extends Controller
         }
     }
 
-    public function postUserData()
+    public function postUserData(Request $request)
     {
-        if (!\Auth::check()) return response('', 401);
+        if (!\Auth::check()) return response('Prihlas sa', 401);
 
         return \Auth::user()->toJson();
     }
 
-    public function postCreateEvent()
+    public function postCreateEvent(Request $request)
     {
+        $date = date('Y-m-d', strtotime($request->start));
+        $reservationExist = Reservation::where('day', $date)
+            ->where('location_id', '=', $request->location)
+            ->where(function ($q) use ($request) {
+                $q->where(function ($query) use ($request) {
+                    $query->where('end', '>', $request->start)
+                        ->where('start', '<', $request->start);
+                })->orWhere(function ($query) use ($request) {
+                    $query->where('end', '>', $request->end)
+                        ->where('start', '<', $request->end);
+                })->orWhere(function ($query) use ($request) {
+                    $query->where('end', '>=', $request->end)
+                        ->where('start', '<=', $request->start);
+                });
+            })
+            ->exists();
 
+        $location = Location::find($request->location);
+        if (!$reservationExist && $location->isOpened()) {
+            $reservation = Reservation::create([
+                'tenant_uid'  => $request->userUID,
+                'location_id' => $request->location,
+                'day'         => $date,
+                'start'       => date('H:i:s', strtotime($request->start)),
+                'end'         => date('H:i:s', strtotime($request->end)),
+                'note'        => $request->note
+            ]);
+
+            return response(['id'       => $reservation->id,
+                             'editable' => strtotime(date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit')))) < strtotime($request->start)]);
+        } else {
+            if (!$location->isOpened()) {
+                return response('Tato miestnost je zatvorena.', 401);
+            } else {
+                return response('Rezervacia uz v danom case exisutuje.', 401);
+            }
+        }
     }
 
-    public function postEvents()
+    public function postUpdateEvent(Request $request)
     {
+        $date = date('Y-m-d', strtotime($request->start));
+        $oldReservation = Reservation::find($request->reservation_id);
+        $reservationExist = Reservation::where('id', '!=', $request->reservation_id)
+            ->where('location_id', '=', $oldReservation->location_id)
+            ->where('day', $date)
+            ->where(function ($q) use ($request) {
+                $q->where(function ($query) use ($request) {
+                    $query->where('end', '>', $request->start)
+                        ->where('start', '<', $request->start);
+                })->orWhere(function ($query) use ($request) {
+                    $query->where('end', '>', $request->end)
+                        ->where('start', '<', $request->end);
+                })->orWhere(function ($query) use ($request) {
+                    $query->where('end', '>=', $request->end)
+                        ->where('start', '<=', $request->start);
+                });
+            })
+            ->exists();
 
-        $reservations = Reservation::get();
+        $location = Location::find($oldReservation->location_id);
+        if (!$reservationExist && $location->isOpened()) {
+            $reservation = Reservation::create([
+                'tenant_uid'  => $oldReservation->tenant_uid,
+                'location_id' => $oldReservation->location_id,
+                'day'         => $date,
+                'start'       => date('H:i:s', strtotime($request->start)),
+                'end'         => date('H:i:s', strtotime($request->end)),
+                'note'        => $oldReservation->note
+            ]);
 
+            $oldReservation->delete();
+
+            return response(['id'       => $reservation->id,
+                             'editable' => strtotime(date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit')))) < strtotime($request->start)]);
+        } else {
+
+            if (!$location->isOpened()) {
+                return response('Tato miestnost je zatvorena.', 401);
+            } else {
+                return response('Rezervacia uz v danom case exisutuje.', 401);
+            }
+        }
+    }
+
+    public function postDeleteEvent(Request $request)
+    {
+        $oldReservation = Reservation::find($request->reservation_id);
+        $oldReservation->delete();
+
+        return response('ok');
+    }
+
+    public function postEvents(Request $request)
+    {
+        $reservations = Reservation::where('location_id', $request->location)->get(['id', 'start', 'end', 'note', 'tenant_uid', 'day'])->toArray();
+        foreach ($reservations as $key => $reservation) {
+            $owner = User::where('uid', $reservation['tenant_uid'])->first();
+            $reservations[ $key ]['title'] = 'Rezervace pro: '.$owner->name.' '.$owner->surname;
+            $reservations[ $key ]['start'] = $reservations[ $key ]['day'].' '.$reservations[ $key ]['start'];
+            $reservations[ $key ]['end'] = $reservations[ $key ]['day'].' '.$reservations[ $key ]['end'];
+
+            if (Auth::check() && $reservation['tenant_uid'] == Auth::user()->uid) {
+                $reservations[ $key ]['editable'] = date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit'))) < $reservation['day'].' '.$reservation['start'];
+                $reservations[ $key ]['backgroundColor'] = config('calendar.my-reservation.background-color');
+                $reservations[ $key ]['textColor'] = config('calendar.my-reservation.color');
+                $reservations[ $key ]['borderColor'] = config('calendar.my-reservation.border-color');
+            }
+        }
+
+        return $reservations;
     }
 }

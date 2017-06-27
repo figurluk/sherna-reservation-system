@@ -16,12 +16,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Location
  *
- * @property int            $id
- * @property int            $location_status_id
- * @property string         $name
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $deleted_at
+ * @property int                             $id
+ * @property int                             $location_status_id
+ * @property string                          $name
+ * @property \Carbon\Carbon                  $created_at
+ * @property \Carbon\Carbon                  $updated_at
+ * @property \Carbon\Carbon                  $deleted_at
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereId($value)
@@ -44,7 +44,12 @@ class Location extends Model
 
     public function status()
     {
-        return $this->belongsTo(LocationStatus::class,'location_status_id');
+        return $this->belongsTo(LocationStatus::class, 'location_status_id');
+    }
+
+    public function isOpened()
+    {
+        return $this->status->opened;
     }
 
     protected static function boot()

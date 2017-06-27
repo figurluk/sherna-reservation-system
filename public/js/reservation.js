@@ -2,6 +2,7 @@
  * Created by lukas on 30/03/2017.
  */
 
+var actualUser = null;
 
 $(document).ready(function () {
 	
@@ -12,10 +13,10 @@ $(document).ready(function () {
 			right : 'agendaWeek,agendaDay'
 		},
 		views       : {
-			agendaWeek: { // name of view
-			}
+			agendaWeek: {}
 		},
 		firstDay    : 1,
+		editable    : false,
 		columnFormat: 'ddd D.M.',
 		defaultDate : moment(new Date()).format('YYYY-MM-DD'),
 		defaultView : 'agendaWeek',
@@ -25,121 +26,182 @@ $(document).ready(function () {
 		selectable  : true,
 		selectHelper: true,
 		select      : function (start, end) {
-			createEvent(start, end);
+			var now               = moment();
+			var future_date_today = moment(now).add(durationforedit, 'm');
+			var future_date       = moment(now).add(reservationarea, 'days');
+			if (start.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && end.isBefore(future_date.format('YYYY-MM-DD'))) {
+				createEvent(start, end);
+			}
+			else {
+				$('#calendar').fullCalendar('unselect');
+				alert('You cannot reservate here.')
+			}
 		},
-		editable    : true,
 		eventLimit  : true, // allow "more" link when too many events
 		eventOverlap: false,
-		events      : getActualEvents()
+		eventSources: [
+			{
+				url    : eventsUrl,
+				type   : 'POST',
+				data   : function () { // a function that returns an object
+					return {
+						location: $('[name="location"]:checked').val()
+					};
+				},
+				error  : function () {
+					alert('There was an error while fetching events! Please ty it later.');
+				},
+				overlap: false
+			}
+		],
+		eventClick  : function (event) {
+			$('#showReservationModal').modal('show');
+			$('#showReservationModal').on('shown.bs.modal', function (e) {
+				$('#showReservationModalLabel').text(event.title);
+				$('#start').text(event.start.format("DD.MM.YYYY HH:mm"));
+				$('#end').text(event.end.format("DD.MM.YYYY HH:mm"));
+				
+				if (event.editable) {
+					$('#deleteReservation').removeClass('hidden');
+					$('#deleteReservation').unbind();
+					$('#deleteReservation').bind('click', function (ev) {
+						if (confirm('Do you really want to delete your reservation ?')) {
+							$.ajax({
+								method : 'POST',
+								url    : deleteEventUrl,
+								data   : {
+									reservation_id: event.id
+								},
+								success: function (data) {
+									$('#showReservationModal').modal('hide');
+									$('#calendar').fullCalendar('removeEvents', [event.id]);
+								}
+							});
+						}
+					});
+				}
+			});
+			return true;
+		},
+		eventResize : function (event, delta, revertFunc) {
+			updateEvent(event, revertFunc);
+		},
+		eventDrop   : function (event, delta, revertFunc) {
+			updateEvent(event, revertFunc);
+		},
+		eventAllow  : function (dropLocation, draggedEvent) {
+			var now               = moment();
+			var future_date_today = moment(now).add(durationforedit, 'm');
+			var future_date       = moment(now).add(reservationarea, 'days');
+			return dropLocation.start.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && dropLocation.start.isBefore(future_date.format('YYYY-MM-DD'));
+		}
 	});
 });
 
-function getActualEvents() {
+function reRenderCallendar() {
+	$('#calendar').fullCalendar('removeEvents');
+	$('#calendar').fullCalendar('refetchEvents');
+}
+function updateEventAjax(event, revertFunc) {
 	$.ajax({
-		method: 'POST',
-		url   : eventsUrl,
-	}).success(function (data) {
-	
-	}).error(function (msg) {
-	
-	})
-		
-		// [
-		// {
-		// 	title: 'All Day Event',
-		// 	start: '2017-02-01'
-		// },
-		// 	{
-		// 		title: 'Long Event',
-		// 		start: '2017-02-07',
-		// 		end  : '2017-02-10'
-		// 	},
-		// 	{
-		// 		id   : 999,
-		// 		title: 'Repeating Event',
-		// 		start: '2017-02-09T16:00:00'
-		// 	},
-		// 	{
-		// 		id   : 999,
-		// 		title: 'Repeating Event',
-		// 		start: '2017-02-16T16:00:00'
-		// 	},
-		// 	{
-		// 		title: 'Conference',
-		// 		start: '2017-02-11',
-		// 		end  : '2017-02-13'
-		// 	},
-		// 	{
-		// 		title: 'Meeting',
-		// 		start: '2017-02-12T10:30:00',
-		// 		end  : '2017-02-12T12:30:00'
-		// 	},
-		// 	{
-		// 		title: 'Lunch',
-		// 		start: '2017-02-12T12:00:00'
-		// 	},
-		// 	{
-		// 		title: 'Meeting',
-		// 		start: '2017-02-12T14:30:00'
-		// 	},
-		// 	{
-		// 		title: 'Happy Hour',
-		// 		start: '2017-02-12T17:30:00'
-		// 	},
-		// 	{
-		// 		title: 'Dinner',
-		// 		start: '2017-02-12T20:00:00'
-		// 	},
-		// 	{
-		// 		title: 'Birthday Party',
-		// 		start: '2017-02-13T07:00:00'
-		// 	},
-		// 	{
-		// 		title: 'Click for Google',
-		// 		url  : 'http://google.com/',
-		// 		start: '2017-02-28'
-		// 	}
-		// ]
+		method : 'POST',
+		url    : updateEventUrl,
+		data   : {
+			reservation_id: event.id,
+			start         : event.start.format("YYYY/MM/DD HH:mm:ss"),
+			end           : event.end.format("YYYY/MM/DD HH:mm:ss"),
+		},
+		success: function (data) {
+			event.id       = data['id'];
+			event.editable = data['editable'];
+		},
+		error  : function (msg) {
+			alert(msg.responseText);
+			revertFunc();
+			reRenderCallendar();
+		}
+	});
 }
 
-function createEvent(start, end) {
+function updateEvent(event, revertFunc) {
+	if (actualUser == null) {
+		getActualUser(event, revertFunc, updateEventAjax)
+	}
+	else {
+		updateEventAjax(event, revertFunc);
+	}
+}
+
+function getActualUser(param1, param2, callback) {
 	$.ajax({
 		method: 'POST',
 		url   : userUrl,
 	}).success(function (data) {
 		data = JSON.parse(data);
 		
-		var user = new User(data['uid'], data['name'], data['surname']);
+		actualUser = new User(data['uid'], data['name'], data['surname']);
 		
-		var eventData = {
-			title: user.getName() + ' ' + user.getSurname(),
-			start: start,
-			end  : end,
-			uid  : user.getUID()
-		};
-		
-		$('#myModal').modal('show')
-		
-		$.ajax({
-			method   : 'POST',
-			url      : createEventUrl,
-			data: {
-				start: start,
-				end  : end,
-			}
-		}).success(function (data) {
-			
-			
-			$('#calendar').fullCalendar('renderEvent', eventData, true); // stick? = true
-		}).error(function (msg) {
-			$('#calendar').fullCalendar('unselect');
-		})
-		
+		callback(param1, param2);
 	}).error(function (msg) {
-		alert('prihlas sa');
+		alert(msg.responseText);
 		$('#calendar').fullCalendar('unselect');
-	})
+	});
 }
+
+function createEventAjax(start, end) {
+	console.log('createa jaxa ');
+	$('#createReservationModal').modal('show');
+	
+	var selectedEventData = {
+		title: 'Rezervace pro: ' + actualUser.getName() + ' ' + actualUser.getSurname(),
+		start: start,
+		end  : end,
+		uid  : actualUser.getUID()
+	};
+	
+	$('#createReservationModal').on('shown.bs.modal', function (e) {
+		$('#saveReservation').unbind();
+		$('#saveReservation').bind('click', function () {
+			$.ajax({
+				method: 'POST',
+				url   : createEventUrl,
+				data  : {
+					userUID : actualUser.getUID(),
+					start   : selectedEventData.start.format("YYYY/MM/DD HH:mm:ss"),
+					end     : selectedEventData.end.format("YYYY/MM/DD HH:mm:ss"),
+					location: $('[name="location"]:checked').val(),
+					note    : $('#note').val()
+				}
+			}).success(function (data) {
+				selectedEventData.id              = data['id'];
+				selectedEventData.editable        = data['editable'];
+				selectedEventData.textColor       = myReservationColor;
+				selectedEventData.borderColor     = myReservationBorderColor;
+				selectedEventData.backgroundColor = myReservationBackgroundColor;
+				$('#calendar').fullCalendar('renderEvent', selectedEventData);
+			}).error(function (msg) {
+				alert(msg.responseText);
+				$('#calendar').fullCalendar('unselect');
+				reRenderCallendar();
+			})
+		});
+	});
+}
+
+function createEvent(start, end) {
+	if (actualUser == null) {
+		console.log('get user');
+		getActualUser(start, end, createEventAjax)
+	}
+	else {
+		console.log('create even call ajax');
+		createEventAjax(start, end);
+	}
+}
+
+$(document).on('change', '[name="location"]', function (ev) {
+	reRenderCallendar();
+});
 
 class User {
 	

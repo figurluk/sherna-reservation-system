@@ -17,18 +17,33 @@
                     <table class="table">
                         <thead>
                         <tr>
+                            <th>Owner</th>
+                            <th>Contact</th>
+                            <th>Location</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Note</th>
                             <th></th>
                         </tr>
                         </thead>
                         <tbody>
                         @foreach($reservations as $reservation)
                             <tr>
-                                <td></td>
+                                <td>{{$reservation->owner->surname}} {{$reservation->owner->name}}</td>
+                                <td><a href="mailto:{{$reservation->owner->email}}">{{$reservation->owner->email}}</a></td>
+                                <td>{{$reservation->location->name }}</td>
+                                <td>{{date('d.m.Y H:i',strtotime($reservation->day.' '.$reservation->start))}}</td>
+                                <td>{{date('d.m.Y H:i',strtotime($reservation->day.' '.$reservation->end))}}</td>
+                                <td>{{$reservation->note}}</td>
+                                <td>
+                                    <a href="#" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                </td>
                             </tr>
                         @endforeach
                         </tbody>
                     </table>
-                    {{$reservations->render()}}
+                    {{$reservations->links()}}
                 </div>
             </div>
         </div>

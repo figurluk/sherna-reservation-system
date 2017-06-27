@@ -48,13 +48,27 @@ class Reservation extends Model
         'tenant_uid',
         'start',
         'end',
-        'note'
+        'note',
+        'day'
     ];
 
-
-    public function scopeActiveReservations()
+    public function owner()
     {
-        return Reservation::where('start', '>', date('Y-m-d H:i:s'))->get();
+        return $this->belongsTo(User::class, 'tenant_uid', 'uid');
+    }
+
+    public function scopeActiveReservations($query)
+    {
+        return $query->where(function ($q) {
+            $q->where('day', '=', date('Y-m-d'))->where('start', '>=', date('H:i:s'));
+        })->orWhere(function ($q) {
+            $q->where('day', '>', date('Y-m-d'));
+        });
+    }
+
+    public function location()
+    {
+        return $this->belongsTo(Location::class);
     }
 
     protected static function boot()
