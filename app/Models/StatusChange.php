@@ -31,6 +31,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\StatusChange whereStatusId($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\StatusChange whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\StatusChange onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\StatusChange withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\StatusChange withoutTrashed()
  */
 class StatusChange extends Model
 {

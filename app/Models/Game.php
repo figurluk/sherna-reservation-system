@@ -33,6 +33,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Game whereConsoleTypeId($value)
  * @property-read \App\Models\ConsoleType $consoleType
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Location[] $locations
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Game onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Game withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Game withoutTrashed()
  */
 class Game extends Model
 {

@@ -36,6 +36,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation whereUpdatedAt($value)
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation activeReservations()
+ * @property-read \App\Models\Location $location
+ * @property-read \App\Models\User $owner
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation withoutTrashed()
+ * @property string $day
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereDay($value)
  */
 class Reservation extends Model
 {

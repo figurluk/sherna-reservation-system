@@ -36,8 +36,8 @@
                                 <td>{{date('d.m.Y H:i',strtotime($reservation->day.' '.$reservation->end))}}</td>
                                 <td>{{$reservation->note}}</td>
                                 <td>
-                                    <a href="#" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
-                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                    <a href="{{action('Admin\ReservationsController@edit',$reservation->id)}}" class="btn btn-warning"><i class="fa fa-pencil"></i></a>
+                                    <a href="{{action('Admin\ReservationsController@delete',$reservation->id)}}" class="btn btn-danger"><i class="fa fa-times"></i></a>
                                 </td>
                             </tr>
                         @endforeach

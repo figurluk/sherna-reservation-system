@@ -18,7 +18,7 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
         Route::get('/edit/{id}', 'Admin\ReservationsController@edit');
         Route::post('/store', 'Admin\ReservationsController@store');
         Route::post('/update/{id}', 'Admin\ReservationsController@update');
-        Route::post('/delete/{id}', 'Admin\GamesController@delete');
+        Route::get('/delete/{id}', 'Admin\ReservationsController@delete');
     });
 
     Route::group(['prefix' => 'pages'], function () {

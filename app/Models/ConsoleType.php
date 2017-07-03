@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereName($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ConsoleType onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ConsoleType withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\ConsoleType withoutTrashed()
  */
 class ConsoleType extends Model
 {

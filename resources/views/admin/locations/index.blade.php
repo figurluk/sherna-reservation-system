@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Locations</h2>
@@ -19,6 +19,8 @@
                         <tr>
                             <th>Name</th>
                             <th>Status</th>
+                            <th>Location UID</th>
+                            <th>Reader UID</th>
                             <th></th>
                         </tr>
                         </thead>
@@ -29,6 +31,8 @@
                                 <td>
                                     <span class="label label-{{$location->status->opened ? 'success':'danger'}}">{{$location->status->name}}</span>
                                 </td>
+                                <td>{{$location->location_uid}}</td>
+                                <td>{{$location->reader_uid}}</td>
                                 <td>
                                     <form action="{{action('Admin\LocationsController@delete',$location->id)}}" class="inline" method="post">
                                         {!! csrf_field() !!}
@@ -46,7 +50,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Locations statuses</h2>

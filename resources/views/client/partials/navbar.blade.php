@@ -35,7 +35,7 @@
                             <li><a href="{{action('Client\ClientController@getLogout')}}">Odhlaseni</a></li>
 
 
-                            @if(Auth::user()->admin())
+                            @if(Auth::user()->admin()!=null)
                                 <li class="divider" role="separator"></li>
                                 <li><a href="{{action('Admin\AdminController@index')}}">Administrace</a></li>
                             @endif

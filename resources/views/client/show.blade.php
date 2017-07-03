@@ -123,6 +123,7 @@
 			var myReservationBackgroundColor = '{{config('calendar.my-reservation.background-color')}}';
 			var reservationarea              = '{{config('calendar.reservation-area')}}';
 			var durationforedit              = parseInt('{{config('calendar.duration-for-edit')}}');
+			var maxeventduration             = parseInt('{{config('calendar.max-duration')}}');
         </script>
 
         {{--<script src="{{secure_asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>--}}

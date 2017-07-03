@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LocationStatus whereOpened($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\LocationStatus whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\LocationStatus onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\LocationStatus withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\LocationStatus withoutTrashed()
  */
 class LocationStatus extends Model
 {

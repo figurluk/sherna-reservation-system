@@ -35,6 +35,14 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereBlockNumber($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User whereRole($value)
+ * @property-read \App\Models\Admin                                                                                         $admin
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
+ * @property string|null $image
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereImage($value)
  */
 class User extends Authenticatable
 {
@@ -46,7 +54,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'surname', 'email', 'block_number'
+        'uid', 'name', 'surname', 'email', 'block_number', 'image'
     ];
 
     protected $dates = ['deleted_at'];

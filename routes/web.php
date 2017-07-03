@@ -31,6 +31,11 @@ Route::group(['before' => 'force.ssl'], function () {
         Route::get('/', 'Admin\AdminController@index');
     });
 
+
+    Route::group(['prefix' => 'api'], function () {
+        Route::post('/reservation/check', 'API\APIController@checkReservation');
+    });
+
     Route::get('/lang/{code}', 'Client\ClientController@changeLang');
     Route::get('/{code}', 'Client\ClientController@show');
 });

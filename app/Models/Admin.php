@@ -26,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Admin whereUid($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Admin whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property-read \App\Models\User $user
  */
 class Admin extends Model
 {

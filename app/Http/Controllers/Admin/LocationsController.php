@@ -34,9 +34,11 @@ class LocationsController extends Controller
         $this->validate($request, [
             'name'               => 'required|string|max:255',
             'location_status_id' => 'required',
+            'reader_uid'         => 'required|string|max:255',
+            'location_uid'       => 'required|string|max:255',
         ]);
 
-        Location::create($request->all());
+        Location::create($request->only(['name', 'reader_uid', 'location_uid', 'location_status_id']));
         flash()->success('Location successfully created');
 
         return redirect()->action('Admin\LocationsController@index');
@@ -47,11 +49,13 @@ class LocationsController extends Controller
     {
         $this->validate($request, [
             'name'               => 'required|string|max:255',
+            'reader_uid'         => 'required|string|max:255',
+            'location_uid'       => 'required|string|max:255',
             'location_status_id' => 'required',
         ]);
 
         $game = Location::find($id);
-        $game->update($request->all());
+        $game->update($request->only(['name', 'reader_uid', 'location_uid', 'location_status_id']));
         flash()->success('Location successfully updated');
 
         return redirect()->action('Admin\LocationsController@index');
@@ -81,7 +85,7 @@ class LocationsController extends Controller
     public function storeStatus(Request $request)
     {
         $this->validate($request, [
-            'name'               => 'required|string|max:255',
+            'name'   => 'required|string|max:255',
             'opened' => 'required',
         ]);
 
@@ -95,7 +99,7 @@ class LocationsController extends Controller
     public function updateStatus($id, Request $request)
     {
         $this->validate($request, [
-            'name'               => 'required|string|max:255',
+            'name'   => 'required|string|max:255',
             'opened' => 'required',
         ]);
 

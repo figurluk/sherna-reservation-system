@@ -36,6 +36,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\Location $location
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem withoutTrashed()
  */
 class InventoryItem extends Model
 {

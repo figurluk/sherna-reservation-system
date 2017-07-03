@@ -28,6 +28,18 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
+                                    <label for="location_uid" class="col-sm-4 control-label">Location UID</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="location_uid" name="location_uid" value="{{$location->location_uid}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="reader_uid" class="col-sm-4 control-label">Reader UID</label>
+                                    <div class="col-sm-8">
+                                        <input type="text" class="form-control" id="reader_uid" name="reader_uid" value="{{$location->reader_uid}}">
+                                    </div>
+                                </div>
+                                <div class="form-group">
                                     <label for="input2" class="col-sm-4 control-label">Locations status</label>
                                     <div class="col-sm-8">
                                         <select name="location_status_id" id="input2" class="form-control">

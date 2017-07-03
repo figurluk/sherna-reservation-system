@@ -29,6 +29,11 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Badge whereUpdatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Badge whereUserUid($value)
  * @mixin \Eloquent
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Badge onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Badge withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Badge withoutTrashed()
  */
 class Badge extends Model
 {

@@ -12,6 +12,7 @@ class VerifyCsrfToken extends BaseVerifier
      * @var array
      */
     protected $except = [
-        'admin/sumernote/saveImage'
+        'admin/sumernote/saveImage',
+        'api/reservation/check',
     ];
 }

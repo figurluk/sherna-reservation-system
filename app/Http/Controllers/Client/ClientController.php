@@ -82,6 +82,7 @@ class ClientController extends Controller
                 'name'     => $result['first_name'],
                 'surname'  => $result['surname'],
                 'email'    => $result['email'],
+                'image'    => $result['photo_file_small'],
                 'password' => uniqid(),
             ]);
 
@@ -106,6 +107,9 @@ class ClientController extends Controller
             }
             if ($user->email != $result['email']) {
                 $user->email = $result['email'];
+            }
+            if ($user->image != $result['photo_file_small']) {
+                $user->image = $result['photo_file_small'];
             }
 
             if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {

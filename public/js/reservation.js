@@ -26,9 +26,16 @@ $(document).ready(function () {
 		selectable  : true,
 		selectHelper: true,
 		select      : function (start, end) {
+			
+			var correct = controlEventTimes(start, end);
+			if (!correct) {
+				return;
+			}
+			
 			var now               = moment();
 			var future_date_today = moment(now).add(durationforedit, 'm');
 			var future_date       = moment(now).add(reservationarea, 'days');
+			
 			if (start.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && end.isBefore(future_date.format('YYYY-MM-DD'))) {
 				createEvent(start, end);
 			}
@@ -93,7 +100,12 @@ $(document).ready(function () {
 			var now               = moment();
 			var future_date_today = moment(now).add(durationforedit, 'm');
 			var future_date       = moment(now).add(reservationarea, 'days');
-			return dropLocation.start.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && dropLocation.start.isBefore(future_date.format('YYYY-MM-DD'));
+			
+			//gmt fix
+			var dropStart = dropLocation.start;
+			dropStart     = dropStart.subtract(2, 'h');
+			
+			return dropStart.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && dropStart.isBefore(future_date.format('YYYY-MM-DD'));
 		}
 	});
 });
@@ -102,6 +114,7 @@ function reRenderCallendar() {
 	$('#calendar').fullCalendar('removeEvents');
 	$('#calendar').fullCalendar('refetchEvents');
 }
+
 function updateEventAjax(event, revertFunc) {
 	$.ajax({
 		method : 'POST',
@@ -123,7 +136,30 @@ function updateEventAjax(event, revertFunc) {
 	});
 }
 
+function controlEventTimes(start, end) {
+	if (Math.abs(start.diff(end, 'days')) !== 0) {
+		$('#calendar').fullCalendar('unselect');
+		alert('Make 2 separate reservations for this operation.');
+		return false;
+	}
+	if (Math.abs(start.diff(end, 'hours')) > maxeventduration) {
+		$('#calendar').fullCalendar('unselect');
+		alert('Max duration of reservation can be ' + maxeventduration + ' hours.');
+		return false;
+	}
+	return true;
+}
+
 function updateEvent(event, revertFunc) {
+	var start = event.start;
+	var end   = event.end;
+	
+	var correct = controlEventTimes(start, end);
+	if (!correct) {
+		revertFunc();
+		return;
+	}
+	
 	if (actualUser == null) {
 		getActualUser(event, revertFunc, updateEventAjax)
 	}

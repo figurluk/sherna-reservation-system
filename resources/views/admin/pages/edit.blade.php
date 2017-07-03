@@ -1,7 +1,7 @@
 @extends('layouts.admin')
 
 @section('styles')
-    <link href="{{secure_asset('summernote/summernote.css')}}" rel="stylesheet" type="text/css">
+    <link href="{{asset('summernote/summernote.css')}}" rel="stylesheet" type="text/css">
 @endsection
 
 @section('content')
@@ -59,7 +59,7 @@
 @endsection
 
 @section('scripts')
-    <script src="{{secure_asset('summernote/summernote.js')}}"></script>
+    <script src="{{asset('summernote/summernote.js')}}"></script>
     <script type="text/javascript">
 
 		var imageUploadUrlSum = "{{action('Admin\AdminController@saveImage')}}";

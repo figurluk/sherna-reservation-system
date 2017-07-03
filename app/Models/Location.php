@@ -30,6 +30,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Location whereUpdatedAt($value)
  * @mixin \Eloquent
  * @property-read \App\Models\LocationStatus $status
+ * @method static bool|null forceDelete()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Location onlyTrashed()
+ * @method static bool|null restore()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Location withTrashed()
+ * @method static \Illuminate\Database\Query\Builder|\App\Models\Location withoutTrashed()
+ * @property string|null $reader_uid
+ * @property string|null $location_uid
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLocationUid($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereReaderUid($value)
  */
 class Location extends Model
 {
@@ -39,6 +48,8 @@ class Location extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'location_status_id',
+        'reader_uid',
+        'location_uid',
         'name'
     ];
 

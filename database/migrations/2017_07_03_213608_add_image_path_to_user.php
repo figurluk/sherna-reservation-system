@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class ChangeReservationsColumns extends Migration
+class AddImagePathToUser extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class ChangeReservationsColumns extends Migration
      */
     public function up()
     {
-        \Schema::table('sherna_reservations',function (Blueprint $table) {
-            $table->date('day')->change();;
-            $table->time('start')->change();
-            $table->time('end')->change();
+        \Schema::table('users', function (Blueprint $table) {
+            $table->string('image')->nullable();
         });
     }
 
@@ -27,6 +25,8 @@ class ChangeReservationsColumns extends Migration
      */
     public function down()
     {
-        //
+        \Schema::table('users', function (Blueprint $table) {
+            $table->dropColumn('image');
+        });
     }
 }
