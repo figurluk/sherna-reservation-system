@@ -193,6 +193,16 @@ class ClientController extends Controller
 
     public function postCreateEvent(Request $request)
     {
+        //pocet ludi kolko tam bude
+        //aka konzola
+        //pol hodky po zacati rezervacie ak neotvori dvere -> zrusit
+        //rezervacie po 15 minutach
+        //zablokovania urcitych casov
+        //pol hodiny pred koncom rezervacie moze predlit o dalsich 6 hodin
+        //urbit formularom, kalendar informacny
+
+
+
         $date = date('Y-m-d', strtotime($request->start));
         $reservationExist = Reservation::where('day', $date)
             ->where('location_id', '=', $request->location)
