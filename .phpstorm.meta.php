@@ -3,7 +3,7 @@ namespace PHPSTORM_META {
 
    /**
     * PhpStorm Meta file, to provide autocomplete information for PhpStorm
-    * Generated on 2017-07-03.
+    * Generated on 2017-07-18.
     *
     * @author Barry vd. Heuvel <barryvdh@gmail.com>
     * @see https://github.com/barryvdh/laravel-ide-helper
@@ -27,7 +27,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
@@ -151,7 +150,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
@@ -275,7 +273,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
@@ -399,7 +396,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
@@ -523,7 +519,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
@@ -647,7 +642,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
@@ -771,7 +765,6 @@ namespace PHPSTORM_META {
         'db' => Illuminate\Database\DatabaseManager::class,
         'db.connection' => Illuminate\Database\PostgresConnection::class,
         'Illuminate\Contracts\Queue\EntityResolver' => Illuminate\Database\Eloquent\QueueEntityResolver::class,
-        'encrypter' => Illuminate\Encryption\Encrypter::class,
         'files' => Illuminate\Filesystem\Filesystem::class,
         'filesystem' => Illuminate\Filesystem\FilesystemManager::class,
         'filesystem.disk' => Illuminate\Filesystem\FilesystemAdapter::class,
