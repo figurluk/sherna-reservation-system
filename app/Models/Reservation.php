@@ -16,15 +16,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 /**
  * App\Models\Reservation
  *
- * @property int            $id
- * @property int            $location_id
- * @property int            $tenant_uid
- * @property string         $start
- * @property string         $end
- * @property string         $note
- * @property \Carbon\Carbon $created_at
- * @property \Carbon\Carbon $updated_at
- * @property \Carbon\Carbon $deleted_at
+ * @property int                       $id
+ * @property int                       $location_id
+ * @property int                       $tenant_uid
+ * @property string                    $start
+ * @property string                    $end
+ * @property string                    $note
+ * @property \Carbon\Carbon            $created_at
+ * @property \Carbon\Carbon            $updated_at
+ * @property \Carbon\Carbon            $deleted_at
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation whereCreatedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation whereDeletedAt($value)
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation whereEnd($value)
@@ -37,14 +37,15 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @mixin \Eloquent
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation activeReservations()
  * @property-read \App\Models\Location $location
- * @property-read \App\Models\User $owner
+ * @property-read \App\Models\User     $owner
  * @method static bool|null forceDelete()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation onlyTrashed()
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation withoutTrashed()
- * @property string $day
+ * @property string                    $day
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereDay($value)
+ * @property-read \App\Models\Console $console
  */
 class Reservation extends Model
 {
@@ -54,16 +55,23 @@ class Reservation extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'location_id',
+        'console_id',
         'tenant_uid',
         'start',
         'end',
         'note',
-        'day'
+        'day',
+        'visitors_count'
     ];
 
     public function owner()
     {
         return $this->belongsTo(User::class, 'tenant_uid', 'uid');
+    }
+
+    public function console()
+    {
+        return $this->belongsTo(Console::class, 'console_id', 'id');
     }
 
     public function scopeActiveReservations($query)

@@ -13,7 +13,9 @@ $(document).ready(function () {
 			right : 'agendaWeek,agendaDay'
 		},
 		views       : {
-			agendaWeek: {}
+			agendaWeek: {
+				slotDuration: '00:15:00'
+			}
 		},
 		firstDay    : 1,
 		editable    : false,
@@ -23,8 +25,8 @@ $(document).ready(function () {
 		locale      : (locale == 'cz') ? 'cs' : locale,
 		titleFormat : 'D. MMMM YYYY',
 		navLinks    : true, // can click day/week names to navigate views
-		selectable  : true,
-		selectHelper: true,
+		selectable  : false,
+		selectHelper: false,
 		select      : function (start, end) {
 			
 			var correct = controlEventTimes(start, end);
@@ -184,9 +186,48 @@ function getActualUser(param1, param2, callback) {
 	});
 }
 
+$('#createReservationModal').on('shown.bs.modal', function (e) {
+	$.ajax({
+		method: 'post',
+		url   : consolesURL,
+		data  : {
+			location: $('[name="location"]:checked').val(),
+		}
+	}).success(function (data) {
+		if (data == 0) {
+			$('#console_id').parent('div').addClass('hidden');
+		}
+		else {
+			$('#console_id').parent('div').removeClass('hidden');
+		}
+		
+		$('#console_id').empty();
+		$('#console_id').append(data);
+		
+		$(".form_datetime").datetimepicker({
+			language:pickerLocale,
+			format: "dd.mm.yyyy - hh:ii",
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-left",
+			minuteStep: 15
+		});
+		
+		$(".to_datetime").datetimepicker({
+			language:pickerLocale,
+			format: "dd.mm.yyyy - hh:ii",
+			autoclose: true,
+			todayBtn: true,
+			pickerPosition: "bottom-right",
+			minuteStep: 15
+		});
+		
+	}).error(function (msg) {
+		$('#console_id').parent('div').addClass('hidden');
+	})
+});
+
 function createEventAjax(start, end) {
-	console.log('createa jaxa ');
-	$('#createReservationModal').modal('show');
 	
 	var selectedEventData = {
 		title: 'Rezervace pro: ' + actualUser.getName() + ' ' + actualUser.getSurname(),

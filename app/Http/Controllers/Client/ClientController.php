@@ -193,14 +193,11 @@ class ClientController extends Controller
 
     public function postCreateEvent(Request $request)
     {
-        //pocet ludi kolko tam bude
-        //aka konzola
-        //pol hodky po zacati rezervacie ak neotvori dvere -> zrusit
-        //rezervacie po 15 minutach
-        //zablokovania urcitych casov
-        //pol hodiny pred koncom rezervacie moze predlit o dalsich 6 hodin
-        //urbit formularom, kalendar informacny
-
+        //todo:: pol hodky po zacati rezervacie ak neotvori dvere -> zrusit
+        //todo:: rezervacie po 15 minutach
+        //todo:: zablokovania urcitych casov
+        //todo:: pol hodiny pred koncom rezervacie moze predlit o dalsich 6 hodin
+        //todo:: urbit formularom, kalendar informacny
 
 
         $date = date('Y-m-d', strtotime($request->start));
@@ -306,7 +303,7 @@ class ClientController extends Controller
             $reservations[ $key ]['end'] = $reservations[ $key ]['day'].' '.$reservations[ $key ]['end'];
 
             if (Auth::check() && $reservation['tenant_uid'] == Auth::user()->uid) {
-                $reservations[ $key ]['editable'] = date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit'))) < $reservation['day'].' '.$reservation['start'];
+                $reservations[ $key ]['editable'] = false;
                 $reservations[ $key ]['backgroundColor'] = config('calendar.my-reservation.background-color');
                 $reservations[ $key ]['textColor'] = config('calendar.my-reservation.color');
                 $reservations[ $key ]['borderColor'] = config('calendar.my-reservation.border-color');
@@ -314,5 +311,16 @@ class ClientController extends Controller
         }
 
         return $reservations;
+    }
+
+    public function postConsoles(Request $request)
+    {
+        $consoles = Location::find($request->location)->consoles;
+
+        if (count($consoles) > 0) {
+            return view('client.consoles', compact('consoles'))->render();
+        } else {
+            return '0';
+        }
     }
 }
