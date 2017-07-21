@@ -46,6 +46,10 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string                    $day
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereDay($value)
  * @property-read \App\Models\Console $console
+ * @property int|null $visitors_count
+ * @property int|null $console_id
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereConsoleId($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereVisitorsCount($value)
  */
 class Reservation extends Model
 {
