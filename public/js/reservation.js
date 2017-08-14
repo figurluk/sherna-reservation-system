@@ -4,6 +4,79 @@
 
 var actualUser = null;
 
+
+$('#createReservationModal').on('shown.bs.modal', function (e) {
+	$.ajax({
+		method: 'post',
+		url   : consolesURL,
+		data  : {
+			location: $('[name="location"]:checked').val(),
+		}
+	}).success(function (data) {
+		if (data == 0) {
+			$('#console_id').parent('div').addClass('hidden');
+		}
+		else {
+			$('#console_id').parent('div').removeClass('hidden');
+		}
+		
+		$('#console_id').empty();
+		$('#console_id').append(data);
+		
+		var selectedEventData = {};
+		
+		getActualUser(null, null, function () {
+			selectedEventData.title = 'Rezervace pro: ' + actualUser.getName() + ' ' + actualUser.getSurname();
+			selectedEventData.uid   = actualUser.getUID()
+		});
+		
+		
+		var formDate = $(".form_datetime").datetimepicker({
+			language      : pickerLocale,
+			format        : "dd.mm.yyyy - hh:ii",
+			autoclose     : true,
+			startDate     : moment().format('YYYY-MM-DD HH:mm'),
+			endDate       : moment().add(reservationarea, 'd').format('YYYY-MM-DD HH:mm'),
+			todayBtn      : true,
+			todayHighlight: false,
+			pickerPosition: "bottom-left",
+			minuteStep    : 15
+		});
+		
+		
+		var toDate = $(".to_datetime").datetimepicker({
+			language      : pickerLocale,
+			format        : "dd.mm.yyyy - hh:ii",
+			autoclose     : true,
+			startDate     : moment().format('YYYY-MM-DD HH:mm'),
+			todayBtn      : true,
+			todayHighlight: false,
+			pickerPosition: "bottom-right",
+			minuteStep    : 15
+		});
+		
+		formDate.on('changeDate', function (ev) {
+			var value    = moment($(".form_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm').add(15, 'm');
+			var maxValue = moment(value.format('YYYY-MM-DD HH:mm')).add(maxeventduration, 'h').subtract(15, 'm');
+			
+			toDate.datetimepicker('setStartDate', value.format('YYYY-MM-DD HH:mm'));
+			toDate.datetimepicker('setEndDate', maxValue.format('YYYY-MM-DD HH:mm'));
+			toDate.val(null);
+			selectedEventData.start = moment($(".form_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm');
+		});
+		
+		
+		toDate.on('changeDate', function (ev) {
+			selectedEventData.end = moment($(".to_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm');
+		});
+		
+		saveReservation(selectedEventData);
+		
+	}).error(function (msg) {
+		$('#console_id').parent('div').addClass('hidden');
+	})
+});
+
 $(document).ready(function () {
 	
 	$('#calendar').fullCalendar({
@@ -179,53 +252,14 @@ function getActualUser(param1, param2, callback) {
 		
 		actualUser = new User(data['uid'], data['name'], data['surname']);
 		
-		callback(param1, param2);
+		if (callback != null) {
+			callback(param1, param2);
+		}
 	}).error(function (msg) {
 		alert(msg.responseText);
 		$('#calendar').fullCalendar('unselect');
 	});
 }
-
-$('#createReservationModal').on('shown.bs.modal', function (e) {
-	$.ajax({
-		method: 'post',
-		url   : consolesURL,
-		data  : {
-			location: $('[name="location"]:checked').val(),
-		}
-	}).success(function (data) {
-		if (data == 0) {
-			$('#console_id').parent('div').addClass('hidden');
-		}
-		else {
-			$('#console_id').parent('div').removeClass('hidden');
-		}
-		
-		$('#console_id').empty();
-		$('#console_id').append(data);
-		
-		$(".form_datetime").datetimepicker({
-			language:pickerLocale,
-			format: "dd.mm.yyyy - hh:ii",
-			autoclose: true,
-			todayBtn: true,
-			pickerPosition: "bottom-left",
-			minuteStep: 15
-		});
-		
-		$(".to_datetime").datetimepicker({
-			language:pickerLocale,
-			format: "dd.mm.yyyy - hh:ii",
-			autoclose: true,
-			todayBtn: true,
-			pickerPosition: "bottom-right",
-			minuteStep: 15
-		});
-		
-	}).error(function (msg) {
-		$('#console_id').parent('div').addClass('hidden');
-	})
-});
 
 function createEventAjax(start, end) {
 	
@@ -237,31 +271,7 @@ function createEventAjax(start, end) {
 	};
 	
 	$('#createReservationModal').on('shown.bs.modal', function (e) {
-		$('#saveReservation').unbind();
-		$('#saveReservation').bind('click', function () {
-			$.ajax({
-				method: 'POST',
-				url   : createEventUrl,
-				data  : {
-					userUID : actualUser.getUID(),
-					start   : selectedEventData.start.format("YYYY/MM/DD HH:mm:ss"),
-					end     : selectedEventData.end.format("YYYY/MM/DD HH:mm:ss"),
-					location: $('[name="location"]:checked').val(),
-					note    : $('#note').val()
-				}
-			}).success(function (data) {
-				selectedEventData.id              = data['id'];
-				selectedEventData.editable        = data['editable'];
-				selectedEventData.textColor       = myReservationColor;
-				selectedEventData.borderColor     = myReservationBorderColor;
-				selectedEventData.backgroundColor = myReservationBackgroundColor;
-				$('#calendar').fullCalendar('renderEvent', selectedEventData);
-			}).error(function (msg) {
-				alert(msg.responseText);
-				$('#calendar').fullCalendar('unselect');
-				reRenderCallendar();
-			})
-		});
+		saveReservation(selectedEventData);
 	});
 }
 
@@ -274,6 +284,61 @@ function createEvent(start, end) {
 		console.log('create even call ajax');
 		createEventAjax(start, end);
 	}
+}
+
+function saveReservation(selectedEventData) {
+	
+	$('#saveReservation').unbind();
+	$('#saveReservation').bind('click', function (ev) {
+		ev.preventDefault();
+		
+		var valid = true;
+		if (selectedEventData.start == null) {
+			alert('Vyberte cas zaciatku rezervacie');
+			valid = false;
+		}
+		else if (selectedEventData.end == null) {
+			alert('Vyberte cas konca rezervacie');
+			valid = false;
+		}
+		if (!valid) {
+			return;
+		}
+		
+		var consoleID = null;
+		
+		if (!$('#console_id').parent('div').hasClass('hidden')) {
+			consoleID = $('#console_id').val();
+		}
+		
+		$.ajax({
+			method: 'POST',
+			url   : createEventUrl,
+			data  : {
+				userUID  : actualUser.getUID(),
+				start    : selectedEventData.start.format("YYYY/MM/DD HH:mm:ss"),
+				end      : selectedEventData.end.format("YYYY/MM/DD HH:mm:ss"),
+				location : $('[name="location"]:checked').val(),
+				consoleID: consoleID,
+				visitors : $('#visitors_count').val(),
+				note     : $('#note').val()
+			}
+		}).success(function (data) {
+			selectedEventData.id              = data['id'];
+			selectedEventData.editable        = data['editable'];
+			selectedEventData.textColor       = myReservationColor;
+			selectedEventData.borderColor     = myReservationBorderColor;
+			selectedEventData.backgroundColor = myReservationBackgroundColor;
+			$('#calendar').fullCalendar('renderEvent', selectedEventData);
+			$('#createReservationModal').modal('hide');
+			$(".to_datetime").val(null);
+			$(".form_datetime").val(null);
+		}).error(function (msg) {
+			alert(msg.responseText);
+			$('#calendar').fullCalendar('unselect');
+			reRenderCallendar();
+		})
+	});
 }
 
 $(document).on('change', '[name="location"]', function (ev) {

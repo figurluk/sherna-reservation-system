@@ -17,9 +17,8 @@ class CreateTableShernaReservations extends Migration
             $table->increments('id');
             $table->unsignedInteger('location_id');
             $table->unsignedInteger('tenant_uid');
-            $table->date('day');
-            $table->time('start');
-            $table->time('end');
+            $table->timestamp('start');
+            $table->timestamp('end');
             $table->text('note')->nullable();
             $table->nullableTimestamps();
             $table->softDeletes();

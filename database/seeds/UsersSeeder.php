@@ -1,7 +1,7 @@
 <?php
 
-use Illuminate\Database\Seeder;
 use App\Models\User;
+use Illuminate\Database\Seeder;
 
 class UsersSeeder extends Seeder
 {
@@ -16,6 +16,7 @@ class UsersSeeder extends Seeder
             'uid'          => '12345',
             'name'         => 'admin',
             'surname'      => 'admin',
+            'image'        => 'https://static.is.sh.cvut.cz/assets/bag_on_head_white-eaa457debaec8080de4e7f800fa9033b.jpg',
             'email'        => 'admin@sherna.cz',
             'block_number' => 6
         ]);

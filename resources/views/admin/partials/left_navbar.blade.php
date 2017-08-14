@@ -35,6 +35,7 @@
                 <li><a href="{{action('Admin\ConsolesController@index')}}"><i class="fa fa-fw fa-gamepad"></i> Consoles</a></li>
                 <li><a href="{{action('Admin\InventoryController@index')}}"><i class="fa fa-fw fa-cubes"></i> Inventory</a></li>
                 <li><a href="{{action('Admin\ContestController@index')}}"><i class="fa fa-fw fa-sitemap"></i> Contests</a></li>
+                <li><a href="{{action('Admin\SettingsController@index')}}"><i class="fa fa-fw fa-cogs"></i> Settings</a></li>
             </ul>
         </div>
 

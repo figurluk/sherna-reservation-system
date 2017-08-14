@@ -14,7 +14,7 @@ class AddImagePathToUser extends Migration
     public function up()
     {
         \Schema::table('users', function (Blueprint $table) {
-            $table->string('image')->nullable();
+            $table->text('image')->nullable();
         });
     }
 

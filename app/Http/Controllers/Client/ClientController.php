@@ -17,6 +17,14 @@ use OAuth\ServiceFactory;
 
 class ClientController extends Controller
 {
+    /**
+     * ClientController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', ['only' => 'getReservations']);
+    }
+
     public function index()
     {
         if (env('APP_ENV') == 'local' && !Auth::check())
@@ -193,15 +201,16 @@ class ClientController extends Controller
 
     public function postCreateEvent(Request $request)
     {
-        //todo:: pol hodky po zacati rezervacie ak neotvori dvere -> zrusit
-        //todo:: rezervacie po 15 minutach
+        $this->validate($request,
+            [
+                'start'    => 'required',
+                'end'      => 'required',
+                'location' => 'required'
+            ]
+        );
         //todo:: zablokovania urcitych casov
-        //todo:: pol hodiny pred koncom rezervacie moze predlit o dalsich 6 hodin
-        //todo:: urbit formularom, kalendar informacny
 
-
-        $date = date('Y-m-d', strtotime($request->start));
-        $reservationExist = Reservation::where('day', $date)
+        $reservationExist = Reservation::whereNull('canceled_at')
             ->where('location_id', '=', $request->location)
             ->where(function ($q) use ($request) {
                 $q->where(function ($query) use ($request) {
@@ -213,18 +222,22 @@ class ClientController extends Controller
                 })->orWhere(function ($query) use ($request) {
                     $query->where('end', '>=', $request->end)
                         ->where('start', '<=', $request->start);
+                })->orWhere(function ($query) use ($request) {
+                    $query->where('end', '<=', $request->end)
+                        ->where('start', '>=', $request->start);
                 });
             })
             ->exists();
+
 
         $location = Location::find($request->location);
         if (!$reservationExist && $location->isOpened()) {
             $reservation = Reservation::create([
                 'tenant_uid'  => $request->userUID,
+                'console_id'  => $request->consoleID,
                 'location_id' => $request->location,
-                'day'         => $date,
-                'start'       => date('H:i:s', strtotime($request->start)),
-                'end'         => date('H:i:s', strtotime($request->end)),
+                'start'       => date('Y-m-d H:i:s', strtotime($request->start)),
+                'end'         => date('Y-m-d H:i:s', strtotime($request->end)),
                 'note'        => $request->note
             ]);
 
@@ -241,11 +254,10 @@ class ClientController extends Controller
 
     public function postUpdateEvent(Request $request)
     {
-        $date = date('Y-m-d', strtotime($request->start));
         $oldReservation = Reservation::find($request->reservation_id);
         $reservationExist = Reservation::where('id', '!=', $request->reservation_id)
+            ->whereNull('canceled_at')
             ->where('location_id', '=', $oldReservation->location_id)
-            ->where('day', $date)
             ->where(function ($q) use ($request) {
                 $q->where(function ($query) use ($request) {
                     $query->where('end', '>', $request->start)
@@ -265,9 +277,8 @@ class ClientController extends Controller
             $reservation = Reservation::create([
                 'tenant_uid'  => $oldReservation->tenant_uid,
                 'location_id' => $oldReservation->location_id,
-                'day'         => $date,
-                'start'       => date('H:i:s', strtotime($request->start)),
-                'end'         => date('H:i:s', strtotime($request->end)),
+                'start'       => date('Y-m-d H:i:s', strtotime($request->start)),
+                'end'         => date('Y-m-d H:i:s', strtotime($request->end)),
                 'note'        => $oldReservation->note
             ]);
 
@@ -295,12 +306,10 @@ class ClientController extends Controller
 
     public function postEvents(Request $request)
     {
-        $reservations = Reservation::where('location_id', $request->location)->get(['id', 'start', 'end', 'note', 'tenant_uid', 'day'])->toArray();
+        $reservations = Reservation::where('location_id', $request->location)->get(['id', 'start', 'end', 'note', 'tenant_uid'])->toArray();
         foreach ($reservations as $key => $reservation) {
             $owner = User::where('uid', $reservation['tenant_uid'])->first();
             $reservations[ $key ]['title'] = 'Rezervace pro: '.$owner->name.' '.$owner->surname;
-            $reservations[ $key ]['start'] = $reservations[ $key ]['day'].' '.$reservations[ $key ]['start'];
-            $reservations[ $key ]['end'] = $reservations[ $key ]['day'].' '.$reservations[ $key ]['end'];
 
             if (Auth::check() && $reservation['tenant_uid'] == Auth::user()->uid) {
                 $reservations[ $key ]['editable'] = false;
@@ -322,5 +331,13 @@ class ClientController extends Controller
         } else {
             return '0';
         }
+    }
+
+    public function getReservations()
+    {
+        $activeReservations = Auth::user()->reservations()->activeReservation()->get();
+        $reservations = Auth::user()->reservations()->orderBy('start', 'desc')->paginate(10);
+
+        return view('client.reservations', compact('reservations','activeReservations'));
     }
 }

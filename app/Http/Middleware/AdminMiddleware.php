@@ -17,8 +17,8 @@ class AdminMiddleware
     public function handle($request, Closure $next)
     {
         if (!\Auth::check() || !\Auth::user()->isAdmin()) {
-        return redirect()->action('Client\ClientController@index');
-    }
+            return redirect()->action('Client\ClientController@index');
+        }
 
         return $next($request);
     }

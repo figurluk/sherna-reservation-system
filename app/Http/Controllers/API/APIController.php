@@ -25,17 +25,18 @@ class APIController extends Controller
 
         $location = Location::where('location_uid', $request->location_uid)->where('reader_uid', $request->reader_uid)->first();
 
-        $accessDay = date('Y-m-d');
-        $accessStartTime = date('H:i:s', strtotime('+'.config('calendar.access_to_location').' minutes'));
-        $accessEndTime = date('H:i:s', strtotime('-'.config('calendar.access_to_location').' minutes'));
+        $accessStartTime = date('Y-m-d H:i:s', strtotime('+'.config('calendar.access_to_location').' minutes'));
+        $accessEndTime = date('Y-m-d H:i:s', strtotime('-'.config('calendar.access_to_location').' minutes'));
 
         $result = Reservation::where('location_id', $location->id)
             ->where('tenant_uid', $request->user_uid)
-            ->where('day', $accessDay)
             ->where('start', '<=', $accessStartTime)
-            ->where('end', '>=', $accessEndTime)->exists();
+            ->where('end', '>=', $accessEndTime)->first();
 
-        return response(($result) ? 'true' : 'false');
+        $result->entered_at = date('Y-m-d H:i:s');
+        $result->save();
+
+        return response(($result != null) ? 'true' : 'false');
     }
 
 }

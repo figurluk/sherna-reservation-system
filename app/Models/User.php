@@ -41,7 +41,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
- * @property string|null $image
+ * @property string|null                                                                                                    $image
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereImage($value)
  */
 class User extends Authenticatable
@@ -83,5 +83,10 @@ class User extends Authenticatable
     public function admin()
     {
         return $this->hasOne(Admin::class, 'uid', 'uid');
+    }
+
+    public function reservations()
+    {
+        return $this->hasMany(Reservation::class, 'tenant_uid', 'uid');
     }
 }

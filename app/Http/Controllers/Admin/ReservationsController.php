@@ -10,7 +10,7 @@ class ReservationsController extends Controller
 {
     public function index()
     {
-        $reservations = Reservation::orderBy('day','desc')->orderBy('start','desc')->paginate(15);
+        $reservations = Reservation::orderBy('start','desc')->paginate(15);
 
         return view('admin.reservations.index', compact(['reservations']));
     }

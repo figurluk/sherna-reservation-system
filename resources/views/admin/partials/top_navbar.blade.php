@@ -17,14 +17,14 @@
             <li role="presentation" class="dropdown">
                 <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
                     <i class="fa fa-address-card"></i>
-                    <span class="badge bg-green">{{\App\Models\Reservation::activeReservations()->count()}}</span>
+                    <span class="badge bg-green">{{\App\Models\Reservation::futureReservations()->count()}}</span>
                 </a>
                 <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
-                    @foreach(\App\Models\Reservation::activeReservations()->orderBy('day','asc')->orderBy('start','asc')->get() as $activeReservation)
+                    @foreach(\App\Models\Reservation::futureReservations()->orderBy('start','asc')->get() as $futureReservation)
                         <li>
                             <div class="text-center">
                                 <a href="#">
-                                    <strong>{{$activeReservation->owner->email}} {{date('d.m.Y H:i',strtotime($activeReservation->day.' '.$activeReservation->start))}}</strong>
+                                    <strong>{{$futureReservation->owner->email}} {{date('d.m.Y H:i',strtotime($futureReservation->start))}}</strong>
                                 </a>
                             </div>
                         </li>

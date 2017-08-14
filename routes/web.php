@@ -28,14 +28,11 @@ Route::group(['before' => 'force.ssl'], function () {
     Route::post('/events/delete', 'Client\ClientController@postDeleteEvent');
 
 
-    Route::group(['prefix' => 'admin'], function () {
-        Route::get('/', 'Admin\AdminController@index');
-    });
-
-
     Route::group(['prefix' => 'api'], function () {
         Route::post('/reservation/check', 'API\APIController@checkReservation');
     });
+
+    Route::get('/user/reservations', 'Client\ClientController@getReservations');
 
     Route::get('/lang/{code}', 'Client\ClientController@changeLang');
     Route::get('/{code}', 'Client\ClientController@show');

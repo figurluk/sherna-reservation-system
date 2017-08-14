@@ -45,9 +45,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\Reservation withoutTrashed()
  * @property string                    $day
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereDay($value)
- * @property-read \App\Models\Console $console
- * @property int|null $visitors_count
- * @property int|null $console_id
+ * @property-read \App\Models\Console  $console
+ * @property int|null                  $visitors_count
+ * @property int|null                  $console_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereConsoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereVisitorsCount($value)
  */
@@ -61,10 +61,11 @@ class Reservation extends Model
         'location_id',
         'console_id',
         'tenant_uid',
+        'entered_at',
+        'canceled_at',
         'start',
         'end',
         'note',
-        'day',
         'visitors_count'
     ];
 
@@ -78,12 +79,17 @@ class Reservation extends Model
         return $this->belongsTo(Console::class, 'console_id', 'id');
     }
 
-    public function scopeActiveReservations($query)
+    public function scopeActiveReservation($query)
     {
         return $query->where(function ($q) {
-            $q->where('day', '=', date('Y-m-d'))->where('start', '>=', date('H:i:s'));
-        })->orWhere(function ($q) {
-            $q->where('day', '>', date('Y-m-d'));
+            $q->where('start', '<=', date('Y-m-d H:i:s'))->where('end', '>=', date('Y-m-d H:i:s'));
+        });
+    }
+
+    public function scopeFutureReservations($query)
+    {
+        return $query->where(function ($q) {
+            $q->where('start', '>=', date('Y-m-d H:i:s'));
         });
     }
 

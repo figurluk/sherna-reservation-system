@@ -31,7 +31,7 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{Auth::user()->name}} {{Auth::user()->surname}}</a>
                         <ul class="dropdown-menu">
-                            <li><a href="#contact">Moje rezervace</a></li>
+                            <li><a href="{{action('Client\ClientController@getReservations')}}">Moje rezervace</a></li>
                             <li><a href="{{action('Client\ClientController@getLogout')}}">Odhlaseni</a></li>
 
 

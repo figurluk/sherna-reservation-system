@@ -14,7 +14,6 @@
 
 
     @if($page->code=='rezervace' && \App\Models\Location::whereHas('status',function ($q) {$q->where('opened',true);})->count() > 0)
-        {{--        <link href="{{asset('assets_client/timepicker/css/bootstrap-clockpicker.min.css')}}" rel="stylesheet">--}}
         <link href="{{asset('assets_client/datetimepicker/css/bootstrap-datetimepicker.min.css')}}" rel="stylesheet">
     @endif
 @endsection
@@ -115,7 +114,7 @@
                         </div>
                         <div class="modal-footer">
                             <button class="btn btn-default" data-dismiss="modal">{{trans('reservation-modal.cancel')}}</button>
-                            <button name="submit" id="saveReservation" class="btn btn-primary" data-dismiss="modal">{{trans('reservation-modal.save')}}</button>
+                            <button name="submit" id="saveReservation" class="btn btn-primary">{{trans('reservation-modal.save')}}</button>
                         </div>
                     </div>
                 </form>
