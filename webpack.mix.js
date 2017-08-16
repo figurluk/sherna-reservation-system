@@ -1,4 +1,5 @@
 const {mix} = require('laravel-mix');
+var exec    = require('child_process').exec;
 
 /*
  |--------------------------------------------------------------------------
@@ -10,6 +11,7 @@ const {mix} = require('laravel-mix');
  | file for the application as well as bundling up all the JS files.
  |
  */
+
 
 mix.less('resources/assets/less/bootstrap/bootstrap.less', '../resources/assets/css')
 	.less('resources/assets/less/admin.less', '../resources/assets/css')
@@ -24,8 +26,22 @@ mix.combine([
 mix.combine([
 	'resources/assets/css/bootstrap.css',
 	'resources/assets/css/client.css',
+	'resources/assets/css/jquery-ui.min.css',
 	'resources/assets/css/font-awesome.css'
 ], 'public/css/client.css');
+
+exec('php artisan js:translate', function (err, stdout, stderr) {
+	console.log(stdout);
+	if (stderr != '') {
+		console.log('errors: ', stderr);
+	}
+});
+
+mix.combine([
+	'resources/assets/js/jquery-ui.min.js',
+	'resources/assets/js/app.js',
+	'resources/assets/js/trans.js'
+], 'public/js/app.js');
 
 if (mix.config.inProduction) {
 	mix.version();

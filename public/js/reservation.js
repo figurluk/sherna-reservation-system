@@ -26,7 +26,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 		var selectedEventData = {};
 		
 		getActualUser(null, null, function () {
-			selectedEventData.title = 'Rezervace pro: ' + actualUser.getName() + ' ' + actualUser.getSurname();
+			selectedEventData.title = App.trans('reservation-title') + actualUser.getName() + ' ' + actualUser.getSurname();
 			selectedEventData.uid   = actualUser.getUID()
 		});
 		
@@ -73,6 +73,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 		saveReservation(selectedEventData);
 		
 	}).error(function (msg) {
+		App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
 		$('#console_id').parent('div').addClass('hidden');
 	})
 });
@@ -131,7 +132,7 @@ $(document).ready(function () {
 					};
 				},
 				error  : function () {
-					alert('There was an error while fetching events! Please ty it later.');
+					App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
 				},
 				overlap: false
 			}
@@ -147,7 +148,7 @@ $(document).ready(function () {
 					$('#deleteReservation').removeClass('hidden');
 					$('#deleteReservation').unbind();
 					$('#deleteReservation').bind('click', function (ev) {
-						if (confirm('Do you really want to delete your reservation ?')) {
+						App.helpers.alert.confirm(App.trans('sure-delete'), App.trans('sure-delete-text'), 'warning', function () {
 							$.ajax({
 								method : 'POST',
 								url    : deleteEventUrl,
@@ -157,9 +158,10 @@ $(document).ready(function () {
 								success: function (data) {
 									$('#showReservationModal').modal('hide');
 									$('#calendar').fullCalendar('removeEvents', [event.id]);
+									App.helpers.flash.create('success', App.trans('flashes.success_deleted'));
 								}
 							});
-						}
+						})
 					});
 				}
 			});
@@ -204,7 +206,7 @@ function updateEventAjax(event, revertFunc) {
 			event.editable = data['editable'];
 		},
 		error  : function (msg) {
-			alert(msg.responseText);
+			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
 			revertFunc();
 			reRenderCallendar();
 		}
@@ -256,7 +258,7 @@ function getActualUser(param1, param2, callback) {
 			callback(param1, param2);
 		}
 	}).error(function (msg) {
-		alert(msg.responseText);
+		App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
 		$('#calendar').fullCalendar('unselect');
 	});
 }
@@ -264,7 +266,7 @@ function getActualUser(param1, param2, callback) {
 function createEventAjax(start, end) {
 	
 	var selectedEventData = {
-		title: 'Rezervace pro: ' + actualUser.getName() + ' ' + actualUser.getSurname(),
+		title: App.trans('reservation-title') + actualUser.getName() + ' ' + actualUser.getSurname(),
 		start: start,
 		end  : end,
 		uid  : actualUser.getUID()
@@ -277,11 +279,9 @@ function createEventAjax(start, end) {
 
 function createEvent(start, end) {
 	if (actualUser == null) {
-		console.log('get user');
 		getActualUser(start, end, createEventAjax)
 	}
 	else {
-		console.log('create even call ajax');
 		createEventAjax(start, end);
 	}
 }
@@ -294,11 +294,11 @@ function saveReservation(selectedEventData) {
 		
 		var valid = true;
 		if (selectedEventData.start == null) {
-			alert('Vyberte cas zaciatku rezervacie');
+			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-start-date'));
 			valid = false;
 		}
 		else if (selectedEventData.end == null) {
-			alert('Vyberte cas konca rezervacie');
+			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-to-date'));
 			valid = false;
 		}
 		if (!valid) {
@@ -333,8 +333,10 @@ function saveReservation(selectedEventData) {
 			$('#createReservationModal').modal('hide');
 			$(".to_datetime").val(null);
 			$(".form_datetime").val(null);
+			
+			App.helpers.flash.create('success', App.trans('flashes.success_created'));
 		}).error(function (msg) {
-			alert(msg.responseText);
+			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
 			$('#calendar').fullCalendar('unselect');
 			reRenderCallendar();
 		})

@@ -3,7 +3,7 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-md-8">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Consoles</h2>
@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <div class="col-md-6">
+        <div class="col-md-4">
             <div class="x_panel">
                 <div class="x_title">
                     <h2>Consoles types</h2>
@@ -67,7 +67,6 @@
                         <thead>
                         <tr>
                             <th>Name</th>
-                            <th>Opened</th>
                             <th></th>
                         </tr>
                         </thead>

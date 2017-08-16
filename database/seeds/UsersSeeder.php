@@ -20,5 +20,10 @@ class UsersSeeder extends Seeder
             'email'        => 'admin@sherna.cz',
             'block_number' => 6
         ]);
+
+        \App\Models\Admin::create([
+            'uid'  => '12345',
+            'role' => 'super_admin'
+        ]);
     }
 }

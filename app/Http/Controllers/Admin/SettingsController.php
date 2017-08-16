@@ -7,6 +7,14 @@ use Illuminate\Http\Request;
 
 class SettingsController extends Controller
 {
+    /**
+     * AdminsController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware(['super_admin']);
+    }
+
     public function index()
     {
         return view('admin.settings.index');

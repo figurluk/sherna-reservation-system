@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ config('app.locale') }}">
+<html lang="{{ config('app.locale')!='cz'?:'cs' }}">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -34,9 +34,18 @@
 </head>
 <body>
 
+<div id="flashes">
+    @include('client.partials.flash')
+</div>
+<div id="js-flashes"></div>
+
 @include('client.partials.navbar')
 
 @yield('content')
+
+<script>
+	var systemLogo = '{{asset('assets_client/img/logo.png')}}';
+</script>
 
 <script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
 <script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>

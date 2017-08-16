@@ -31,13 +31,13 @@
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
                            aria-expanded="false">{{Auth::user()->name}} {{Auth::user()->surname}}</a>
                         <ul class="dropdown-menu">
-                            <li><a href="{{action('Client\ClientController@getReservations')}}">Moje rezervace</a></li>
-                            <li><a href="{{action('Client\ClientController@getLogout')}}">Odhlaseni</a></li>
+                            <li><a href="{{action('Client\ClientController@getReservations')}}">{{trans('navbar.my_reservations')}}</a></li>
+                            <li><a href="{{action('Client\ClientController@getLogout')}}">{{trans('navbar.logout')}}</a></li>
 
 
                             @if(Auth::user()->admin()!=null)
                                 <li class="divider" role="separator"></li>
-                                <li><a href="{{action('Admin\AdminController@index')}}">Administrace</a></li>
+                                <li><a href="{{action('Admin\AdminController@index')}}">Admin</a></li>
                             @endif
                         </ul>
                     </li>

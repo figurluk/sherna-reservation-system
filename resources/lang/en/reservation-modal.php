@@ -7,9 +7,18 @@
  */
 
 return [
-    'title'  => 'Create reservation',
-    'save'   => 'Save',
-    'note'   => 'Note',
-    'cancel' => 'Cancel',
-    'delete' => 'Delete'
+    'title'          => 'Create reservation',
+    'save'           => 'Create',
+    'renew'          => 'Renew',
+    'renew-to'       => 'Renew to',
+    'renew-title'    => 'Renew reservation',
+    'note'           => 'Note',
+    'cancel'         => 'Cancel',
+    'delete'         => 'Delete',
+    'visitors_count' => 'Visitors count',
+    'console'        => 'Console',
+    'from_date'      => 'Date from',
+    'from_time'      => 'Time from',
+    'to_date'        => 'Date to',
+    'to_time'        => 'Time to',
 ];

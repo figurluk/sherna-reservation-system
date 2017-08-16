@@ -82,11 +82,11 @@
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <div class="col-md-6">
-                                            <label for="from_date" class="control-label">{{trans('reservation-modal.from_date')}}</label>
+                                            <label for="from_date" class="control-label">{{trans('reservation-modal.from_date')}}<span class="text-danger">*</span></label>
                                             <input name="from_date" class="form-control form_datetime" id="from_date" readonly>
                                         </div>
                                         <div class="col-md-6">
-                                            <label for="to_date" class="control-label">{{trans('reservation-modal.to_date')}}</label>
+                                            <label for="to_date" class="control-label">{{trans('reservation-modal.to_date')}}<span class="text-danger">*</span></label>
                                             <input name="to_date" class="form-control to_datetime" id="to_date" readonly>
                                         </div>
                                     </div>
@@ -132,10 +132,10 @@
                     <div class="modal-body">
 
                         <p>
-                            <strong>Start:</strong> <span id="start"></span>
+                            <strong>{{trans('reservation-modal.from_date')}}:</strong> <span id="start"></span>
                         </p>
                         <p>
-                            <strong>End:</strong> <span id="end"></span>
+                            <strong>{{trans('reservation-modal.to_date')}}:</strong> <span id="end"></span>
                         </p>
 
                     </div>

@@ -52,12 +52,12 @@ class PagesSeeder extends Seeder
                 if ($language->code == 'cz') {
                     $subpageText = PageText::create([
                         'name'    => $arr[ $i ],
-                        'content' => 'asdsad',
+                        'content' => 'asdsad-'.$language->code,
                     ]);
                 } else {
                     $subpageText = PageText::create([
-                        'name'    => 'name',
-                        'content' => 'asdsad',
+                        'name'    => 'name-'.$language->code,
+                        'content' => 'content-'.$language->code,
                     ]);
                 }
 

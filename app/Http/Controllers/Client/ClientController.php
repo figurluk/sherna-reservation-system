@@ -254,38 +254,31 @@ class ClientController extends Controller
 
     public function postUpdateEvent(Request $request)
     {
-        $oldReservation = Reservation::find($request->reservation_id);
-        $reservationExist = Reservation::where('id', '!=', $request->reservation_id)
+        $oldReservation = Reservation::find($request->reservationID);
+        $reservationExist = Reservation::where('id', '!=', $request->reservationID)
             ->whereNull('canceled_at')
             ->where('location_id', '=', $oldReservation->location_id)
-            ->where(function ($q) use ($request) {
-                $q->where(function ($query) use ($request) {
-                    $query->where('end', '>', $request->start)
-                        ->where('start', '<', $request->start);
+            ->where(function ($q) use ($request, $oldReservation) {
+                $q->where(function ($query) use ($request, $oldReservation) {
+                    $query->where('end', '>', $oldReservation->start)
+                        ->where('start', '<', $oldReservation->start);
                 })->orWhere(function ($query) use ($request) {
                     $query->where('end', '>', $request->end)
                         ->where('start', '<', $request->end);
-                })->orWhere(function ($query) use ($request) {
+                })->orWhere(function ($query) use ($request, $oldReservation) {
                     $query->where('end', '>=', $request->end)
-                        ->where('start', '<=', $request->start);
+                        ->where('start', '<=', $oldReservation->start);
                 });
             })
             ->exists();
 
         $location = Location::find($oldReservation->location_id);
         if (!$reservationExist && $location->isOpened()) {
-            $reservation = Reservation::create([
-                'tenant_uid'  => $oldReservation->tenant_uid,
-                'location_id' => $oldReservation->location_id,
-                'start'       => date('Y-m-d H:i:s', strtotime($request->start)),
-                'end'         => date('Y-m-d H:i:s', strtotime($request->end)),
-                'note'        => $oldReservation->note
-            ]);
 
-            $oldReservation->delete();
+            $oldReservation->end = date('Y-m-d H:i:s', strtotime($request->end));
+            $oldReservation->save();
 
-            return response(['id'       => $reservation->id,
-                             'editable' => strtotime(date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit')))) < strtotime($request->start)]);
+            return response(['id' => $oldReservation->id, 'end' => date('d.m.Y H:i', strtotime($oldReservation->end))]);
         } else {
 
             if (!$location->isOpened()) {
@@ -304,6 +297,16 @@ class ClientController extends Controller
         return response('ok');
     }
 
+    public function getDeleteEvent($event)
+    {
+        $oldReservation = Reservation::find($event);
+        $oldReservation->delete();
+
+        flash()->success(trans('reservations.success_deleted'));
+
+        return redirect()->action('Client\ClientController@getReservations');
+    }
+
     public function postEvents(Request $request)
     {
         $reservations = Reservation::where('location_id', $request->location)->get(['id', 'start', 'end', 'note', 'tenant_uid'])->toArray();
@@ -312,7 +315,7 @@ class ClientController extends Controller
             $reservations[ $key ]['title'] = 'Rezervace pro: '.$owner->name.' '.$owner->surname;
 
             if (Auth::check() && $reservation['tenant_uid'] == Auth::user()->uid) {
-                $reservations[ $key ]['editable'] = false;
+                $reservations[ $key ]['editable'] = date('Y-m-d H:i:s', strtotime($reservation['start'], strtotime('- '.config('calendar.duration-for-edit').' minutes'))) > date('Y-m-d H:i:s') ? true : false;
                 $reservations[ $key ]['backgroundColor'] = config('calendar.my-reservation.background-color');
                 $reservations[ $key ]['textColor'] = config('calendar.my-reservation.color');
                 $reservations[ $key ]['borderColor'] = config('calendar.my-reservation.border-color');
@@ -338,6 +341,16 @@ class ClientController extends Controller
         $activeReservations = Auth::user()->reservations()->activeReservation()->get();
         $reservations = Auth::user()->reservations()->orderBy('start', 'desc')->paginate(10);
 
-        return view('client.reservations', compact('reservations','activeReservations'));
+        return view('client.reservations', compact('reservations', 'activeReservations'));
+    }
+
+    public function postEvent(Request $request)
+    {
+        $reservation = Reservation::find($request->reservationID);
+
+        if ($reservation == null)
+            return response('bad request', 404);
+
+        return $reservation->toJson();
     }
 }

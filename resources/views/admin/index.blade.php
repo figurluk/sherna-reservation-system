@@ -6,7 +6,7 @@
             <div class="col-md-4">
                 <div class="x_panel">
                     <div class="x_title">
-                        <h2>Actual reservation for: {{$location->name}}</h2>
+                        <h2>Actual reservation for: <b>{{$location->name}}</b></h2>
                         <div class="pull-right">
                             <span class="label label-{{$location->status->opened ? 'success':'danger'}}">{{$location->status->name}}</span>
                         </div>
