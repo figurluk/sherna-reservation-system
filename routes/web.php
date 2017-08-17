@@ -26,7 +26,7 @@ Route::group(['before' => 'force.ssl'], function () {
     Route::post('/events/create', 'Client\ClientController@postCreateEvent');
     Route::post('/events/update', 'Client\ClientController@postUpdateEvent');
     Route::post('/events/delete', 'Client\ClientController@postDeleteEvent');
-    Route::post('/event/{event}/delete', 'Client\ClientController@getDeleteEvent');
+    Route::get('/event/{event}/delete', 'Client\ClientController@getDeleteEvent');
     Route::post('/event', 'Client\ClientController@postEvent');
 
 

@@ -27,8 +27,8 @@ class ClientController extends Controller
 
     public function index()
     {
-        if (env('APP_ENV') == 'local' && !Auth::check())
-            \Auth::loginUsingId(User::first()->id);
+//        if (env('APP_ENV') == 'local' && !Auth::check())
+//            \Auth::loginUsingId(User::first()->id);
         $page = Page::whereCode('domu')->first();
 
         return view('client.index', compact(['page']));
@@ -85,7 +85,7 @@ class ClientController extends Controller
     private function controlLoginUser($result)
     {
         if (User::where('uid', $result['id'])->first() == null) {
-            $user = User::create([
+            User::create([
                 'uid'      => $result['id'],
                 'name'     => $result['first_name'],
                 'surname'  => $result['surname'],
@@ -93,14 +93,6 @@ class ClientController extends Controller
                 'image'    => $result['photo_file_small'],
                 'password' => uniqid(),
             ]);
-
-            if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {
-                $user->role = 'super_admin';
-                $user->save();
-            } else if (Admin::where('uid', $result['id'])->where('role', 'admin')->exists()) {
-                $user->role = 'admin';
-                $user->save();
-            }
 
             \Auth::attempt(['uid' => $result['id'], 'email' => $result['email']]);
         } else {
@@ -118,12 +110,6 @@ class ClientController extends Controller
             }
             if ($user->image != $result['photo_file_small']) {
                 $user->image = $result['photo_file_small'];
-            }
-
-            if (in_array($result['id'], explode(',', env('SUPER_ADMINS'))) || Admin::where('uid', $result['id'])->where('role', 'super_admin')->exists()) {
-                $user->role = 'super_admin';
-            } else if (Admin::where('uid', $result['id'])->where('role', 'admin')->exists()) {
-                $user->role = 'admin';
             }
 
             $user->save();

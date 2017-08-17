@@ -108,7 +108,7 @@
                                 <td>{{$reservation->canceled_at == null ? '-' : date('d.m.Y H:i',strtotime($reservation->canceled_at))}}</td>
                                 <td>
                                     @if(date('Y-m-d H:i:s',strtotime($reservation->start,strtotime('- '.config('calendar.duration-for-edit').' minutes'))) > date('Y-m-d H:i:s'))
-                                        <a class="btn btn-danger btn-delete" href="{{action('Client\ClientController@postDeleteEvent')}}">{{trans('reservation-modal.delete')}}</a>
+                                        <a class="btn btn-danger btn-delete" href="{{action('Client\ClientController@getDeleteEvent',$reservation->id)}}">{{trans('reservation-modal.delete')}}</a>
                                     @endif
                                 </td>
                             </tr>
