@@ -39,6 +39,11 @@
                 @if(Auth::user()->isSuperAdmin())
                     <li><a href="{{action('Admin\SettingsController@index')}}"><i class="fa fa-fw fa-cogs"></i> Settings</a></li>
                 @endif
+
+                <li>
+                    <a href="{{route('log-viewer::logs.list')}}"><i
+                                class="fa fa-fw fa-history"></i> Logy</a>
+                </li>
             </ul>
         </div>
 

@@ -50,6 +50,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property int|null                  $console_id
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereConsoleId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereVisitorsCount($value)
+ * @property string|null $entered_at
+ * @property string|null $canceled_at
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation activeReservation()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation futureReservations()
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereCanceledAt($value)
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Reservation whereEnteredAt($value)
  */
 class Reservation extends Model
 {

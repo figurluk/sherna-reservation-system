@@ -43,6 +43,7 @@ use Illuminate\Notifications\Notifiable;
  * @method static \Illuminate\Database\Query\Builder|\App\Models\User withoutTrashed()
  * @property string|null                                                                                                    $image
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereImage($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reservation[] $reservations
  */
 class User extends Authenticatable
 {

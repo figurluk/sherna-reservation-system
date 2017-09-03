@@ -61,6 +61,7 @@ $controllerMethod = str_replace('App\\Http\\Controllers\\', '', substr(Route::cu
     </div>
 </div>
 
+@yield('modals')
 
 
 <!-- Scripts -->

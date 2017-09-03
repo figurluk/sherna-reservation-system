@@ -19,6 +19,8 @@ class APIController extends Controller
 
     public function checkReservation(Request $request)
     {
+        \Log::info(json_encode($request->all()));
+
         $this->validate($request, [
 
         ]);

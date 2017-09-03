@@ -39,3 +39,7 @@ Route::group(['before' => 'force.ssl'], function () {
     Route::get('/lang/{code}', 'Client\ClientController@changeLang');
     Route::get('/{code}', 'Client\ClientController@show');
 });
+
+Route::group(['before' => 'force.ssl', 'domain' => 'api.'.env('APP_DOMAIN')], function () {
+    Route::post('/', 'API\APIController@checkReservation');
+});
