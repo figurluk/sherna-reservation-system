@@ -5879,6 +5879,12 @@ body {
 textarea.form-control {
   resize: vertical;
 }
+
+.sherna-banner {
+  height: 400px;
+  background: url('/assets_client/img/sherna_dash.jpg') no-repeat scroll center;
+}
+
 .location_radio {
   display: inline-block;
   box-sizing: border-box;

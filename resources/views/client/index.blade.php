@@ -3,9 +3,9 @@
 
 @section('content')
 
-    <div class="jumbotron">
+    <div class="jumbotron sherna-banner">
         <div class="container">
-            <h1>{{trans('general.banner.title')}}</h1>
+{{--            <h1>{{trans('general.banner.title')}}</h1>--}}
         </div>
     </div>
 
