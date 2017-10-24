@@ -1,9 +1,8 @@
 {
-  "mix.js": "mix.js",
-  "../resources/assets/css/bootstrap.css": "../resources/assets/css/bootstrap.css",
-  "../resources/assets/css/admin.css": "../resources/assets/css/admin.css",
-  "../resources/assets/css/client.css": "../resources/assets/css/client.css",
-  "/css/admin.css": "/css/admin.css",
-  "/css/client.css": "/css/client.css",
-  "/js/app.js": "/js/app.js"
+    "/../resources/assets/css/bootstrap.css": "/../resources/assets/css/bootstrap.css",
+    "/../resources/assets/css/admin.css": "/../resources/assets/css/admin.css",
+    "/../resources/assets/css/client.css": "/../resources/assets/css/client.css",
+    "/css/admin.css": "/css/admin.css",
+    "/css/client.css": "/css/client.css",
+    "/js/app.js": "/js/app.js"
 }

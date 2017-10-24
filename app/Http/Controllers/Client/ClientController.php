@@ -27,8 +27,8 @@ class ClientController extends Controller
 
     public function index()
     {
-//        if (env('APP_ENV') == 'local' && !Auth::check())
-//            \Auth::loginUsingId(User::first()->id);
+        if (env('APP_ENV') == 'local' && !Auth::check())
+            \Auth::loginUsingId(User::first()->id);
         $page = Page::whereCode('domu')->first();
 
         return view('client.index', compact(['page']));

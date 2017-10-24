@@ -10,7 +10,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 		method: 'post',
 		url   : consolesURL,
 		data  : {
-			location: $('[name="location"]:checked').val(),
+			location: $('[name="location"]:checked').val()
 		}
 	}).success(function (data) {
 		if (data == 0) {
@@ -19,18 +19,18 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 		else {
 			$('#console_id').parent('div').removeClass('hidden');
 		}
-		
+
 		$('#console_id').empty();
 		$('#console_id').append(data);
-		
+
 		var selectedEventData = {};
-		
+
 		getActualUser(null, null, function () {
 			selectedEventData.title = App.trans('reservation-title') + actualUser.getName() + ' ' + actualUser.getSurname();
 			selectedEventData.uid   = actualUser.getUID()
 		});
-		
-		
+
+
 		var formDate = $(".form_datetime").datetimepicker({
 			language      : pickerLocale,
 			format        : "dd.mm.yyyy - hh:ii",
@@ -42,8 +42,8 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 			pickerPosition: "bottom-left",
 			minuteStep    : 15
 		});
-		
-		
+
+
 		var toDate = $(".to_datetime").datetimepicker({
 			language      : pickerLocale,
 			format        : "dd.mm.yyyy - hh:ii",
@@ -54,24 +54,24 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 			pickerPosition: "bottom-right",
 			minuteStep    : 15
 		});
-		
+
 		formDate.on('changeDate', function (ev) {
 			var value    = moment($(".form_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm').add(15, 'm');
 			var maxValue = moment(value.format('YYYY-MM-DD HH:mm')).add(maxeventduration, 'h').subtract(15, 'm');
-			
+
 			toDate.datetimepicker('setStartDate', value.format('YYYY-MM-DD HH:mm'));
 			toDate.datetimepicker('setEndDate', maxValue.format('YYYY-MM-DD HH:mm'));
 			toDate.val(null);
 			selectedEventData.start = moment($(".form_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm');
 		});
-		
-		
+
+
 		toDate.on('changeDate', function (ev) {
 			selectedEventData.end = moment($(".to_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm');
 		});
-		
+
 		saveReservation(selectedEventData);
-		
+
 	}).error(function (msg) {
 		App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
 		$('#console_id').parent('div').addClass('hidden');
@@ -79,39 +79,42 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 });
 
 $(document).ready(function () {
-	
+
 	$('#calendar').fullCalendar({
-		header      : {
+		header         : {
 			left  : 'prev,next today',
 			center: 'title',
 			right : 'agendaWeek,agendaDay'
 		},
-		views       : {
+		views          : {
 			agendaWeek: {
 				slotDuration: '00:15:00'
 			}
 		},
-		firstDay    : 1,
-		editable    : false,
-		columnFormat: 'ddd D.M.',
-		defaultDate : moment(new Date()).format('YYYY-MM-DD'),
-		defaultView : 'agendaWeek',
-		locale      : (locale == 'cz') ? 'cs' : locale,
-		titleFormat : 'D. MMMM YYYY',
-		navLinks    : true, // can click day/week names to navigate views
-		selectable  : false,
-		selectHelper: false,
-		select      : function (start, end) {
-			
+		firstDay       : 1,
+		editable       : false,
+		allDaySlot     : false,
+		timeFormat     : 'H:mm',
+		slotLabelFormat: "H:mm",
+		columnFormat   : 'ddd D.M.',
+		defaultDate    : moment(new Date()).format('YYYY-MM-DD'),
+		defaultView    : 'agendaWeek',
+		locale         : (locale == 'cz') ? 'cs' : locale,
+		titleFormat    : 'D. MMMM YYYY',
+		navLinks       : true, // can click day/week names to navigate views
+		selectable     : false,
+		selectHelper   : false,
+		select         : function (start, end) {
+
 			var correct = controlEventTimes(start, end);
 			if (!correct) {
 				return;
 			}
-			
+
 			var now               = moment();
 			var future_date_today = moment(now).add(durationforedit, 'm');
 			var future_date       = moment(now).add(reservationarea, 'days');
-			
+
 			if (start.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && end.isBefore(future_date.format('YYYY-MM-DD'))) {
 				createEvent(start, end);
 			}
@@ -120,9 +123,9 @@ $(document).ready(function () {
 				alert('You cannot reservate here.')
 			}
 		},
-		eventLimit  : true, // allow "more" link when too many events
-		eventOverlap: false,
-		eventSources: [
+		eventLimit     : true, // allow "more" link when too many events
+		eventOverlap   : false,
+		eventSources   : [
 			{
 				url    : eventsUrl,
 				type   : 'POST',
@@ -137,13 +140,13 @@ $(document).ready(function () {
 				overlap: false
 			}
 		],
-		eventClick  : function (event) {
+		eventClick     : function (event) {
 			$('#showReservationModal').modal('show');
 			$('#showReservationModal').on('shown.bs.modal', function (e) {
 				$('#showReservationModalLabel').text(event.title);
 				$('#start').text(event.start.format("DD.MM.YYYY HH:mm"));
 				$('#end').text(event.end.format("DD.MM.YYYY HH:mm"));
-				
+
 				if (event.editable) {
 					$('#deleteReservation').removeClass('hidden');
 					$('#deleteReservation').unbind();
@@ -167,21 +170,21 @@ $(document).ready(function () {
 			});
 			return true;
 		},
-		eventResize : function (event, delta, revertFunc) {
+		eventResize    : function (event, delta, revertFunc) {
 			updateEvent(event, revertFunc);
 		},
-		eventDrop   : function (event, delta, revertFunc) {
+		eventDrop      : function (event, delta, revertFunc) {
 			updateEvent(event, revertFunc);
 		},
-		eventAllow  : function (dropLocation, draggedEvent) {
+		eventAllow     : function (dropLocation, draggedEvent) {
 			var now               = moment();
 			var future_date_today = moment(now).add(durationforedit, 'm');
 			var future_date       = moment(now).add(reservationarea, 'days');
-			
+
 			//gmt fix
 			var dropStart = dropLocation.start;
 			dropStart     = dropStart.subtract(2, 'h');
-			
+
 			return dropStart.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && dropStart.isBefore(future_date.format('YYYY-MM-DD'));
 		}
 	});
@@ -230,13 +233,13 @@ function controlEventTimes(start, end) {
 function updateEvent(event, revertFunc) {
 	var start = event.start;
 	var end   = event.end;
-	
+
 	var correct = controlEventTimes(start, end);
 	if (!correct) {
 		revertFunc();
 		return;
 	}
-	
+
 	if (actualUser == null) {
 		getActualUser(event, revertFunc, updateEventAjax)
 	}
@@ -251,9 +254,9 @@ function getActualUser(param1, param2, callback) {
 		url   : userUrl,
 	}).success(function (data) {
 		data = JSON.parse(data);
-		
+
 		actualUser = new User(data['uid'], data['name'], data['surname']);
-		
+
 		if (callback != null) {
 			callback(param1, param2);
 		}
@@ -264,14 +267,14 @@ function getActualUser(param1, param2, callback) {
 }
 
 function createEventAjax(start, end) {
-	
+
 	var selectedEventData = {
 		title: App.trans('reservation-title') + actualUser.getName() + ' ' + actualUser.getSurname(),
 		start: start,
 		end  : end,
 		uid  : actualUser.getUID()
 	};
-	
+
 	$('#createReservationModal').on('shown.bs.modal', function (e) {
 		saveReservation(selectedEventData);
 	});
@@ -287,11 +290,11 @@ function createEvent(start, end) {
 }
 
 function saveReservation(selectedEventData) {
-	
+
 	$('#saveReservation').unbind();
 	$('#saveReservation').bind('click', function (ev) {
 		ev.preventDefault();
-		
+
 		var valid = true;
 		if (selectedEventData.start == null) {
 			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-start-date'));
@@ -304,13 +307,13 @@ function saveReservation(selectedEventData) {
 		if (!valid) {
 			return;
 		}
-		
+
 		var consoleID = null;
-		
+
 		if (!$('#console_id').parent('div').hasClass('hidden')) {
 			consoleID = $('#console_id').val();
 		}
-		
+
 		$.ajax({
 			method: 'POST',
 			url   : createEventUrl,
@@ -333,7 +336,7 @@ function saveReservation(selectedEventData) {
 			$('#createReservationModal').modal('hide');
 			$(".to_datetime").val(null);
 			$(".form_datetime").val(null);
-			
+
 			App.helpers.flash.create('success', App.trans('flashes.success_created'));
 		}).error(function (msg) {
 			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
@@ -348,21 +351,21 @@ $(document).on('change', '[name="location"]', function (ev) {
 });
 
 class User {
-	
+
 	constructor(uid, name, surname) {
 		this.uid     = uid;
 		this.name    = name;
 		this.surname = surname;
 	}
-	
+
 	getName() {
 		return this.name;
 	}
-	
+
 	getSurname() {
 		return this.surname;
 	}
-	
+
 	getUID() {
 		return this.uid;
 	}

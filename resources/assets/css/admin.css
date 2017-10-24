@@ -58,7 +58,8 @@ textarea.form-control {
 .twPc-avatarImg {
   border: 2px solid #fff;
   border-radius: 7px;
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: #fff;
   height: 72px;
   width: 72px;
@@ -79,7 +80,8 @@ textarea.form-control {
   padding: 10px 0;
 }
 .twPc-Arrange {
-  box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   display: table;
   margin: 0;
   min-width: 100%;
