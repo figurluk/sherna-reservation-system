@@ -3,7 +3,7 @@
         <a href="{{action('Admin\AdminController@index')}}" class="site_title">
             {{--<i class="fa fa-gamepad"></i>--}}
             <span>
-                <img src="{{asset('assets_client/img/logo.png')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+                <img src="{{asset('assets_client/img/logo.jpg')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
             </span>
         </a>
     </div>

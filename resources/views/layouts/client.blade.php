@@ -25,7 +25,7 @@
 	<link rel="icon" type="image/png" sizes="32x32" href="{{asset('favicon/favicon-32x32.png')}}">
 	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('favicon/favicon-96x96.png')}}">
 	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
-	<link rel="manifest" href="{{asset('favicon/manifest.json')}}">
+	<link rel="manifest" href="{{asset('manifest.json')}}">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="{{asset('favicon/ms-icon-144x144.png')}}">
 	<meta name="theme-color" content="#ffffff">
@@ -49,13 +49,26 @@
 
 @include('client.partials.footer')
 
-<script>
-	var systemLogo = '{{asset('assets_client/img/logo.png')}}';
+
+<script type="text/javascript">
+	var locale                       = "{{Session::get('lang')}}";
+	var pickerLocale                 = "{{Config::get('app.locale') =='cz' ? 'cs' : Config::get('app.locale')}}";
+	var userUrl                      = "{{action('Client\ClientController@postUserData')}}";
+	var createEventUrl               = "{{action('Client\ClientController@postCreateEvent')}}";
+	var updateEventUrl               = "{{action('Client\ClientController@postUpdateEvent')}}";
+	var deleteEventUrl               = "{{action('Client\ClientController@postDeleteEvent')}}";
+	var eventDataUrl                 = "{{action('Client\ClientController@postEvent')}}";
+	var eventsUrl                    = "{{action('Client\ClientController@postEvents')}}";
+	var myReservationColor           = '{{config('calendar.my-reservation.color')}}';
+	var myReservationBorderColor     = '{{config('calendar.my-reservation.border-color')}}';
+	var myReservationBackgroundColor = '{{config('calendar.my-reservation.background-color')}}';
+	var reservationarea              = '{{config('calendar.reservation-area')}}';
+	var durationforedit              = parseInt('{{config('calendar.duration-for-edit')}}');
+	var maxeventduration             = parseInt('{{config('calendar.max-duration')}}');
+	var consolesURL                  = '{{action('Client\ClientController@postConsoles')}}';
 </script>
 
-<script type="text/javascript" src="{{asset('js/jquery.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/bootstrap.js')}}"></script>
-<script type="text/javascript" src="{{asset('js/app.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/app.js')}}" charset="UTF-8"></script>
 
 @yield('scripts')
 </body>

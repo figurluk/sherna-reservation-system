@@ -39,7 +39,17 @@ exec('php artisan js:translate', function (err, stdout, stderr) {
 });
 
 mix.combine([
+	'resources/assets/js/jquery.js',
+	'resources/assets/js/bootstrap.js',
 	'resources/assets/js/jquery-ui.min.js',
+	'resources/assets/gentellela/vendors/moment/min/moment.min.js',
+	'resources/assets/gentellela/vendors/fullcalendar/dist/fullcalendar.min.js',
+	'resources/assets/gentellela/vendors/fullcalendar/dist/locale-all.js',
+	'resources/assets/js/datetimepicker/js/bootstrap-datetimepicker.js',
+	'resources/assets/js/datetimepicker/js/locales/bootstrap-datetimepicker.sk.js',
+	'resources/assets/js/datetimepicker/js/locales/bootstrap-datetimepicker.cs.js',
+	'resources/assets/js/reservation.js',
+	'resources/assets/js/renew-reservation.js',
 	'resources/assets/js/app.js',
 	'resources/assets/js/trans.js'
 ], 'public/js/app.js');

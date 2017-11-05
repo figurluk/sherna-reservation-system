@@ -171,35 +171,5 @@
 
 @section('scripts')
 	
-	@if($page->code=='rezervace')
-		<script type="text/javascript">
-			var locale                       = "{{Session::get('lang')}}";
-			var pickerLocale                 = "{{Config::get('app.locale') =='cz' ? 'cs' : Config::get('app.locale')}}";
-			var userUrl                      = "{{action('Client\ClientController@postUserData')}}";
-			var createEventUrl               = "{{action('Client\ClientController@postCreateEvent')}}";
-			var updateEventUrl               = "{{action('Client\ClientController@postUpdateEvent')}}";
-			var deleteEventUrl               = "{{action('Client\ClientController@postDeleteEvent')}}";
-			var eventsUrl                    = "{{action('Client\ClientController@postEvents')}}";
-			var myReservationColor           = '{{config('calendar.my-reservation.color')}}';
-			var myReservationBorderColor     = '{{config('calendar.my-reservation.border-color')}}';
-			var myReservationBackgroundColor = '{{config('calendar.my-reservation.background-color')}}';
-			var reservationarea              = '{{config('calendar.reservation-area')}}';
-			var durationforedit              = parseInt('{{config('calendar.duration-for-edit')}}');
-			var maxeventduration             = parseInt('{{config('calendar.max-duration')}}');
-			var consolesURL                  = '{{action('Client\ClientController@postConsoles')}}';
-		</script>
-		
-		{{--<script src="{{secure_asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>--}}
-		{{--<script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>--}}
-		{{--<script src="{{secure_asset('gentellela/vendors/fullcalendar/dist/locale-all.js')}}"></script>--}}
-		{{--<script src="{{secure_asset('js/reservation.js')}}"></script>--}}
-		<script src="{{asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>
-		<script src="{{asset('gentellela/vendors/fullcalendar/dist/fullcalendar.min.js')}}"></script>
-		<script src="{{asset('gentellela/vendors/fullcalendar/dist/locale-all.js')}}"></script>
-		{{--<script src="{{asset('assets_client/timepicker/js/bootstrap-clockpicker.min.js')}}"></script>--}}
-		<script src="{{asset('assets_client/datetimepicker/js/bootstrap-datetimepicker.js')}}"></script>
-		<script src="{{asset('assets_client/datetimepicker/js/locales/bootstrap-datetimepicker.'.(Config::get('app.locale') =='cz'?'cs.js':Config::get('app.locale').'.js'))}}"></script>
-		<script src="{{asset('js/reservation.js')}}"></script>
-	@endif
 
 @endsection

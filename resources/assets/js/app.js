@@ -1,11 +1,9 @@
 $('div.alert').not('.alert-important').delay(3000).fadeOut(350);
 
-$(function () {
-	$.ajaxSetup({
-		headers: {
-			'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
-		}
-	});
+$.ajaxSetup({
+	headers: {
+		'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+	}
 });
 
 
@@ -583,7 +581,7 @@ $(function () {
 				var footer = '<a href="ok" role="button" class="btn btn-success">' + App.lang[lang].ok + '</a>';
 
 				if (type != 'info') {
-					footer = '<a href="cancel" role="button" class="btn btn-default" data-dismiss="modal">' + App.lang[lang].cancel + '</a>' + footer;
+					footer = '<a href="cancel" role="button" class="btn btn-primary" data-dismiss="modal">' + App.lang[lang].cancel + '</a>' + footer;
 				}
 
 				var $modal =
@@ -609,7 +607,7 @@ $(function () {
 
 				$modal.on('hidden.bs.modal', function () {
 					$(this).remove();
-				})
+				});
 
 				return $modal;
 			}
@@ -652,11 +650,11 @@ $(function () {
 
 				var $flash = $(
 					'<div class="speech-container">' +
-						'<div class="speech speech-' + type + '">' +
-							'<p>' +
-								text +
-							'</p>' +
-						'</div>' +
+					'<div class="speech speech-' + type + '">' +
+					'<p>' +
+					text +
+					'</p>' +
+					'</div>' +
 					'</div>'
 				);
 

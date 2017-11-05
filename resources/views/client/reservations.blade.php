@@ -122,13 +122,13 @@
         </div>
     </div>
 
-    <div class="modal fade" id="createReservationModal" tabindex="-1" role="dialog" aria-labelledby="createReservationModalLabel">
+    <div class="modal fade" id="updateReservationModal" tabindex="-1" role="dialog" aria-labelledby="updateReservationModalLabel">
         <div class="modal-dialog" role="document">
             <form action="#" class="" method="post">
                 <div class="modal-content">
                     <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title" id="createReservationModalLabel">{{trans('reservation-modal.renew-title')}}</h4>
+                        <h4 class="modal-title" id="updateReservationModalLabel">{{trans('reservation-modal.renew-title')}}</h4>
                     </div>
                     <div class="modal-body">
 
@@ -155,24 +155,6 @@
 @endsection
 
 @section('scripts')
-
-    <script type="text/javascript">
-		var locale           = "{{Session::get('lang')}}";
-		var pickerLocale     = "{{Config::get('app.locale') =='cz' ? 'cs' : Config::get('app.locale')}}";
-		var eventDataUrl     = "{{action('Client\ClientController@postEvent')}}";
-		var userUrl          = "{{action('Client\ClientController@postUserData')}}";
-		var updateEventUrl   = "{{action('Client\ClientController@postUpdateEvent')}}";
-		var eventsUrl        = "{{action('Client\ClientController@postEvents')}}";
-		var reservationarea  = '{{config('calendar.reservation-area')}}';
-		var durationforedit  = parseInt('{{config('calendar.duration-for-edit')}}');
-		var maxeventduration = parseInt('{{config('calendar.max-duration')}}');
-		var consolesURL      = '{{action('Client\ClientController@postConsoles')}}';
-    </script>
-
-    <script src="{{asset('gentellela/vendors/moment/min/moment.min.js')}}"></script>
-    <script src="{{asset('assets_client/datetimepicker/js/bootstrap-datetimepicker.js')}}"></script>
-    <script src="{{asset('assets_client/datetimepicker/js/locales/bootstrap-datetimepicker.'.(Config::get('app.locale') =='cz'?'cs.js':Config::get('app.locale').'.js'))}}"></script>
-    <script src="{{asset('js/renew-reservation.js')}}"></script>
 
 @endsection
 
