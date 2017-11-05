@@ -7,6 +7,7 @@
  */
 
 return [
+	'your_reservations'   => 'Vaše rezervácie',
     'active_reservations' => 'Aktívne rezervácie',
     'location'            => 'Poloha',
     'canceled'            => 'Zrušené',

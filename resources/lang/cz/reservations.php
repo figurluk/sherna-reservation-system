@@ -7,11 +7,12 @@
  */
 
 return [
-    'active_reservations' => 'Aktivní rezervace',
-    'location'            => 'Poloha',
-    'canceled'            => 'Zrušeno',
-    'from_date'           => 'Datum od',
-    'to_date'             => 'Datum do',
-    'success_deleted'     => 'Rezervace úspěšne smazaná',
-    'success_renew'       => 'Rezervace úspěšne prodloužená'
+	'your_reservations'   => 'Vaše rezervace',
+	'active_reservations' => 'Aktivní rezervace',
+	'location'            => 'Poloha',
+	'canceled'            => 'Zrušeno',
+	'from_date'           => 'Datum od',
+	'to_date'             => 'Datum do',
+	'success_deleted'     => 'Rezervace úspěšne smazaná',
+	'success_renew'       => 'Rezervace úspěšne prodloužená',
 ];

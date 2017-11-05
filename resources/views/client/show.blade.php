@@ -21,10 +21,6 @@
 
 @section('content')
 	
-	{{--<div class="jumbotron sherna-jumbotron">--}}
-	{{--<img class="img-reponsive" src="{{asset('assets_client/img/sherna_dash.jpg')}}" alt="Banner image">--}}
-	{{--</div>--}}
-	
 	<div class="container">
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
@@ -105,11 +101,6 @@
 														class="text-danger">*</span></label>
 											<input name="to_date" class="form-control to_datetime" id="to_date"
 												   type="text">
-										</div>
-									</div>
-									<div class="row">
-										<div class="col-md-12">
-											<hr>
 										</div>
 									</div>
 									<div class="form-group">

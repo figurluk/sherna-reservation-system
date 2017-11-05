@@ -35,7 +35,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 			language      : pickerLocale,
 			format        : "dd.mm.yyyy - hh:ii",
 			autoclose     : true,
-			startDate     : moment().format('YYYY-MM-DD HH:mm'),
+			startDate     : moment().add(durationforedit, 'm').format('YYYY-MM-DD HH:mm'),
 			endDate       : moment().add(reservationarea, 'd').format('YYYY-MM-DD HH:mm'),
 			todayBtn      : true,
 			todayHighlight: false,
@@ -48,7 +48,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 			language      : pickerLocale,
 			format        : "dd.mm.yyyy - hh:ii",
 			autoclose     : true,
-			startDate     : moment().format('YYYY-MM-DD HH:mm'),
+			startDate     : moment().add(durationforedit * 2, 'm').format('YYYY-MM-DD HH:mm'),
 			todayBtn      : true,
 			todayHighlight: false,
 			pickerPosition: "bottom-right",
@@ -73,7 +73,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 		saveReservation(selectedEventData);
 
 	}).error(function (msg) {
-		App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
+		App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'), 'danger');
 		$('#console_id').parent('div').addClass('hidden');
 	})
 });
@@ -297,11 +297,11 @@ function saveReservation(selectedEventData) {
 
 		var valid = true;
 		if (selectedEventData.start == null) {
-			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-start-date'));
+			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-start-date'), 'danger');
 			valid = false;
 		}
 		else if (selectedEventData.end == null) {
-			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-to-date'));
+			App.helpers.alert.info(App.trans('not-filled'), App.trans('fill-to-date'), 'danger');
 			valid = false;
 		}
 		if (!valid) {
@@ -339,7 +339,7 @@ function saveReservation(selectedEventData) {
 
 			App.helpers.flash.create('success', App.trans('flashes.success_created'));
 		}).error(function (msg) {
-			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
+			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'), 'danger');
 			$('#calendar').fullCalendar('unselect');
 			reRenderCallendar();
 		})

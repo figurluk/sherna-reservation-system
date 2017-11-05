@@ -6,13 +6,13 @@
 
 @section('content')
 
-    <div class="jumbotron">
-        <div class="container">
-            <h1>{{trans('general.banner.title')}}</h1>
-        </div>
-    </div>
-
     <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h2>{{trans('reservations.your_reservations')}}</h2>
+            </div>
+        </div>
+        
         <div class="row">
             <div class="col-md-12 col-xs-12">
                 @if(count($activeReservations)>0)

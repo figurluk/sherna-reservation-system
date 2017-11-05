@@ -34,15 +34,17 @@
 </head>
 <body>
 
-<div id="flashes">
-	@include('client.partials.flash')
-</div>
-<div id="js-flashes"></div>
-
-@include('client.partials.navbar')
-
-<div class="content-wrapper">
-	@yield('content')
+<div id="body-container">
+	<div id="flashes">
+		@include('client.partials.flash')
+	</div>
+	<div id="js-flashes"></div>
+	
+	@include('client.partials.navbar')
+	
+	<div class="content-wrapper">
+		@yield('content')
+	</div>
 </div>
 
 @include('client.partials.footer')

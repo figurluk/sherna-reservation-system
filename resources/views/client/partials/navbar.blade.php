@@ -19,23 +19,23 @@
 					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
 					   aria-expanded="false">{{trans('general.navbar.about-project')}}</a>
 					<ul class="dropdown-menu">
-						<li class="{{$page->code=='o-sherne'?'active':''}}">
+						<li class="{{isset($page) && $page->code=='o-sherne'?'active':''}}">
 							<a href="{{action('Client\ClientController@show','o-sherne')}}">{{getName('o-sherne')}}</a>
 						</li>
-						<li class="{{$page->code=='clenove'?'active':''}}">
+						<li class="{{isset($page) && $page->code=='clenove'?'active':''}}">
 							<a href="{{action('Client\ClientController@show','clenove')}}">{{getName('clenove')}}</a>
 						</li>
-						<li class="{{$page->code=='vyrocni-spravy'?'active':''}}">
+						<li class="{{isset($page) && $page->code=='vyrocni-spravy'?'active':''}}">
 							<a href="{{action('Client\ClientController@show','vyrocni-spravy')}}">{{getName('vyrocni-spravy')}}</a>
 						</li>
 					</ul>
 				</li>
-				<li class="{{$page->code=='rezervace'?'active':''}}"><a
+				<li class="{{isset($page) && $page->code=='rezervace'?'active':''}}"><a
 							href="{{action('Client\ClientController@show','rezervace')}}">{{getName('rezervace')}}</a>
 				</li>
-				<li class="{{$page->code=='turnaje'?'active':''}}"><a
+				<li class="{{isset($page) && $page->code=='turnaje'?'active':''}}"><a
 							href="{{action('Client\ClientController@show','turnaje')}}">{{getName('turnaje')}}</a></li>
-				<li class="{{$page->code=='vybaveni'?'active':''}}"><a
+				<li class="{{isset($page) && $page->code=='vybaveni'?'active':''}}"><a
 							href="{{action('Client\ClientController@show','vybaveni')}}">{{getName('vybaveni')}}</a>
 				</li>
 				@if(Auth::check())
