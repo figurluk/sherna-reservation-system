@@ -11,6 +11,8 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
     Route::get('/home', 'Admin\AdminController@index');
     Route::get('/sumernote/getImage/{name}', 'Admin\AdminController@getImage');
     Route::post('/sumernote/saveImage', 'Admin\AdminController@saveImage');
+    
+	Route::post('/links/available', 'Admin\AdminController@links');
 
     Route::group(['prefix' => 'reservations'], function () {
         Route::get('/', 'Admin\ReservationsController@index');
@@ -80,6 +82,7 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
         Route::post('/status/store', 'Admin\LocationsController@storeStatus');
         Route::post('/status/update/{id}', 'Admin\LocationsController@updateStatus');
     });
+    
     Route::group(['prefix' => 'users'], function () {
         Route::get('/', 'Admin\UsersController@index');
         Route::get('/create', 'Admin\UsersController@create');
@@ -88,12 +91,14 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
         Route::post('/update/{id}', 'Admin\UsersController@update');
         Route::post('/delete/{id}', 'Admin\UsersController@delete');
     });
+    
     Route::group(['prefix' => 'admins'], function () {
         Route::get('/', 'Admin\AdminsController@index');
         Route::get('/create', 'Admin\AdminsController@create');
         Route::post('/store', 'Admin\AdminsController@store');
         Route::post('/delete/{id}', 'Admin\AdminsController@delete');
     });
+    
     Route::group(['prefix' => 'contests'], function () {
         Route::get('/', 'Admin\ContestController@index');
         Route::get('/create', 'Admin\ContestController@create');
@@ -102,6 +107,13 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
         Route::post('/update/{id}', 'Admin\ContestController@update');
         Route::post('/delete/{id}', 'Admin\ContestController@delete');
     });
+	
+	Route::group(['prefix' => 'docs'], function () {
+		Route::get('/', 'Admin\DocController@index');
+		Route::post('/upload', 'Admin\DocController@upload');
+		Route::get('/{path}', 'Admin\DocController@delete');
+	});
+    
     Route::group(['prefix' => 'settings'], function () {
         Route::get('/', 'Admin\SettingsController@index');
         Route::post('/update', 'Admin\SettingsController@update');

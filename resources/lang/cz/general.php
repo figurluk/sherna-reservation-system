@@ -22,4 +22,7 @@ return [
 						aktivní síťové členství. Můžete si zde zahrát hry na PlayStation 4 Pro - virtuální reality,
 						ovladače, Xbox 360 a PlayStation2. K dispozici je i počítač s řadou emulátorů pro hry DOS.',
 	],
+	'content'=>[
+		'games'=>'Hry'
+	]
 ];

@@ -16,7 +16,7 @@ return [
     'cancel'         => 'Zrušit',
     'delete'         => 'Smazat',
     'visitors_count' => 'Počet účastníků',
-    'console'        => 'Konzola',
+    'console'        => 'Konzole',
     'from_date'      => 'Datum od',
     'from_time'      => 'Čas od',
     'to_date'        => 'Datum do',

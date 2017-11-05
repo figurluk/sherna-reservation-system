@@ -22,6 +22,23 @@
 @section('content')
 	
 	<div class="container">
+		
+		@if($page->code=='vybaveni')
+			<div class="row">
+				<div class="col-md-12">
+					<h2>
+						{{trans('general.content.games')}}
+					</h2>
+					
+					<ul>
+						@foreach(\App\Models\Game::orderBy('name','asc')->get() as $game)
+							<li>{{$game->name}} ({{$game->consoleType->name}})</li>
+						@endforeach
+					</ul>
+				</div>
+			</div>
+		@endif
+		
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 				{!! $page->pageText()->ofLang(Config::get('app.locale'))->first()->content !!}
@@ -170,6 +187,6 @@
 
 
 @section('scripts')
-	
+
 
 @endsection

@@ -15,11 +15,9 @@ return [
         'login'         => 'Login via IS'
     ],
 	'footer' => [
-		'text' => 'SHerna je projekt pod klubem Silicon Hill, který sídlí na kolejích Strahov. V současné době je
-						projekt rozprostřen mezi dvě místnosti. Jedna se nachází na bloku 4 - 3. mezipatro a druhá na
-						bloku 6 - 3. mezipatro (v rekonstrukci).
-						Místnosti projektu mohou využívat členové klubu Silicon Hill zdarma. Jedinou podmínkou je mít
-						aktivní síťové členství. Můžete si zde zahrát hry na PlayStation 4 Pro - virtuální reality,
-						ovladače, Xbox 360 a PlayStation2. K dispozici je i počítač s řadou emulátorů pro hry DOS.',
+		'text' => 'SHerna is a project under the club Silicon Hill, which is located in Strahov dormitory. At present the project is spread between two rooms. One is located on block 4 - 3rd mezzanine and the second one on block 6 - 3rd mezzanine. Project rooms can be used by Silicon Hill members and it\'s for free. The only condition is to have active network membership. You can play her PlayStation 4 Pro games (Virtual Reality, gamepad, move controlers) Xbox 360 and PlayStation 2. There is also a computer with a series of emulators for DOS games.',
 	],
+	'content'=>[
+		'games'=>'Games'
+	]
 ];

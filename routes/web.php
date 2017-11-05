@@ -34,7 +34,7 @@ Route::group(['before' => 'force.ssl'], function () {
         Route::post('/reservation/check', 'API\APIController@checkReservation');
     });
 
-    Route::get('/user/reservations', 'Client\ClientController@getReservations');
+    Route::get('/uzivatel/rezervace', 'Client\ClientController@getReservations');
 
     Route::get('/lang/{code}', 'Client\ClientController@changeLang');
     Route::get('/{code}', 'Client\ClientController@show');

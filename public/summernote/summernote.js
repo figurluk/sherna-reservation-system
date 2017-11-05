@@ -5774,7 +5774,7 @@
                 '</div>' +
                 (!options.disableLinkTarget ?
                     '<div class="checkbox">' +
-                    '<label>' + '<input class="js-switch" data-size="small" type="checkbox"> ' + lang.link.openInNewWindow + '</label>' +
+                    '<label>' + '<input class="" data-size="small" type="checkbox"> ' + lang.link.openInNewWindow + '</label>' +
                     '</div>' : ''
                 );
             var footer = '<button href="#" class="btn btn-primary note-link-btn disabled" disabled>' + lang.link.insert + '</button>';
@@ -5806,72 +5806,145 @@
          * @param {Object} linkInfo
          * @return {Promise}
          */
-        this.showLinkDialog = function (linkInfo) {
-            return $.Deferred(function (deferred) {
-                var $linkText = self.$dialog.find('.note-link-text'),
-                    $linkUrl = self.$dialog.find('.note-link-url'),
-                    $linkBtn = self.$dialog.find('.note-link-btn'),
-                    $openInNewWindow = self.$dialog.find('input[type=checkbox]');
+		this.showLinkDialog = function (linkInfo) {
+			return $.Deferred(function (deferred) {
+				var $linkText = self.$dialog.find('.note-link-text'),
+					$linkUrl = self.$dialog.find('.note-link-url'),
+					$linkBtn = self.$dialog.find('.note-link-btn'),
+					$openInNewWindow = self.$dialog.find('input[type=checkbox]');
 
-                ui.onDialogShown(self.$dialog, function () {
-                    context.triggerEvent('dialog.shown');
+				ui.onDialogShown(self.$dialog, function () {
+					context.triggerEvent('dialog.shown');
 
-                    $linkText.val(linkInfo.text);
+					$linkText.val(linkInfo.text);
 
-                    $linkText.on('input', function () {
-                        ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
-                        // if linktext was modified by keyup,
-                        // stop cloning text from linkUrl
-                        linkInfo.text = $linkText.val();
-                    });
+					$linkText.on('input', function () {
+						ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
+						// if linktext was modified by keyup,
+						// stop cloning text from linkUrl
+						linkInfo.text = $linkText.val();
+					});
 
-                    // if no url was given, copy text to url
-                    if (!linkInfo.url) {
-                        linkInfo.url = linkInfo.text || 'http://';
-                        ui.toggleBtn($linkBtn, linkInfo.text);
-                    }
+					// if no url was given, copy text to url
+					if (!linkInfo.url) {
+						linkInfo.url = linkInfo.text || 'http://';
+						ui.toggleBtn($linkBtn, linkInfo.text);
+					}
 
-                    $linkUrl.on('input', function () {
-                        ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
-                        // display same link on `Text to display` input
-                        // when create a new link
-                        if (!linkInfo.text) {
-                            $linkText.val($linkUrl.val());
-                        }
-                    }).val(linkInfo.url).trigger('focus');
+					$linkUrl.on('input', function () {
+						ui.toggleBtn($linkBtn, $linkText.val() && $linkUrl.val());
+						// display same link on `Text to display` input
+						// when create a new link
+						if (!linkInfo.text) {
+							$linkText.val($linkUrl.val());
+						}
+					}).val(linkInfo.url).trigger('focus');
 
-                    self.bindEnterKey($linkUrl, $linkBtn);
-                    self.bindEnterKey($linkText, $linkBtn);
+					self.bindEnterKey($linkUrl, $linkBtn);
+					self.bindEnterKey($linkText, $linkBtn);
 
-                    $openInNewWindow.prop('checked', linkInfo.isNewWindow);
+					$openInNewWindow.prop('checked', linkInfo.isNewWindow);
 
-                    $linkBtn.one('click', function (event) {
-                        event.preventDefault();
+					$linkBtn.one('click', function (event) {
+						event.preventDefault();
 
-                        deferred.resolve({
-                            range: linkInfo.range,
-                            url: $linkUrl.val(),
-                            text: $linkText.val(),
-                            isNewWindow: $openInNewWindow.is(':checked')
-                        });
-                        self.$dialog.modal('hide');
-                    });
-                });
+						deferred.resolve({
+							range: linkInfo.range,
+							url: $linkUrl.val(),
+							text: $linkText.val(),
+							isNewWindow: $openInNewWindow.is(':checked')
+						});
+						self.$dialog.modal('hide');
+					});
 
-                ui.onDialogHidden(self.$dialog, function () {
-                    // detach events
-                    $linkText.off('input keypress');
-                    $linkUrl.off('input keypress');
-                    $linkBtn.off('click');
+					self.$dialog.find('.modal-body').find('#links-div').remove();
 
-                    if (deferred.state() === 'pending') {
-                        deferred.reject();
-                    }
-                });
+					var $tabs = "<div id='links-div'>\n" +
+						"  <ul class=\"nav nav-tabs\" role=\"tablist\">\n" +
+						"    <li role=\"presentation\" class=\"active\"><a href=\"#docs\" aria-controls=\"docs\" role=\"tab\" data-toggle=\"tab\">Dokumenty</a></li>\n" +
+						"    <li role=\"presentation\"><a href=\"#subpages\" aria-controls=\"subpages\" role=\"tab\" data-toggle=\"tab\">Podstránky</a></li>\n" +
+						"  </ul>\n" +
+						"\n" +
+						"  <!-- Tab panes -->\n" +
+						"  <div class=\"tab-content\">\n" +
+						"    <div role=\"tabpanel\" class=\"tab-pane active\" id=\"docs\"><br><ul></ul></div>\n" +
+						"    <div role=\"tabpanel\" class=\"tab-pane\" id=\"subpages\"><br><ul></ul></div>\n" +
+						"  </div>\n" +
+						"\n" +
+						"<hr></div>";
 
-                ui.showDialog(self.$dialog);
-            }).promise();
-        };
+					$.ajax({
+						method: 'post',
+						url: window.location.protocol + "//" + window.location.host + "/admin/links/available",
+						success: function (data) {
+							var $modal = self.$dialog.find('.modal-body');
+
+							$modal.prepend($tabs);
+
+							var $docsLinks = $modal.find('#docs ul');
+							var $subpagesLinks = $modal.find('#subpages ul');
+
+							$docsLinks.empty();
+
+							$.each(data['docs'], function (index, value) {
+								$docsLinks.append('<li><a href="#" class="select-file" data-doc="' + value + '">' + value + '</a></li>');
+							});
+
+							$subpagesLinks.empty();
+
+							$.each(data['subpages'], function (index, value) {
+								$subpagesLinks.append('<li><a href="#" class="select-subpage" data-subpage="' + value['code'] + '">' + value['name'] + '</a></li>');
+							});
+
+							$modal.find('.select-file').on('click', function (ev) {
+								ev.preventDefault();
+
+								if ($linkText.val() == '') {
+									$linkText.val($(ev.target).attr('data-doc'));
+								}
+
+								$linkUrl.val(window.location.protocol + "//" + window.location.host + "/docs/" + $(ev.target).attr('data-doc'));
+								$linkBtn.prop('disabled', false);
+								$linkBtn.removeClass('disabled');
+							});
+
+							$modal.find('.select-subpage').on('click', function (ev) {
+								ev.preventDefault();
+
+								if ($linkText.val() == '') {
+									$linkText.val($(ev.target).attr('data-subpage'));
+								}
+
+								$linkUrl.val(window.location.protocol + "//" + window.location.host + "/" + $(ev.target).attr('data-subpage'));
+								$linkBtn.prop('disabled', false);
+								$linkBtn.removeClass('disabled');
+							});
+						},
+						error: function (msg) {
+						}
+					});
+
+					if ($linkText.val() != '' && $linkUrl.val() != '') {
+						$linkBtn.prop('disabled', false);
+						$linkBtn.removeClass('disabled');
+					}
+				});
+
+
+				ui.onDialogHidden(self.$dialog, function () {
+					// detach events
+					$linkText.off('input keypress');
+					$linkUrl.off('input keypress');
+					$linkBtn.off('click');
+
+					if (deferred.state() === 'pending') {
+						deferred.reject();
+					}
+				});
+
+				ui.showDialog(self.$dialog);
+			}).promise();
+		};
 
         /**
          * @param {Object} layoutInfo

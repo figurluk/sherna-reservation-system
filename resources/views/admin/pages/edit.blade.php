@@ -74,6 +74,16 @@
 			$(".input-info[data-langID='" + $(we.target).attr('data-langID') + "']").val(contents);
 		});
 
+		$('.summernote').summernote({
+			callbacks: {
+				onPaste: function (e) {
+					var bufferText = ((e.originalEvent || e).clipboardData || window.clipboardData).getData('Text');
+					e.preventDefault();
+					document.execCommand('insertText', false, bufferText);
+				}
+			}
+		});
+
         @foreach(\App\Models\Language::all() as $lang)
 		if ($(".input-info[data-langID='{{$lang->id}}']").val() != '') {
 			$(".summernote[data-langID='{{$lang->id}}']").summernote('code', $(".input-info[data-langID='{{$lang->id}}']").val());

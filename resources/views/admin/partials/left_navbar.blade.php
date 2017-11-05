@@ -17,6 +17,7 @@
             <h3>Administration</h3>
             <ul class="nav side-menu">
                 <li><a href="{{action('Admin\PagesController@index')}}"><i class="fa fa-fw fa-file-text-o"></i> Pages</a></li>
+                <li><a href="{{action('Admin\DocController@index')}}"><i class="fa fa-fw fa-file"></i> Documents</a></li>
                 <li><a href="{{action('Admin\ReservationsController@index')}}"><i class="fa fa-fw fa-address-card"></i> Reservations</a></li>
                 @if(Auth::user()->isSuperAdmin())
                     <li><a><i class="fa fa-fw fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>

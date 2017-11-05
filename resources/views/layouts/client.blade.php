@@ -30,6 +30,8 @@
 	<meta name="msapplication-TileImage" content="{{asset('favicon/ms-icon-144x144.png')}}">
 	<meta name="theme-color" content="#ffffff">
 	
+	<meta name="description" content="{{trans('general.footer.text')}}">
+	
 	@yield('styles')
 </head>
 <body>
