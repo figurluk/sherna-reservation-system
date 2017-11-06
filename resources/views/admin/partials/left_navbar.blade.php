@@ -1,9 +1,11 @@
 <div class="left_col scroll-view">
     <div class="navbar nav_title" style="border: 0;">
         <a href="{{action('Admin\AdminController@index')}}" class="site_title">
-            {{--<i class="fa fa-gamepad"></i>--}}
-            <span>
-                <img src="{{asset('assets_client/img/logo.jpg')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+            <small class="small-icon-head">
+                <img src="{{asset('favicon/ms-icon-310x310.png')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+            </small>
+            <span class="big-icon-head">
+                <img src="{{asset('assets_admin/img/logo.png')}}" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
             </span>
         </a>
     </div>

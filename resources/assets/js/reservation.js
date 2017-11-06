@@ -188,6 +188,9 @@ $(document).ready(function () {
 			return dropStart.isAfter(future_date_today.format('YYYY-MM-DD HH:mm')) && dropStart.isBefore(future_date.format('YYYY-MM-DD'));
 		}
 	});
+
+	$('.fc-button').addClass('btn btn-primary').removeClass('fc-button').removeClass('fc-button fc-state-default');
+	$('.fc-button-group').addClass('btn-group').removeClass('fc-button-group').attr('data-toggle','buttons');
 });
 
 function reRenderCallendar() {

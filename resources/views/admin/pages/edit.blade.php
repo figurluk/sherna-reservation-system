@@ -65,7 +65,7 @@
 		var imageUploadUrlSum = "{{action('Admin\AdminController@saveImage')}}";
 
 		$('.summernote').summernote({
-			height: 200,
+			height: 400,
 			lang: 'sk-SK'
 		});
 

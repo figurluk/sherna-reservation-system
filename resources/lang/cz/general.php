@@ -12,6 +12,7 @@ return [
 	],
 	'navbar' => [
 		'about-project' => 'O projektu',
+		'foto'          => 'Fotogalerie',
 		'login'         => 'Přihlásit přes IS',
 	],
 	'footer' => [

@@ -57,8 +57,9 @@
 							<input id="location{{$location->id}}" type="radio" name="location"
 								   value="{{$location->id}}"
 								   autocomplete="off" {{!$location->status->opened ? 'disabled':''}} {{$location->status->opened?'checked="checked"':''}}>
-							<label for="location{{$location->id}}"><i
-										class="fa fa-building"></i> {{$location->name}}
+							<label for="location{{$location->id}}">
+								<i class="location-state {{$location->status->opened ?'opened':'closed'}}">{{$location->status->name}}</i>
+								<i class="fa fa-building"></i> {{$location->name}}
 							</label>
 						</p>
 					</div>
