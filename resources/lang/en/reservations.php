@@ -8,6 +8,7 @@
 
 return [
 	'your_reservations'   => 'Your reservations',
+	'your_badges'   => 'Your badges',
     'active_reservations' => 'Active reservations',
     'location'            => 'Location',
     'canceled'            => 'Canceled',

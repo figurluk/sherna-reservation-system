@@ -18,9 +18,11 @@
 							<th>Name</th>
 							<th>Surname</th>
 							<th>Email</th>
+							<th>Badges</th>
 							@if(Auth::user()->isSuperAdmin())
 								<th>Level</th>
 							@endif
+							<th></th>
 						</tr>
 						</thead>
 						<tbody>
@@ -30,6 +32,11 @@
 								<td>{{$user->name}}</td>
 								<td>{{$user->surname}}</td>
 								<td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
+								<td>
+									@foreach($user->badges as $badge)
+										<span class="label label-primary">{{$badge->name}}</span><br>
+									@endforeach
+								</td>
 								@if(Auth::user()->isSuperAdmin())
 									<td>
 										<form action="{{action('Admin\AdminsController@store')}}" class="form-inline"
@@ -54,6 +61,11 @@
 										</form>
 									</td>
 								@endif
+								<td>
+									<a class="btn btn-primary"
+									   href="{{action('Admin\UsersController@editBadges',$user->id)}}"><i
+												class="fa fa-id-badge"></i></a>
+								</td>
 							</tr>
 						@endforeach
 						</tbody>

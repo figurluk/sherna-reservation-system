@@ -26,4 +26,6 @@ return [
 	'content' => [
 		'games' => 'Hry',
 	],
+	'opened'  => 'otvorené',
+	'closed'  => 'zatvorené',
 ];

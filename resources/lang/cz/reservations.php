@@ -8,6 +8,7 @@
 
 return [
 	'your_reservations'   => 'Vaše rezervace',
+	'your_badges'   => 'Vaše odznaky',
 	'active_reservations' => 'Aktivní rezervace',
 	'location'            => 'Poloha',
 	'canceled'            => 'Zrušeno',

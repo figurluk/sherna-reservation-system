@@ -52,6 +52,9 @@
 							<li>
 								<a href="{{action('Client\ClientController@getReservations')}}">{{trans('navbar.my_reservations')}}</a>
 							</li>
+							<li>
+								<a href="{{action('Client\ClientController@getBadges')}}">{{trans('navbar.my_badges')}}</a>
+							</li>
 							<li><a href="{{action('Client\ClientController@getLogout')}}">{{trans('navbar.logout')}}</a>
 							</li>
 							

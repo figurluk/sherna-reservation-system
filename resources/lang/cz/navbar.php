@@ -8,5 +8,6 @@
 
 return [
     'my_reservations' => 'Moje rezervace',
+	'my_badges'       => 'Moje odznaky',
     'logout'          => 'Odhlašení',
 ];

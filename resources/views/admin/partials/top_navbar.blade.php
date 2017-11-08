@@ -38,6 +38,9 @@
                     </li>
                 </ul>
             </li>
+            <li>
+                <a href="{{action('Client\ClientController@index')}}"><i class="fa fa-globe"></i></a>
+            </li>
         </ul>
     </nav>
 </div>

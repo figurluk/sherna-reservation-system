@@ -58,7 +58,7 @@
 								   value="{{$location->id}}"
 								   autocomplete="off" {{!$location->status->opened ? 'disabled':''}} {{$location->status->opened?'checked="checked"':''}}>
 							<label for="location{{$location->id}}">
-								<i class="location-state {{$location->status->opened ?'opened':'closed'}}">{{$location->status->name}}</i>
+								<i class="location-state {{$location->status->opened ?'opened':'closed'}}">{{$location->status->opened ?trans('general.opened'):trans('general.closed')}}</i>
 								<i class="fa fa-building"></i> {{$location->name}}
 							</label>
 						</p>

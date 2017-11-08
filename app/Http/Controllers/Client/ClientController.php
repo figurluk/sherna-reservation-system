@@ -332,6 +332,11 @@ class ClientController extends Controller
 		return view('client.reservations', compact('reservations', 'activeReservations'));
 	}
 	
+	public function getBadges()
+	{
+		return view('client.badges');
+	}
+	
 	public function postEvent( Request $request )
 	{
 		$reservation = Reservation::find($request->reservationID);

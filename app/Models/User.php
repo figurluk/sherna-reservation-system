@@ -44,6 +44,7 @@ use Illuminate\Notifications\Notifiable;
  * @property string|null                                                                                                    $image
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereImage($value)
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Reservation[] $reservations
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Badge[] $badges
  */
 class User extends Authenticatable
 {
@@ -90,4 +91,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Reservation::class, 'tenant_uid', 'uid');
     }
+	
+	public function badges()
+	{
+		return $this->belongsToMany(Badge::class, 'sherna_badges_users');
+	}
 }

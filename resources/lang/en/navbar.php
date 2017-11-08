@@ -7,6 +7,7 @@
  */
 
 return [
-    'my_reservations' => 'My reservations',
-    'logout'          => 'Log out',
+	'my_reservations' => 'My reservations',
+	'my_badges'       => 'My badges',
+	'logout'          => 'Log out',
 ];

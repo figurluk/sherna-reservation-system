@@ -21,4 +21,6 @@ return [
 	'content' => [
 		'games' => 'Games',
 	],
+	'opened'  => 'opened',
+	'closed'  => 'closed',
 ];

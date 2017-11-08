@@ -35,6 +35,7 @@ Route::group(['before' => 'force.ssl'], function () {
     });
 
     Route::get('/uzivatel/rezervace', 'Client\ClientController@getReservations');
+	Route::get('/uzivatel/odznaky', 'Client\ClientController@getBadges');
 
     Route::get('/lang/{code}', 'Client\ClientController@changeLang');
     Route::get('/{code}', 'Client\ClientController@show');
