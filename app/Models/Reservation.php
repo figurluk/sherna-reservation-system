@@ -65,7 +65,6 @@ class Reservation extends Model
     protected $dates = ['deleted_at'];
     protected $fillable = [
         'location_id',
-        'console_id',
         'tenant_uid',
         'entered_at',
         'canceled_at',
@@ -78,11 +77,6 @@ class Reservation extends Model
     public function owner()
     {
         return $this->belongsTo(User::class, 'tenant_uid', 'uid');
-    }
-
-    public function console()
-    {
-        return $this->belongsTo(Console::class, 'console_id', 'id');
     }
 
     public function scopeActiveReservation($query)

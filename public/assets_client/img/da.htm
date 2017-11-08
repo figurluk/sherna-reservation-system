@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)http://sherna.dev/admin/reservations/edit/1 -->
+<html lang="cz" class=" "><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	
+	<!-- CSRF Token -->
+	<meta name="csrf-token" content="w9AINtjWpaCV1z2awS7QwIYZWl2a4I6pHqA1bFLN">
+	
+	<title>SHerna | Admin</title>
+	
+	<link rel="apple-touch-icon" sizes="57x57" href="http://sherna.dev/favicon/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="http://sherna.dev/favicon/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="http://sherna.dev/favicon/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="http://sherna.dev/favicon/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="http://sherna.dev/favicon/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="http://sherna.dev/favicon/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="http://sherna.dev/favicon/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="http://sherna.dev/favicon/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="http://sherna.dev/favicon/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192" href="http://sherna.dev/favicon/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="http://sherna.dev/favicon/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="http://sherna.dev/favicon/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="http://sherna.dev/favicon/favicon-16x16.png">
+	<link rel="manifest" href="http://sherna.dev/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="http://sherna.dev/favicon/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	
+	<!-- Styles -->
+	<link href="./da_files/admin.css" rel="stylesheet">
+	<link href="./da_files/custom.css" rel="stylesheet">
+	
+	<!-- Scripts -->
+	<script>
+		window.Laravel = {"csrfToken":"w9AINtjWpaCV1z2awS7QwIYZWl2a4I6pHqA1bFLN"};
+	</script>
+	
+	    <link href="./da_files/bootstrap-datetimepicker.min.css" rel="stylesheet">
+</head>
+
+
+<body class="nav-md">
+<div class="nprogress-mask"></div>
+<div class="container body">
+	
+	<div class="main_container">
+		<div class="col-md-3 left_col menu_fixed">
+			<div class="left_col scroll-view">
+    <div class="navbar nav_title" style="border: 0;">
+        <a href="http://sherna.dev/admin/home" class="site_title">
+            <small class="small-icon-head">
+                <img src="./da_files/ms-icon-310x310.png" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+            </small>
+            <span class="big-icon-head">
+                <img src="./da_files/logo.png" alt="SHerna logo" style="height: 100%; padding-bottom: 10px">
+            </span>
+        </a>
+    </div>
+
+    <div class="clearfix"></div>
+    <br>
+
+    <!-- sidebar menu -->
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <div class="menu_section">
+            <h3>Administration</h3>
+            <ul class="nav side-menu">
+                <li><a href="http://sherna.dev/admin/pages"><i class="fa fa-fw fa-file-text-o"></i> Pages</a></li>
+                <li><a href="http://sherna.dev/admin/docs"><i class="fa fa-fw fa-file"></i> Documents</a></li>
+                <li><a href="http://sherna.dev/admin/reservations"><i class="fa fa-fw fa-address-card"></i> Reservations</a></li>
+                                    <li><a><i class="fa fa-fw fa-users"></i> Users <span class="fa fa-chevron-down"></span></a>
+                        <ul class="nav child_menu">
+                            <li><a href="http://sherna.dev/admin/users"><i class="fa fa-fw fa-users"></i> Users</a></li>
+                            <li><a href="http://sherna.dev/admin/admins"><i class="fa fa-fw fa-user-secret"></i> Admins</a></li>
+                        </ul>
+                    </li>
+                
+                <li><a href="http://sherna.dev/admin/badges"><i class="fa fa-fw fa-id-badge"></i> Badges</a></li>
+                <li><a href="http://sherna.dev/admin/locations"><i class="fa fa-fw fa-map-marker"></i> Locations</a></li>
+                <li><a href="http://sherna.dev/admin/games"><i class="fa fa-fw fa-soccer-ball-o"></i> Games</a></li>
+                <li><a href="http://sherna.dev/admin/consoles"><i class="fa fa-fw fa-gamepad"></i> Consoles</a></li>
+                <li><a href="http://sherna.dev/admin/inventory"><i class="fa fa-fw fa-cubes"></i> Inventory</a></li>
+                <li><a href="http://sherna.dev/admin/contests"><i class="fa fa-fw fa-sitemap"></i> Contests</a></li>
+
+                                    <li><a href="http://sherna.dev/admin/settings"><i class="fa fa-fw fa-cogs"></i> Settings</a></li>
+                
+                <li>
+                    <a href="http://sherna.dev/admin/log-viewer/logs"><i class="fa fa-fw fa-history"></i> Logy</a>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <!-- /sidebar menu -->
+</div>		</div>
+		
+		<!-- top navigation -->
+		<div class="top_nav">
+			<div class="nav_menu">
+    <nav class="" role="navigation">
+        <div class="nav toggle">
+            <a id="menu_toggle"><i class="fa fa-bars"></i></a>
+        </div>
+
+        <ul class="nav navbar-nav navbar-right">
+            <li class="">
+                <a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                    admin admin
+                    <span class=" fa fa-angle-down"></span>
+                </a>
+                <ul class="dropdown-menu dropdown-usermenu pull-right">
+                    <li><a href="http://sherna.dev/logout"><i class="fa fa-sign-out pull-right"></i> Odhlásiť</a></li>
+                </ul>
+            </li>
+            <li role="presentation" class="dropdown">
+                <a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+                    <i class="fa fa-address-card"></i>
+                    <span class="badge bg-green">0</span>
+                </a>
+                <ul id="menu1" class="dropdown-menu list-unstyled msg_list" role="menu">
+                                        <li>
+                        <div class="text-center">
+                            <a href="http://sherna.dev/admin/reservations">
+                                <strong>Všetky registrácie</strong>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
+            </li>
+            <li>
+                <a href="http://sherna.dev/"><i class="fa fa-globe"></i></a>
+            </li>
+        </ul>
+    </nav>
+</div>		</div>
+		<!-- /top navigation -->
+		
+		<!-- page content -->
+		<div class="right_col" role="main" style="min-height: 732px;">
+						    
+    <form action="http://sherna.dev/admin/reservations/update/1" class="" method="post">
+        <input type="hidden" name="_token" value="w9AINtjWpaCV1z2awS7QwIYZWl2a4I6pHqA1bFLN">
+        <div class="row">
+            <div class="col-md-12">
+                
+                                
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Create reservation</h2>
+                        <div class="pull-right">
+                            <button type="submit" class="btn btn-success"><i class="fa fa-floppy-o"></i></button>
+                            <a href="http://sherna.dev/admin/reservations" class="btn btn-primary"><i class="fa fa-arrow-left"></i></a>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label for="from_date" class="control-label">From<span class="text-danger">*</span></label>
+                                        <input name="from_date" class="form-control form_datetime" id="from_date" type="text" value="2017-11-08 22:16:00">
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label for="to_date" class="control-label">To<span class="text-danger">*</span></label>
+                                        <input name="to_date" class="form-control to_datetime" id="to_date" type="text" value="2017-11-16 22:30:00">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="visitors_count" class="control-label">Location</label>
+                                <select name="location" id="" class="form-control">
+                                                                            <option value="1" selected="">Blok 4</option>
+                                                                            <option value="2">Blok 6</option>
+                                                                    </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="visitors_count" class="control-label">Count of visitors</label>
+                                <input type="number" class="form-control" name="visitors_count" id="visitors_count" value="">
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="note" class="control-label">Note</label>
+                                <textarea class="form-control" id="note" name="note" rows="3">1</textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+		</div>
+		<!-- footer content -->
+		<footer>
+			<div class="pull-right">
+				© 2017 SHerna team
+			</div>
+			<div class="clearfix"></div>
+		</footer>
+		<!-- /footer content -->
+	</div>
+</div>
+
+
+
+<script type="text/javascript">
+	var locale                       = "cz";
+	var pickerLocale                 = "cs";
+	var userUrl                      = "http://sherna.dev/user";
+	var createEventUrl               = "http://sherna.dev/events/create";
+	var updateEventUrl               = "http://sherna.dev/events/update";
+	var deleteEventUrl               = "http://sherna.dev/events/delete";
+	var eventDataUrl                 = "http://sherna.dev/event";
+	var eventsUrl                    = "http://sherna.dev/events";
+	var myReservationColor           = '#468847';
+	var myReservationBorderColor     = '#d6e9c6';
+	var myReservationBackgroundColor = '#dff0d8';
+	var reservationarea              = '14';
+	var durationforedit              = parseInt('10');
+	var maxeventduration             = parseInt('6');
+	var consolesURL                  = 'http://sherna.dev/consoles';
+</script>
+<script src="./da_files/app.js"></script>
+<script src="./da_files/switchery.min.js"></script>
+<!-- NProgress -->
+<script src="./da_files/nprogress.js"></script>
+<script src="./da_files/custom.js"></script>
+
+    
+    <script src="./da_files/bootstrap-datetimepicker.js"></script>
+    
+    <script type="text/javascript">
+		var formDate = $(".form_datetime").datetimepicker({
+			language      : pickerLocale,
+			format        : "dd.mm.yyyy hh:ii:ss",
+			autoclose     : true,
+			startDate     : moment().add(durationforedit, 'm').format('YYYY-MM-DD HH:mm'),
+			endDate       : moment().add(reservationarea, 'd').format('YYYY-MM-DD HH:mm'),
+			todayBtn      : true,
+			todayHighlight: false,
+			pickerPosition: "bottom-left",
+			minuteStep    : 15
+		});
+
+
+		var toDate = $(".to_datetime").datetimepicker({
+			language      : pickerLocale,
+			format        : "dd.mm.yyyy hh:ii:ss",
+			autoclose     : true,
+			startDate     : moment().add(durationforedit * 2, 'm').format('YYYY-MM-DD HH:mm'),
+			todayBtn      : true,
+			todayHighlight: false,
+			pickerPosition: "bottom-right",
+			minuteStep    : 15
+		});
+    </script><div class="datetimepicker datetimepicker-dropdown-bottom-left dropdown-menu" style="left: 665px; z-index: 10009;"><div class="datetimepicker-minutes" style="display: none;"><table class=" table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">8 November 2017</th><th class="next" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="minute disabled">22:00</span><span class="minute disabled">22:15</span><span class="minute disabled">22:30</span><span class="minute">22:45</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-hours" style="display: none;"><table class=" table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">8 November 2017</th><th class="next" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="hour disabled">0:00</span><span class="hour disabled">1:00</span><span class="hour disabled">2:00</span><span class="hour disabled">3:00</span><span class="hour disabled">4:00</span><span class="hour disabled">5:00</span><span class="hour disabled">6:00</span><span class="hour disabled">7:00</span><span class="hour disabled">8:00</span><span class="hour disabled">9:00</span><span class="hour disabled">10:00</span><span class="hour disabled">11:00</span><span class="hour disabled">12:00</span><span class="hour disabled">13:00</span><span class="hour disabled">14:00</span><span class="hour disabled">15:00</span><span class="hour disabled">16:00</span><span class="hour disabled">17:00</span><span class="hour disabled">18:00</span><span class="hour disabled">19:00</span><span class="hour disabled">20:00</span><span class="hour disabled">21:00</span><span class="hour active">22:00</span><span class="hour">23:00</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-days" style="display: block;"><table class=" table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">November 2017</th><th class="next" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td class="day old disabled">29</td><td class="day old disabled">30</td><td class="day old disabled">31</td><td class="day disabled">1</td><td class="day disabled">2</td><td class="day disabled">3</td><td class="day disabled">4</td></tr><tr><td class="day disabled">5</td><td class="day disabled">6</td><td class="day disabled">7</td><td class="day active">8</td><td class="day">9</td><td class="day">10</td><td class="day">11</td></tr><tr><td class="day">12</td><td class="day">13</td><td class="day">14</td><td class="day">15</td><td class="day">16</td><td class="day">17</td><td class="day">18</td></tr><tr><td class="day">19</td><td class="day">20</td><td class="day">21</td><td class="day">22</td><td class="day disabled">23</td><td class="day disabled">24</td><td class="day disabled">25</td></tr><tr><td class="day disabled">26</td><td class="day disabled">27</td><td class="day disabled">28</td><td class="day disabled">29</td><td class="day disabled">30</td><td class="day new disabled">1</td><td class="day new disabled">2</td></tr><tr><td class="day new disabled">3</td><td class="day new disabled">4</td><td class="day new disabled">5</td><td class="day new disabled">6</td><td class="day new disabled">7</td><td class="day new disabled">8</td><td class="day new disabled">9</td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-months" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">2017</th><th class="next" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="month disabled">Jan</span><span class="month disabled">Feb</span><span class="month disabled">Mar</span><span class="month disabled">Apr</span><span class="month disabled">May</span><span class="month disabled">Jun</span><span class="month disabled">Jul</span><span class="month disabled">Aug</span><span class="month disabled">Sep</span><span class="month disabled">Oct</span><span class="month active">Nov</span><span class="month disabled">Dec</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-years" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">2010-2019</th><th class="next" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="year disabled function (option) {
+    var args = Array.apply(null, arguments);
+    args.shift();
+    var internal_return;
+    this.each(function () {
+      var $this = $(this),
+        data = $this.data(&#39;datetimepicker&#39;),
+        options = typeof option === &#39;object&#39; &amp;&amp; option;
+      if (!data) {
+        $this.data(&#39;datetimepicker&#39;, (data = new Datetimepicker(this, $.extend({}, $.fn.datetimepicker.defaults, options))));
+      }
+      if (typeof option === &#39;string&#39; &amp;&amp; typeof data[option] === &#39;function&#39;) {
+        internal_return = data[option].apply(data, args);
+        if (internal_return !== undefined) {
+          return false;
+        }
+      }
+    });
+    if (internal_return !== undefined)
+      return internal_return;
+    else
+      return this;
+  }">2009</span><span class="year disabled">2010</span><span class="year disabled">2011</span><span class="year disabled">2012</span><span class="year disabled">2013</span><span class="year disabled">2014</span><span class="year disabled">2015</span><span class="year disabled">2016</span><span class="year active">2017</span><span class="year disabled">2018</span><span class="year disabled">2019</span><span class="year disabled function (option) {
+    var args = Array.apply(null, arguments);
+    args.shift();
+    var internal_return;
+    this.each(function () {
+      var $this = $(this),
+        data = $this.data(&#39;datetimepicker&#39;),
+        options = typeof option === &#39;object&#39; &amp;&amp; option;
+      if (!data) {
+        $this.data(&#39;datetimepicker&#39;, (data = new Datetimepicker(this, $.extend({}, $.fn.datetimepicker.defaults, options))));
+      }
+      if (typeof option === &#39;string&#39; &amp;&amp; typeof data[option] === &#39;function&#39;) {
+        internal_return = data[option].apply(data, args);
+        if (internal_return !== undefined) {
+          return false;
+        }
+      }
+    });
+    if (internal_return !== undefined)
+      return internal_return;
+    else
+      return this;
+  }">2020</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div></div><div class="datetimepicker datetimepicker-dropdown-bottom-right dropdown-menu" style="left: 845px; z-index: 10019;"><div class="datetimepicker-minutes" style="display: none;"><table class=" table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">16 November 2017</th><th class="next" style="visibility: visible;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="minute">22:00</span><span class="minute">22:15</span><span class="minute active">22:30</span><span class="minute">22:45</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-hours" style="display: none;"><table class=" table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">16 November 2017</th><th class="next" style="visibility: visible;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="hour">0:00</span><span class="hour">1:00</span><span class="hour">2:00</span><span class="hour">3:00</span><span class="hour">4:00</span><span class="hour">5:00</span><span class="hour">6:00</span><span class="hour">7:00</span><span class="hour">8:00</span><span class="hour">9:00</span><span class="hour">10:00</span><span class="hour">11:00</span><span class="hour">12:00</span><span class="hour">13:00</span><span class="hour">14:00</span><span class="hour">15:00</span><span class="hour">16:00</span><span class="hour">17:00</span><span class="hour">18:00</span><span class="hour">19:00</span><span class="hour">20:00</span><span class="hour">21:00</span><span class="hour active">22:00</span><span class="hour">23:00</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-days" style="display: block;"><table class=" table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">November 2017</th><th class="next" style="visibility: visible;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr><tr><th class="dow">Su</th><th class="dow">Mo</th><th class="dow">Tu</th><th class="dow">We</th><th class="dow">Th</th><th class="dow">Fr</th><th class="dow">Sa</th></tr></thead><tbody><tr><td class="day old disabled">29</td><td class="day old disabled">30</td><td class="day old disabled">31</td><td class="day disabled">1</td><td class="day disabled">2</td><td class="day disabled">3</td><td class="day disabled">4</td></tr><tr><td class="day disabled">5</td><td class="day disabled">6</td><td class="day disabled">7</td><td class="day">8</td><td class="day">9</td><td class="day">10</td><td class="day">11</td></tr><tr><td class="day">12</td><td class="day">13</td><td class="day">14</td><td class="day">15</td><td class="day active">16</td><td class="day">17</td><td class="day">18</td></tr><tr><td class="day">19</td><td class="day">20</td><td class="day">21</td><td class="day">22</td><td class="day">23</td><td class="day">24</td><td class="day">25</td></tr><tr><td class="day">26</td><td class="day">27</td><td class="day">28</td><td class="day">29</td><td class="day">30</td><td class="day new">1</td><td class="day new">2</td></tr><tr><td class="day new">3</td><td class="day new">4</td><td class="day new">5</td><td class="day new">6</td><td class="day new">7</td><td class="day new">8</td><td class="day new">9</td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-months" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">2017</th><th class="next" style="visibility: visible;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="month disabled">Jan</span><span class="month disabled">Feb</span><span class="month disabled">Mar</span><span class="month disabled">Apr</span><span class="month disabled">May</span><span class="month disabled">Jun</span><span class="month disabled">Jul</span><span class="month disabled">Aug</span><span class="month disabled">Sep</span><span class="month disabled">Oct</span><span class="month active">Nov</span><span class="month">Dec</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div><div class="datetimepicker-years" style="display: none;"><table class="table-condensed"><thead><tr><th class="prev" style="visibility: hidden;"><span class="glyphicon glyphicon-arrow-left"></span> </th><th colspan="5" class="switch">2010-2019</th><th class="next" style="visibility: visible;"><span class="glyphicon glyphicon-arrow-right"></span> </th></tr></thead><tbody><tr><td colspan="7"><span class="year disabled function (option) {
+    var args = Array.apply(null, arguments);
+    args.shift();
+    var internal_return;
+    this.each(function () {
+      var $this = $(this),
+        data = $this.data(&#39;datetimepicker&#39;),
+        options = typeof option === &#39;object&#39; &amp;&amp; option;
+      if (!data) {
+        $this.data(&#39;datetimepicker&#39;, (data = new Datetimepicker(this, $.extend({}, $.fn.datetimepicker.defaults, options))));
+      }
+      if (typeof option === &#39;string&#39; &amp;&amp; typeof data[option] === &#39;function&#39;) {
+        internal_return = data[option].apply(data, args);
+        if (internal_return !== undefined) {
+          return false;
+        }
+      }
+    });
+    if (internal_return !== undefined)
+      return internal_return;
+    else
+      return this;
+  }">2009</span><span class="year disabled">2010</span><span class="year disabled">2011</span><span class="year disabled">2012</span><span class="year disabled">2013</span><span class="year disabled">2014</span><span class="year disabled">2015</span><span class="year disabled">2016</span><span class="year active">2017</span><span class="year">2018</span><span class="year">2019</span><span class="year function (option) {
+    var args = Array.apply(null, arguments);
+    args.shift();
+    var internal_return;
+    this.each(function () {
+      var $this = $(this),
+        data = $this.data(&#39;datetimepicker&#39;),
+        options = typeof option === &#39;object&#39; &amp;&amp; option;
+      if (!data) {
+        $this.data(&#39;datetimepicker&#39;, (data = new Datetimepicker(this, $.extend({}, $.fn.datetimepicker.defaults, options))));
+      }
+      if (typeof option === &#39;string&#39; &amp;&amp; typeof data[option] === &#39;function&#39;) {
+        internal_return = data[option].apply(data, args);
+        if (internal_return !== undefined) {
+          return false;
+        }
+      }
+    });
+    if (internal_return !== undefined)
+      return internal_return;
+    else
+      return this;
+  }">2020</span></td></tr></tbody><tfoot><tr><th colspan="7" class="today">Today</th></tr><tr><th colspan="7" class="clear" style="display: none;">Clear</th></tr></tfoot></table></div></div>
+
+
+
+</body></html>

@@ -5,6 +5,34 @@
 var actualUser = null;
 
 
+function initDatePickers() {
+	var formDate = $(".form_datetime").datetimepicker({
+		language      : pickerLocale,
+		format        : "dd.mm.yyyy - hh:ii",
+		autoclose     : true,
+		startDate     : moment().add(durationforedit, 'm').format('YYYY-MM-DD HH:mm'),
+		endDate       : moment().add(reservationarea, 'd').format('YYYY-MM-DD HH:mm'),
+		todayBtn      : true,
+		todayHighlight: false,
+		pickerPosition: "bottom-left",
+		minuteStep    : 15
+	});
+
+
+	var toDate = $(".to_datetime").datetimepicker({
+		language      : pickerLocale,
+		format        : "dd.mm.yyyy - hh:ii",
+		autoclose     : true,
+		startDate     : moment().add(durationforedit * 2, 'm').format('YYYY-MM-DD HH:mm'),
+		todayBtn      : true,
+		todayHighlight: false,
+		pickerPosition: "bottom-right",
+		minuteStep    : 15
+	});
+
+	return [formDate, toDate];
+}
+
 $('#createReservationModal').on('shown.bs.modal', function (e) {
 	$.ajax({
 		method: 'post',
@@ -30,30 +58,9 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 			selectedEventData.uid   = actualUser.uid
 		});
 
-
-		var formDate = $(".form_datetime").datetimepicker({
-			language      : pickerLocale,
-			format        : "dd.mm.yyyy - hh:ii",
-			autoclose     : true,
-			startDate     : moment().add(durationforedit, 'm').format('YYYY-MM-DD HH:mm'),
-			endDate       : moment().add(reservationarea, 'd').format('YYYY-MM-DD HH:mm'),
-			todayBtn      : true,
-			todayHighlight: false,
-			pickerPosition: "bottom-left",
-			minuteStep    : 15
-		});
-
-
-		var toDate = $(".to_datetime").datetimepicker({
-			language      : pickerLocale,
-			format        : "dd.mm.yyyy - hh:ii",
-			autoclose     : true,
-			startDate     : moment().add(durationforedit * 2, 'm').format('YYYY-MM-DD HH:mm'),
-			todayBtn      : true,
-			todayHighlight: false,
-			pickerPosition: "bottom-right",
-			minuteStep    : 15
-		});
+		var pickers  = initDatePickers();
+		var formDate = pickers[0];
+		var toDate   = pickers[0];
 
 		formDate.on('changeDate', function (ev) {
 			var value    = moment($(".form_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm').add(15, 'm');
@@ -190,7 +197,7 @@ $(document).ready(function () {
 	});
 
 	$('.fc-button').addClass('btn btn-primary').removeClass('fc-button').removeClass('fc-button fc-state-default');
-	$('.fc-button-group').addClass('btn-group').removeClass('fc-button-group').attr('data-toggle','buttons');
+	$('.fc-button-group').addClass('btn-group').removeClass('fc-button-group').attr('data-toggle', 'buttons');
 });
 
 function reRenderCallendar() {

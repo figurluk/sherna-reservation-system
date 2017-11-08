@@ -222,7 +222,6 @@ class ClientController extends Controller
 		if (!$reservationExist && $location->isOpened()) {
 			$reservation = Reservation::create([
 				'tenant_uid'  => $request->userUID,
-				'console_id'  => $request->consoleID,
 				'location_id' => $request->location,
 				'start'       => date('Y-m-d H:i:s', strtotime($request->start)),
 				'end'         => date('Y-m-d H:i:s', strtotime($request->end)),
