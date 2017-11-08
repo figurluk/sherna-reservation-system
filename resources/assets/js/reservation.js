@@ -41,16 +41,6 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 			location: $('[name="location"]:checked').val()
 		}
 	}).success(function (data) {
-		if (data == 0) {
-			$('#console_id').parent('div').addClass('hidden');
-		}
-		else {
-			$('#console_id').parent('div').removeClass('hidden');
-		}
-
-		$('#console_id').empty();
-		$('#console_id').append(data);
-
 		var selectedEventData = {};
 
 		getActualUser(null, null, function () {
@@ -60,7 +50,7 @@ $('#createReservationModal').on('shown.bs.modal', function (e) {
 
 		var pickers  = initDatePickers();
 		var formDate = pickers[0];
-		var toDate   = pickers[0];
+		var toDate   = pickers[1];
 
 		formDate.on('changeDate', function (ev) {
 			var value    = moment($(".form_datetime").val() + ':00', 'DD.MM.YYYY - HH:mm').add(15, 'm');
@@ -318,23 +308,19 @@ function saveReservation(selectedEventData) {
 			return;
 		}
 
-		var consoleID = null;
-
-		if (!$('#console_id').parent('div').hasClass('hidden')) {
-			consoleID = $('#console_id').val();
-		}
+		var $radios = $('[name="location"]');
+		$radios.filter('[value=' + $('[name="location_id"]').val() + ']').prop('checked', true);
 
 		$.ajax({
 			method: 'POST',
 			url   : createEventUrl,
 			data  : {
-				userUID  : actualUser.uid,
-				start    : selectedEventData.start.format("YYYY/MM/DD HH:mm:ss"),
-				end      : selectedEventData.end.format("YYYY/MM/DD HH:mm:ss"),
-				location : $('[name="location"]:checked').val(),
-				consoleID: consoleID,
-				visitors : $('#visitors_count').val(),
-				note     : $('#note').val()
+				userUID : actualUser.uid,
+				start   : selectedEventData.start.format("YYYY/MM/DD HH:mm:ss"),
+				end     : selectedEventData.end.format("YYYY/MM/DD HH:mm:ss"),
+				location: $('[name="location_id"]').val(),
+				visitors: $('#visitors_count').val(),
+				note    : $('#note').val()
 			}
 		}).success(function (data) {
 			selectedEventData.id              = data['id'];

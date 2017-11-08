@@ -51,23 +51,27 @@
 	@if($page->code=='rezervace' && \App\Models\Location::whereHas('status',function ($q) {$q->where('opened',true);})->count() > 0)
 		<div class="container">
 			<div class="row">
-				@foreach(\App\Models\Location::get() as $location)
-					<div class="col-md-2">
-						<p class="location_radio">
-							<input id="location{{$location->id}}" type="radio" name="location"
-								   value="{{$location->id}}"
-								   autocomplete="off" {{!$location->status->opened ? 'disabled':''}} {{$location->status->opened?'checked="checked"':''}}>
-							<label for="location{{$location->id}}">
-								<i class="location-state {{$location->status->opened ?'opened':'closed'}}">{{$location->status->opened ?trans('general.opened'):trans('general.closed')}}</i>
-								<i class="fa fa-building"></i> {{$location->name}}
-							</label>
-						</p>
+				<div class="col-md-6 col-md-offset-3">
+					<div class="row">
+						@foreach(\App\Models\Location::get() as $location)
+							<div class="col-md-6 text-center">
+								<p class="location_radio">
+									<input id="location{{$location->id}}" type="radio" name="location"
+										   value="{{$location->id}}"
+										   autocomplete="off" {{!$location->status->opened ? 'disabled':''}} {{$location->status->opened?'checked="checked"':''}}>
+									<label for="location{{$location->id}}">
+										<i class="location-state {{$location->status->opened ?'opened':'closed'}}">{{$location->status->opened ?trans('general.opened'):trans('general.closed')}}</i>
+										<i class="fa fa-building"></i> {{$location->name}}
+									</label>
+								</p>
+							</div>
+						@endforeach
 					</div>
-				@endforeach
+				</div>
 			</div>
 			
 			<div class="row">
-				<div class="col-md-12">
+				<div class="col-md-6 col-md-offset-3 text-center">
 					@if(Auth::check())
 						<a href="#" data-toggle="modal" data-target="#createReservationModal"
 						   class="btn btn-default">{{trans('reservation-modal.title')}}</a>
@@ -76,9 +80,10 @@
 						   class="btn btn-default">{{trans('reservation-modal.title')}}</a>
 					@endif
 				</div>
+				
 			</div>
+			<hr>
 		</div>
-		<br>
 		
 		<div class="container">
 			<div class="row">
@@ -122,9 +127,13 @@
 										</div>
 									</div>
 									<div class="form-group">
-										<label for="console_id"
-											   class="control-label">{{trans('reservation-modal.console')}}</label>
-										<select name="console_id" class="form-control" id="console_id"></select>
+										<label for="visitors_count"
+											   class="control-label">{{trans('reservations.location')}}</label>
+										<select name="location_id" id="" class="form-control">
+											@foreach(\App\Models\Location::opened()->get() as $location)
+												<option value="{{$location->id}}" {{old('location')==$location->id ? 'selected':''}}>{{$location->name}}</option>
+											@endforeach
+										</select>
 									</div>
 									
 									<div class="form-group">
