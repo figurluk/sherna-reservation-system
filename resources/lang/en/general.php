@@ -23,4 +23,5 @@ return [
 	],
 	'opened'  => 'opened',
 	'closed'  => 'closed',
+	'partners'=>'Partners'
 ];

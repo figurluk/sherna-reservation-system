@@ -28,4 +28,5 @@ return [
 	],
 	'opened'  => 'otvorené',
 	'closed'  => 'zatvorené',
+	'partners'=>'Partneri'
 ];

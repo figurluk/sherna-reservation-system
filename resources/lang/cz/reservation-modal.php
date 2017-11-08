@@ -7,18 +7,30 @@
  */
 
 return [
-    'title'          => 'Vytvoření rezervace',
-    'save'           => 'Vytvořit',
-    'renew'          => 'Prodloužit',
-    'renew-to'       => 'Prodloužit do',
-    'renew-title'    => 'Prodloužení rezervace',
-    'note'           => 'Poznámka',
-    'cancel'         => 'Zrušit',
-    'delete'         => 'Smazat',
-    'visitors_count' => 'Počet účastníků',
-    'console'        => 'Konzole',
-    'from_date'      => 'Datum od',
-    'from_time'      => 'Čas od',
-    'to_date'        => 'Datum do',
-    'to_time'        => 'Čas do',
+	'title'          => 'Vytvoření rezervace',
+	'save'           => 'Vytvořit',
+	'renew'          => 'Prodloužit',
+	'renew-to'       => 'Prodloužit do',
+	'renew-title'    => 'Prodloužení rezervace',
+	'note'           => 'Poznámka',
+	'cancel'         => 'Zrušit',
+	'delete'         => 'Smazat',
+	'visitors_count' => 'Počet účastníků',
+	'console'        => 'Konzole',
+	'from_date'      => 'Datum od',
+	'from_time'      => 'Čas od',
+	'to_date'        => 'Datum do',
+	'to_time'        => 'Čas do',
+	'failed'         => [
+		'title'    => 'To přece nemůžeš.',
+		'parallel' => [
+			'text' => 'Nemůžeš být na dvou místech najednou.',
+		],
+		'exist'    => [
+			'text' => 'Rezervace v tomto čase již existuje.',
+		],
+		'closed'   => [
+			'text' => "Tato místnost je zavřená.",
+		],
+	],
 ];

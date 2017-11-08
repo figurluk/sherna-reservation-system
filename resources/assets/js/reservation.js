@@ -335,7 +335,11 @@ function saveReservation(selectedEventData) {
 
 			App.helpers.flash.create('success', App.trans('flashes.success_created'));
 		}).error(function (msg) {
-			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'), 'danger');
+			if (msg.responseJSON.state != null && msg.responseJSON.state == 'failed') {
+				App.helpers.alert.info(msg.responseJSON.title, msg.responseJSON.text, 'danger');
+			} else {
+				App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'), 'danger');
+			}
 			$('#calendar').fullCalendar('unselect');
 			reRenderCallendar();
 		})

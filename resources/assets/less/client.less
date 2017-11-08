@@ -125,7 +125,7 @@ p {
 
   li.active a {
 	color: white !important;
-	background-color: #65d26e;
+	background-color: #65d26e !important;
   }
 }
 
@@ -607,5 +607,75 @@ div.speech {
   }
 
   &.speech-info {
+  }
+}
+
+.row.is-flex {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.row.is-flex > [class*='col-'] {
+  display: flex;
+  flex-direction: column;
+}
+
+/*
+* And with max cross-browser enabled.
+* Nobody should ever write this by hand.
+* Use a preprocesser with autoprefixing.
+*/
+.row.is-flex {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+}
+
+.row.is-flex > [class*='col-'] {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.card {
+  padding: 0 10px;
+  color: white;
+  min-height: 185px;
+  max-height: 200px;
+
+  a {
+	color: white;
+	text-decoration: underline;
+  }
+
+  .person-image {
+
+	img {
+	  margin: auto;
+	  max-height: 200px;
+	  width: auto;
+	}
+  }
+
+  .person-description {
+	padding-top: 10px;
+	padding-bottom: 10px;
+  }
+
+  &.left-card {
+	background-color: #65d26e;
+  }
+  &.right-card {
+	background-color: grey;
   }
 }

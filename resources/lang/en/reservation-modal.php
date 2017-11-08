@@ -21,4 +21,16 @@ return [
     'from_time'      => 'Time from',
     'to_date'        => 'Date to',
     'to_time'        => 'Time to',
+	'failed'         => [
+		'title'    => 'You can not do that.',
+		'parallel' => [
+			'text' => 'You can not be in two places at once.',
+		],
+		'exist'    => [
+			'text' => 'Reservation at this time already exists.',
+		],
+		'closed'   => [
+			'text' => "This room is closed.",
+		],
+	],
 ];

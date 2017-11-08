@@ -195,8 +195,11 @@ class ClientController extends Controller
 			]
 		);
 		
+		$location = Location::find($request->location);
 		
-		//todo:: zablokovania urcitych casov
+		if (!$location->isOpened()) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('reservation-modal.failed.closed.text')], 401);
+		}
 		
 		$reservationExist = Reservation::whereNull('canceled_at')
 			->where('location_id', '=', $request->location)
@@ -217,8 +220,30 @@ class ClientController extends Controller
 			})
 			->exists();
 		
+		$parallelReservationExist = Reservation::whereNull('canceled_at')
+			->where('location_id', '!=', $request->location)
+			->where('tenant_uid', '=', $request->userUID)
+			->where(function ( $q ) use ( $request ) {
+				$q->where(function ( $query ) use ( $request ) {
+					$query->where('end', '>', $request->start)
+						->where('start', '<', $request->start);
+				})->orWhere(function ( $query ) use ( $request ) {
+					$query->where('end', '>', $request->end)
+						->where('start', '<', $request->end);
+				})->orWhere(function ( $query ) use ( $request ) {
+					$query->where('end', '>=', $request->end)
+						->where('start', '<=', $request->start);
+				})->orWhere(function ( $query ) use ( $request ) {
+					$query->where('end', '<=', $request->end)
+						->where('start', '>=', $request->start);
+				});
+			})
+			->exists();
 		
-		$location = Location::find($request->location);
+		if ($parallelReservationExist) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('reservation-modal.failed.parallel.text')], 401);
+		}
+		
 		if (!$reservationExist && $location->isOpened()) {
 			$reservation = Reservation::create([
 				'tenant_uid'  => $request->userUID,
@@ -231,11 +256,7 @@ class ClientController extends Controller
 			return response(['id'       => $reservation->id,
 							 'editable' => strtotime(date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit')))) < strtotime($request->start)]);
 		} else {
-			if (!$location->isOpened()) {
-				return response('Tato miestnost je zatvorena.', 401);
-			} else {
-				return response('Rezervacia uz v danom case exisutuje.', 401);
-			}
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('reservation-modal.failed.exist.text')], 401);
 		}
 	}
 	

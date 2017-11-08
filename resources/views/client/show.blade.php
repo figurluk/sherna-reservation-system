@@ -51,10 +51,10 @@
 	@if($page->code=='rezervace' && \App\Models\Location::whereHas('status',function ($q) {$q->where('opened',true);})->count() > 0)
 		<div class="container">
 			<div class="row">
-				<div class="col-md-6 col-md-offset-3">
+				<div class="col-md-6 col-md-offset-3 col-xs-12">
 					<div class="row">
 						@foreach(\App\Models\Location::get() as $location)
-							<div class="col-md-6 text-center">
+							<div class="col-md-6 col-xs-6 text-center">
 								<p class="location_radio">
 									<input id="location{{$location->id}}" type="radio" name="location"
 										   value="{{$location->id}}"
@@ -80,7 +80,7 @@
 						   class="btn btn-default">{{trans('reservation-modal.title')}}</a>
 					@endif
 				</div>
-				
+			
 			</div>
 			<hr>
 		</div>
