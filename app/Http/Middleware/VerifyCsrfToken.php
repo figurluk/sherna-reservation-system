@@ -3,6 +3,7 @@
 namespace App\Http\Middleware;
 
 use Illuminate\Foundation\Http\Middleware\VerifyCsrfToken as BaseVerifier;
+use Illuminate\Support\Str;
 
 class VerifyCsrfToken extends BaseVerifier
 {
@@ -14,6 +15,21 @@ class VerifyCsrfToken extends BaseVerifier
 	protected $except = [
 		'admin/sumernote/saveImage',
 		'api/reservation/check',
-		'access/reservation',
+		'reservation/check',
 	];
+	
+	protected function inExceptArray( $request )
+	{
+		foreach ($this->except as $except) {
+			if ($except !== '/') {
+				$except = trim($except, '/');
+			}
+			
+			if ($request->is($except) || $request->getHost() == 'api.sherna.siliconhill.cz' || $request->getHost() == 'api.sherna.sh.cvut.cz') {
+				return true;
+			}
+		}
+		
+		return false;
+	}
 }

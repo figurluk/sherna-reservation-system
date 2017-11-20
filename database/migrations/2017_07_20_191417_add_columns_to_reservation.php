@@ -27,8 +27,8 @@ class AddColumnsToReservation extends Migration
     public function down()
     {
         Schema::table('sherna_reservations',function(Blueprint $table){
-            $table->dropColumn('visitors_count');
-            $table->dropColumn('console_id');
+//            $table->dropColumn('visitors_count');
+//            $table->dropColumn('console_id');
         });
     }
 }

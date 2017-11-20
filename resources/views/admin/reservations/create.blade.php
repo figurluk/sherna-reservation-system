@@ -27,6 +27,15 @@
 					
 					<div class="row">
 						<div class="col-md-12">
+							@if(Auth::user()->isSuperAdmin())
+								<div class="form-group">
+									<label for="tenant_uid"
+										   class="control-label">User UID</label>
+									<input type="text" class="form-control" name="tenant_uid"
+										   id="tenant_uid" value="{{old('tenant_uid',Auth::user()->uid)}}">
+								</div>
+							@endif
+							
 							<div class="form-group">
 								<div class="row">
 									<div class="col-md-6">

@@ -11,7 +11,7 @@
                     <span class=" fa fa-angle-down"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-usermenu pull-right">
-                    <li><a href="{{action('Client\ClientController@getLogout')}}"><i class="fa fa-sign-out pull-right"></i> Odhlásiť</a></li>
+                    <li><a href="{{action('Client\ClientController@getLogout')}}"><i class="fa fa-sign-out pull-right"></i> Log out</a></li>
                 </ul>
             </li>
             <li role="presentation" class="dropdown">
@@ -32,7 +32,7 @@
                     <li>
                         <div class="text-center">
                             <a href="{{action('Admin\ReservationsController@index')}}">
-                                <strong>Všetky registrácie</strong>
+                                <strong>All reservations</strong>
                             </a>
                         </div>
                     </li>

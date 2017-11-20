@@ -50,7 +50,12 @@ class PagesSeeder extends Seeder
 			'public' => false,
 		]);
 		
-		$arr = ['Domů', 'O SHerne', 'Členové', 'Výroční zprávy', 'Rezervace', 'Turnaje', 'Vybavení', 'Provozní řád'];
+		\App\Models\Page::create([
+			'code'   => 'navody',
+			'public' => false,
+		]);
+		
+		$arr = ['Domů', 'O SHerne', 'Členové', 'Výroční zprávy', 'Rezervace', 'Turnaje', 'Vybavení', 'Provozní řád', 'Navody'];
 		
 		foreach (Language::all() as $language) {
 			$i = 0;

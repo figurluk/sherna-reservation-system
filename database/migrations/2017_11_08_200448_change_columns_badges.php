@@ -34,6 +34,6 @@ class ChangeColumnsBadges extends Migration
 	 */
 	public function down()
 	{
-		//
+		\Schema::dropIfExists('sherna_badges_users');
 	}
 }

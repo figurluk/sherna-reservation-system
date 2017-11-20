@@ -17,18 +17,24 @@ use Illuminate\Http\Request;
 class APIController extends Controller
 {
 	
-	public function checkReservation(Request $request)
+	public function checkReservation( Request $request )
 	{
 		\Log::info(json_encode($request->all()));
 		
 		$this->validate($request, [
-		
+			'device_id' => 'required',
+			'room_id'   => 'required',
+			'uid'       => 'required',
 		]);
 		
 		$location = Location::where('location_uid', $request->room_id)->where('reader_uid', $request->device_id)->first();
 		
-		$accessStartTime = date('Y-m-d H:i:s', strtotime('+'.config('calendar.access_to_location').' minutes'));
-		$accessEndTime = date('Y-m-d H:i:s', strtotime('-'.config('calendar.access_to_location').' minutes'));
+		if ($location == null) {
+			return response('false');
+		}
+		
+		$accessStartTime = date('Y-m-d H:i:s', strtotime('+' . config('calendar.access_to_location') . ' minutes'));
+		$accessEndTime = date('Y-m-d H:i:s', strtotime('-' . config('calendar.access_to_location') . ' minutes'));
 		
 		$result = Reservation::where('location_id', $location->id)
 			->where('tenant_uid', $request->uid)
@@ -36,7 +42,7 @@ class APIController extends Controller
 			->whereNull('canceled_at')
 			->where('end', '>=', $accessEndTime)->first();
 		
-		if ($result==null) {
+		if ($result == null) {
 			return response('false');
 		}
 		

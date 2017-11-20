@@ -18,7 +18,7 @@
 							<th>Name</th>
 							<th>Surname</th>
 							<th>Email</th>
-							<th>Badges</th>
+							<th width="30%">Badges</th>
 							@if(Auth::user()->isSuperAdmin())
 								<th>Level</th>
 							@endif
@@ -34,7 +34,7 @@
 								<td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>
 								<td>
 									@foreach($user->badges as $badge)
-										<span class="label label-primary">{{$badge->name}}</span><br>
+										<span class="label label-primary">{{$badge->name}}</span>&nbsp;
 									@endforeach
 								</td>
 								@if(Auth::user()->isSuperAdmin())

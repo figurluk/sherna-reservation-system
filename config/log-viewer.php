@@ -43,7 +43,7 @@ return [
         'attributes' => [
             'prefix' => 'admin/log-viewer',
 
-            'middleware' => ['web', 'auth', 'admin'],
+            'middleware' => ['web', 'auth', 'admin','super_admin'],
         ],
     ],
 

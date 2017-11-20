@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Reservation;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationsController extends Controller
 {
@@ -30,13 +31,24 @@ class ReservationsController extends Controller
 	
 	public function store( Request $request )
 	{
-		$this->validate($request,
-			[
-				'from_date' => 'required|date|before:to_date',
-				'to_date'   => 'required|date',
-				'location'  => 'required',
-			]
-		);
+		if (Auth::user()->isSuperAdmin()) {
+			$this->validate($request,
+				[
+					'from_date'  => 'required|date|before:to_date',
+					'to_date'    => 'required|date',
+					'location'   => 'required',
+					'tenant_uid' => 'required',
+				]
+			);
+		} else {
+			$this->validate($request,
+				[
+					'from_date' => 'required|date|before:to_date',
+					'to_date'   => 'required|date',
+					'location'  => 'required',
+				]
+			);
+		}
 		
 		$reservationExist = Reservation::whereNull('canceled_at')
 			->where('location_id', '=', $request->location)
@@ -60,14 +72,23 @@ class ReservationsController extends Controller
 		
 		$location = Location::find($request->location);
 		if (!$reservationExist && $location->isOpened()) {
-			Reservation::create([
-				'tenant_uid'  => \Auth::user()->uid,
-				'location_id' => $request->location,
-				'start'       => date('Y-m-d H:i:s', strtotime($request->from_date)),
-				'end'         => date('Y-m-d H:i:s', strtotime($request->to_date)),
-				'note'        => $request->note,
-			]);
-			
+			if (Auth::user()->isSuperAdmin()) {
+				Reservation::create([
+					'tenant_uid'  => $request->tenant_uid,
+					'location_id' => $request->location,
+					'start'       => date('Y-m-d H:i:s', strtotime($request->from_date)),
+					'end'         => date('Y-m-d H:i:s', strtotime($request->to_date)),
+					'note'        => $request->note,
+				]);
+			} else {
+				Reservation::create([
+					'tenant_uid'  => \Auth::user()->uid,
+					'location_id' => $request->location,
+					'start'       => date('Y-m-d H:i:s', strtotime($request->from_date)),
+					'end'         => date('Y-m-d H:i:s', strtotime($request->to_date)),
+					'note'        => $request->note,
+				]);
+			}
 			flash()->success('Reservation successfully created.');
 			
 			return redirect()->action('Admin\ReservationsController@index');
@@ -87,13 +108,25 @@ class ReservationsController extends Controller
 	
 	public function update( $id, Request $request )
 	{
-		$this->validate($request,
-			[
-				'from_date' => 'required|date|before:to_date',
-				'to_date'   => 'required|date',
-				'location'  => 'required',
-			]
-		);
+		if (Auth::user()->isSuperAdmin()) {
+			$this->validate($request,
+				[
+					'from_date'  => 'required|date|before:to_date',
+					'to_date'    => 'required|date',
+					'location'   => 'required',
+					'tenant_uid' => 'required',
+				]
+			);
+		} else {
+			$this->validate($request,
+				[
+					'from_date' => 'required|date|before:to_date',
+					'to_date'   => 'required|date',
+					'location'  => 'required',
+				]
+			);
+		}
+		
 		
 		$reservationExist = Reservation::whereNull('canceled_at')
 			->where('id', '!=', $id)
@@ -125,6 +158,10 @@ class ReservationsController extends Controller
 			$reservation->end = date('Y-m-d H:i:s', strtotime($request->to_date));
 			$reservation->note = $request->note;
 			
+			if (Auth::user()->isSuperAdmin()) {
+				$reservation->tenant_uid = $request->tenant_uid;
+			}
+			
 			$reservation->save();
 			
 			flash()->success('Reservation successfully updated.');
@@ -141,6 +178,17 @@ class ReservationsController extends Controller
 				return redirect()->back()->withInput($request->all());
 			}
 		}
+	}
+	
+	public function cancel( $id )
+	{
+		$reservation = Reservation::findOrFail($id);
+		$reservation->canceled_at = date('Y-m-d H:i:s');
+		$reservation->save();
+		
+		flash()->success('Reservation successfully canceled.');
+		
+		return redirect()->action('Admin\ReservationsController@index');
 	}
 	
 	public function delete( $id )

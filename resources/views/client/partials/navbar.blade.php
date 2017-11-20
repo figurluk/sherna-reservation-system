@@ -25,6 +25,9 @@
 						<li class="{{isset($page) && $page->code=='clenove'?'active':''}}">
 							<a href="{{action('Client\ClientController@show','clenove')}}">{{getName('clenove')}}</a>
 						</li>
+						<li class="{{isset($page) && $page->code=='navody'?'active':''}}">
+							<a href="{{action('Client\ClientController@show','navody')}}">{{getName('navody')}}</a>
+						</li>
 						<li class="{{isset($page) && $page->code=='provozni-rad'?'active':''}}">
 							<a href="{{action('Client\ClientController@show','provozni-rad')}}">{{getName('provozni-rad')}}</a>
 						</li>

@@ -5,8 +5,24 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<meta name="csrf-token" content="{{ csrf_token() }}">
+	<meta name="robots" content="index, follow">
+	<meta name="author" content="Lukáš Figura, SHerna">
+	<meta name="rights" content="SHerna">
+	<meta name="application-name" content="SHerna">
 	
-	<title>{{ config('app.name', 'Laravel') }}</title>
+	<title>SHerna</title>
+	<meta property="og:title" content="SHerna"/>
+	<meta name="twitter:title" content="SHerna"/>
+	
+	<meta name="keywords" content="silicon hill sherna virtual reality VR xbox playstation PS4 esport league gaming game film fun">
+	
+	<meta name="description" content="SHerna je projekt pod klubem Silicon Hill určený k trávení volného času od hraní na konzolích, přes sledování filmů, až po společenské akce.">
+	<meta property="og:description" content="SHerna je projekt pod klubem Silicon Hill určený k trávení volného času od hraní na konzolích, přes sledování filmů, až po společenské akce."/>
+	<meta name="twitter:description" content="SHerna je projekt pod klubem Silicon Hill určený k trávení volného času od hraní na konzolích, přes sledování filmů, až po společenské akce."/>
+	
+	<meta property="og:type" content="website">
+	<meta property="og:url" content="https://sherna.siliconhill.cz">
+	<meta property="og:image" content="{{asset('favicon/ms-icon-144x144.png')}}" />
 	
 	<!-- Styles -->
 	<link href="{{mix('css/client.css')}}" rel="stylesheet">
@@ -26,13 +42,24 @@
 	<link rel="icon" type="image/png" sizes="96x96" href="{{asset('favicon/favicon-96x96.png')}}">
 	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
 	<link rel="manifest" href="{{asset('manifest.json')}}">
+	<link rel="alternate" hreflang="x-default" href="https://sherna.siliconhill.cz/">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="{{asset('favicon/ms-icon-144x144.png')}}">
 	<meta name="theme-color" content="#ffffff">
 	
-	<meta name="description" content="{{trans('general.footer.text')}}">
-	
 	@yield('styles')
+	@if(config('app.env')!='local')
+		<script async src="https://www.googletagmanager.com/gtag/js?id=GA_TRACKING_ID"></script>
+		<script>
+			window.dataLayer = window.dataLayer || [];
+
+			function gtag() {
+				dataLayer.push(arguments)
+			};
+			gtag('js', new Date());
+			gtag('config', 'UA-109514102-1');
+		</script>
+	@endif
 </head>
 <body>
 

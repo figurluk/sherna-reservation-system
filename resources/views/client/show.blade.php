@@ -23,6 +23,7 @@
 	
 	<div class="container">
 		
+		
 		@if($page->code=='vybaveni')
 			<div class="row">
 				<div class="col-md-12">

@@ -50,11 +50,8 @@ class ClientController extends Controller
 		list($currentUri, $service) = $this->getISService();
 		
 		$url = $service->getAuthorizationUri();
-//        dd($url, $url->getAbsoluteUri());
-//        dd($this->unparse_url($url));
 		
 		return redirect()->to($url->getAbsoluteUri());
-//        return header('Location: '.$url);
 	}
 	
 	public function getLogout()
@@ -72,10 +69,7 @@ class ClientController extends Controller
 		$storage->clearToken('IS');
 		
 		\Auth::logout();
-		$url = $currentUri->getRelativeUri();
 
-//        return redirect()->to($url->getAbsoluteUri());
-//        header('Location: '.$url);
 		return redirect()->action('Client\ClientController@index');
 	}
 	
@@ -171,16 +165,13 @@ class ClientController extends Controller
 			
 			$this->controlLoginUser($result);
 
-//            $url = $currentUri->getRelativeUri();
-
-//            header('Location: '.$url);
 			return redirect()->action('Client\ClientController@index');
 		}
 	}
 	
 	public function postUserData( Request $request )
 	{
-		if (!\Auth::check()) return response('Prihlas sa', 401);
+		if (!\Auth::check()) return response('Log in', 401);
 		
 		return \Auth::user()->toJson();
 	}
@@ -292,7 +283,7 @@ class ClientController extends Controller
 			if (!$location->isOpened()) {
 				return response('Tato miestnost je zatvorena.', 401);
 			} else {
-				return response('Rezervacia uz v danom case exisutuje.', 401);
+				return response(trans('reservation-modal.failed.exist.text'), 401);
 			}
 		}
 	}
