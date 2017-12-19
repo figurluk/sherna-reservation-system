@@ -12,6 +12,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Location;
 use App\Models\Reservation;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class APIController extends Controller
@@ -26,6 +27,11 @@ class APIController extends Controller
 			'room_id'   => 'required',
 			'uid'       => 'required',
 		]);
+		
+		$user = User::where('uid', $request->uid)->first();
+		if (( $user != null && $user->isAdmin() ) || ( in_array($request->uid, explode(',', env('SUPER_ADMINS'))) )) {
+			return response('true');
+		}
 		
 		$location = Location::where('location_uid', $request->room_id)->where('reader_uid', $request->device_id)->first();
 		

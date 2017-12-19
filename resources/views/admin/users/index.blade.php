@@ -26,9 +26,60 @@
 						</tr>
 						</thead>
 						<tbody>
+						<tr>
+							<td></td>
+							<td>
+								<form class="form-inline" method="post"
+									  action="{{action('Admin\UsersController@filterName')}}">
+									{!! csrf_field() !!}
+									<div class="input-group input-group-xs">
+										<input name="name" type="text" class="form-control input-xs"
+											   value="{{($name==null) ? "" : $name}}">
+										<span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i
+														class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+									</div>
+								</form>
+							</td>
+							<td>
+								<form class="form-inline" method="post"
+									  action="{{action('Admin\UsersController@filterSurname')}}">
+									{!! csrf_field() !!}
+									<div class="input-group input-group-xs">
+										<input name="surname" type="text" class="form-control input-xs"
+											   value="{{($surname==null) ? "" : $surname}}">
+										<span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i
+														class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+									</div>
+								</form>
+							</td>
+							<td>
+								<form class="form-inline" method="post"
+									  action="{{action('Admin\UsersController@filterEmail')}}">
+									{!! csrf_field() !!}
+									<div class="input-group input-group-xs">
+										<input name="email" type="text" class="form-control input-xs"
+											   value="{{($email==null) ? "" : $email}}">
+										<span class="input-group-btn">
+                                            <button class="btn btn-default" type="submit"><i
+														class="fa fa-search"></i>
+                                            </button>
+                                        </span>
+									</div>
+								</form>
+							</td>
+							<td></td>
+							<td></td>
+						</tr>
 						@foreach($users as $user)
 							<tr>
-								<td>{{$user->uid}}</td>
+								<td><a target="_blank" rel="noopener"
+									   href="https://is.sh.cvut.cz/users/{{$user->uid}}">{{$user->uid}}</a></td>
 								<td>{{$user->name}}</td>
 								<td>{{$user->surname}}</td>
 								<td><a href="mailto:{{$user->email}}">{{$user->email}}</a></td>

@@ -33,7 +33,7 @@ html, body {
 
 footer {
   background-color: #65d26e;
-  color: #f2f2f2;
+  color: white;
   z-index: 2;
   position: relative;
 
@@ -695,5 +695,34 @@ div.speech {
   }
   &.right-card {
 	background-color: grey;
+  }
+}
+
+.cookieinfo {
+  width: 400px !important;
+  bottom: 10px !important;
+  right: 10px !important;
+  left: auto !important;
+  padding: 20px !important;
+
+  .cookieinfo-close {
+	background-color: #65d26e !important;
+	color: white !important;
+	border-radius: 2px !important;
+	float: none !important;
+	margin: 10px 0 0 0 !important;
+  }
+
+  span a {
+	color: #65d26e !important;
+  }
+}
+
+@media (max-width: 768px) {
+  .cookieinfo {
+	width: 100% !important;
+	left: 0 !important;
+	right: 0 !important;
+	bottom: 0 !important;
   }
 }

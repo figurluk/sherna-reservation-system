@@ -41,48 +41,26 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static bool|null restore()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem withTrashed()
  * @method static \Illuminate\Database\Query\Builder|\App\Models\InventoryItem withoutTrashed()
- * @property int $inventory_category_id
- * @property bool $console
- * @property bool $vr
- * @property bool $game_pad
- * @property bool $move
- * @property int|null $players
- * @property-read \App\Models\InventoryCategory $category
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InventoryItem whereConsole($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InventoryItem whereGamePad($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InventoryItem whereInventoryCategoryId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InventoryItem whereMove($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InventoryItem wherePlayers($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\InventoryItem whereVr($value)
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\InventoryItem[] $items
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\InventoryCategoryText[] $texts
  */
-class InventoryItem extends Model
+class InventoryCategory extends Model
 {
 	use SoftDeletes;
 	
-	protected $table = "sherna_inventory_items";
+	protected $table = "inventory_categories";
 	protected $dates = ['deleted_at'];
 	protected $fillable = [
-		'inventory_category_id',
-		'location_id',
-		'name',
-		'serial_id',
-		'inventory_id',
-		'note',
-		'console',
-		'vr',
-		'game_pad',
-		'move',
-		'players',
 	];
 	
-	public function category()
+	public function items()
 	{
-		return $this->belongsTo(InventoryCategory::class, 'inventory_category_id');
+		return $this->hasMany(InventoryItem::class, 'inventory_category_id');
 	}
 	
-	public function location()
+	public function texts()
 	{
-		return $this->belongsTo(Location::class, 'location_id');
+		return $this->hasMany(InventoryCategoryText::class, 'inventory_category_id');
 	}
 	
 	

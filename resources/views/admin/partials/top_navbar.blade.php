@@ -24,7 +24,7 @@
                         <li>
                             <div class="text-center">
                                 <a href="#">
-                                    <strong>{{$futureReservation->owner->email}} {{date('d.m.Y H:i',strtotime($futureReservation->start))}}</strong>
+                                    <strong>{{$futureReservation->ownerEmail()}} {{date('d.m.Y H:i',strtotime($futureReservation->start))}}</strong>
                                 </a>
                             </div>
                         </li>

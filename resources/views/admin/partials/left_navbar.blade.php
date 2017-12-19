@@ -44,14 +44,20 @@
 				</li>
 				<li><a href="{{action('Admin\LocationsController@index')}}"><i class="fa fa-fw fa-map-marker"></i>
 						Locations</a></li>
-				<li><a href="{{action('Admin\GamesController@index')}}"><i class="fa fa-fw fa-soccer-ball-o"></i> Games</a>
+				<li><a><i class="fa fa-fw fa-cubes"></i> Inventory <span class="fa fa-chevron-down"></span></a>
+					<ul class="nav child_menu">
+						<li>
+							<a href="{{action('Admin\InventoryController@indexCategories')}}"><i class="fa fa-fw fa-cubes"></i>
+								Inventory categories</a>
+						</li>
+						<li>
+							<a href="{{action('Admin\InventoryController@index')}}"><i class="fa fa-fw fa-cubes"></i>
+								Inventory items</a>
+						</li>
+					</ul>
 				</li>
-				<li><a href="{{action('Admin\ConsolesController@index')}}"><i class="fa fa-fw fa-gamepad"></i> Consoles</a>
-				</li>
-				<li><a href="{{action('Admin\InventoryController@index')}}"><i class="fa fa-fw fa-cubes"></i> Inventory</a>
-				</li>
-				<li><a href="{{action('Admin\ContestController@index')}}"><i class="fa fa-fw fa-sitemap"></i>
-						Contests</a></li>
+				{{--<li><a href="{{action('Admin\ContestController@index')}}"><i class="fa fa-fw fa-sitemap"></i>--}}
+						{{--Contests</a></li>--}}
 				
 				@if(Auth::user()->isSuperAdmin())
 					<li><a href="{{action('Admin\SettingsController@index')}}"><i class="fa fa-fw fa-cogs"></i> Settings</a>

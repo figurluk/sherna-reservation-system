@@ -84,7 +84,7 @@ function updateReservation(selectedEventData) {
 			method: 'POST',
 			url   : updateEventUrl,
 			data  : {
-				reservationID: selectedEventData.reservationID,
+				reservation_id: selectedEventData.reservationID,
 				end          : selectedEventData.end.format("YYYY/MM/DD HH:mm:ss"),
 			}
 		}).success(function (data) {
@@ -97,8 +97,12 @@ function updateReservation(selectedEventData) {
 
 			App.helpers.flash.create('success', App.trans('flashes.success_renew'));
 		}).error(function (msg) {
-			App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
-			$('#updateReservationModal').modal('hide');
+			if (msg.responseJSON.title != null) {
+				App.helpers.alert.info(msg.responseJSON.title, msg.responseJSON.text, 'danger');
+			} else {
+				App.helpers.alert.info(App.trans('modalProblemOnServer.title'), App.trans('modalProblemOnServer.text'));
+				$('#updateReservationModal').modal('hide');
+			}
 		})
 	});
 }

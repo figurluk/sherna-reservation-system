@@ -9,6 +9,7 @@ use App\Models\Page;
 use App\Models\Reservation;
 use App\Models\User;
 use Auth;
+use App\Classes\ICS;
 use Illuminate\Http\Request;
 use OAuth\Common\Consumer\Credentials;
 use OAuth\Common\Http\Uri\UriFactory;
@@ -69,7 +70,7 @@ class ClientController extends Controller
 		$storage->clearToken('IS');
 		
 		\Auth::logout();
-
+		
 		return redirect()->action('Client\ClientController@index');
 	}
 	
@@ -164,7 +165,7 @@ class ClientController extends Controller
 			];
 			
 			$this->controlLoginUser($result);
-
+			
 			return redirect()->action('Client\ClientController@index');
 		}
 	}
@@ -186,6 +187,9 @@ class ClientController extends Controller
 			]
 		);
 		
+		$startTime = date('Y-m-d H:i:s', strtotime($request->start));
+		$endTime = date('Y-m-d H:i:s', strtotime($request->end));
+		
 		$location = Location::find($request->location);
 		
 		if (!$location->isOpened()) {
@@ -194,19 +198,19 @@ class ClientController extends Controller
 		
 		$reservationExist = Reservation::whereNull('canceled_at')
 			->where('location_id', '=', $request->location)
-			->where(function ( $q ) use ( $request ) {
-				$q->where(function ( $query ) use ( $request ) {
-					$query->where('end', '>', $request->start)
-						->where('start', '<', $request->start);
-				})->orWhere(function ( $query ) use ( $request ) {
-					$query->where('end', '>', $request->end)
-						->where('start', '<', $request->end);
-				})->orWhere(function ( $query ) use ( $request ) {
-					$query->where('end', '>=', $request->end)
-						->where('start', '<=', $request->start);
-				})->orWhere(function ( $query ) use ( $request ) {
-					$query->where('end', '<=', $request->end)
-						->where('start', '>=', $request->start);
+			->where(function ( $q ) use ( $request, $startTime, $endTime ) {
+				$q->where(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '>', $startTime)
+						->where('start', '<', $startTime);
+				})->orWhere(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '>', $endTime)
+						->where('start', '<', $endTime);
+				})->orWhere(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '>=', $endTime)
+						->where('start', '<=', $startTime);
+				})->orWhere(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '<=', $endTime)
+						->where('start', '>=', $startTime);
 				});
 			})
 			->exists();
@@ -214,19 +218,19 @@ class ClientController extends Controller
 		$parallelReservationExist = Reservation::whereNull('canceled_at')
 			->where('location_id', '!=', $request->location)
 			->where('tenant_uid', '=', $request->userUID)
-			->where(function ( $q ) use ( $request ) {
-				$q->where(function ( $query ) use ( $request ) {
-					$query->where('end', '>', $request->start)
-						->where('start', '<', $request->start);
-				})->orWhere(function ( $query ) use ( $request ) {
-					$query->where('end', '>', $request->end)
-						->where('start', '<', $request->end);
-				})->orWhere(function ( $query ) use ( $request ) {
-					$query->where('end', '>=', $request->end)
-						->where('start', '<=', $request->start);
-				})->orWhere(function ( $query ) use ( $request ) {
-					$query->where('end', '<=', $request->end)
-						->where('start', '>=', $request->start);
+			->where(function ( $q ) use ( $request, $startTime, $endTime ) {
+				$q->where(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '>', $startTime)
+						->where('start', '<', $startTime);
+				})->orWhere(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '>', $endTime)
+						->where('start', '<', $endTime);
+				})->orWhere(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '>=', $endTime)
+						->where('start', '<=', $startTime);
+				})->orWhere(function ( $query ) use ( $request, $startTime, $endTime ) {
+					$query->where('end', '<=', $endTime)
+						->where('start', '>=', $startTime);
 				});
 			})
 			->exists();
@@ -239,13 +243,13 @@ class ClientController extends Controller
 			$reservation = Reservation::create([
 				'tenant_uid'  => $request->userUID,
 				'location_id' => $request->location,
-				'start'       => date('Y-m-d H:i:s', strtotime($request->start)),
-				'end'         => date('Y-m-d H:i:s', strtotime($request->end)),
+				'start'       => $startTime,
+				'end'         => $endTime,
 				'note'        => $request->note,
 			]);
 			
 			return response(['id'       => $reservation->id,
-							 'editable' => strtotime(date('Y-m-d H:i:s', strtotime(config('calendar.duration-for-edit')))) < strtotime($request->start)]);
+							 'editable' => false]);
 		} else {
 			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('reservation-modal.failed.exist.text')], 401);
 		}
@@ -253,8 +257,8 @@ class ClientController extends Controller
 	
 	public function postUpdateEvent( Request $request )
 	{
-		$oldReservation = Reservation::find($request->reservationID);
-		$reservationExist = Reservation::where('id', '!=', $request->reservationID)
+		$oldReservation = Reservation::find($request->reservation_id);
+		$reservationExist = Reservation::where('id', '!=', $request->reservation_id)
 			->whereNull('canceled_at')
 			->where('location_id', '=', $oldReservation->location_id)
 			->where(function ( $q ) use ( $request, $oldReservation ) {
@@ -277,13 +281,14 @@ class ClientController extends Controller
 			$oldReservation->end = date('Y-m-d H:i:s', strtotime($request->end));
 			$oldReservation->save();
 			
-			return response(['id' => $oldReservation->id, 'end' => date('d.m.Y H:i', strtotime($oldReservation->end))]);
+			return response(['id'       => $oldReservation->id, 'end' => date('d.m.Y H:i', strtotime($oldReservation->end)),
+							 'editable' => date('Y-m-d H:i:s', strtotime($oldReservation->start, strtotime('- ' . config('calendar.duration-for-edit') . ' minutes'))) > date('Y-m-d H:i:s') ? true : false]);
 		} else {
 			
 			if (!$location->isOpened()) {
-				return response('Tato miestnost je zatvorena.', 401);
+				return response(['title' => trans('reservation-modal.failed.title'), 'text' => 'Tato miestnost je zatvorena.'], 401);
 			} else {
-				return response(trans('reservation-modal.failed.exist.text'), 401);
+				return response(['title' => trans('reservation-modal.failed.title'), 'text' => trans('reservation-modal.failed.exist.text')], 401);
 			}
 		}
 	}
@@ -311,13 +316,21 @@ class ClientController extends Controller
 		$reservations = Reservation::where('location_id', $request->location)->get(['id', 'start', 'end', 'note', 'tenant_uid'])->toArray();
 		foreach ($reservations as $key => $reservation) {
 			$owner = User::where('uid', $reservation['tenant_uid'])->first();
-			$reservations[$key]['title'] = 'Rezervace pro: ' . $owner->name . ' ' . $owner->surname;
+			if ($owner == null) {
+				$reservations[$key]['title'] = trans('reservations.reservation_for') . $reservation['tenant_uid'];
+			} else {
+				$reservations[$key]['title'] = trans('reservations.reservation_for') . $owner->name . ' ' . $owner->surname;
+			}
+			
 			
 			if (Auth::check() && $reservation['tenant_uid'] == Auth::user()->uid) {
 				$reservations[$key]['editable'] = date('Y-m-d H:i:s', strtotime($reservation['start'], strtotime('- ' . config('calendar.duration-for-edit') . ' minutes'))) > date('Y-m-d H:i:s') ? true : false;
 				$reservations[$key]['backgroundColor'] = config('calendar.my-reservation.background-color');
 				$reservations[$key]['textColor'] = config('calendar.my-reservation.color');
 				$reservations[$key]['borderColor'] = config('calendar.my-reservation.border-color');
+			} else {
+				$reservations[$key]['textColor'] = '#fff';
+				$reservations[$key]['backgroundColor'] = '#4285f4';
 			}
 		}
 		
@@ -341,6 +354,25 @@ class ClientController extends Controller
 		$reservations = Auth::user()->reservations()->orderBy('start', 'desc')->paginate(10);
 		
 		return view('client.reservations', compact('reservations', 'activeReservations'));
+	}
+	
+	public function getReservationICS( $reservationID )
+	{
+		$reservation = Reservation::findOrFail($reservationID);
+		
+		$ics = new ICS([
+			'location'    => $reservation->location->name,
+			'description' => trans('reservations.reservation_for') . $reservation->owner->name . ' ' . $reservation->owner->surname,
+			'dtstart'     => date('Y-n-j g:iA', strtotime($reservation->start)),
+			'dtend'       => date('Y-n-j g:iA', strtotime($reservation->end)),
+			'summary'     => 'SHerna',
+			'url'         => action('Client\ClientController@getReservations'),
+		]);
+		
+		return response($ics->to_string())->withHeaders([
+			'Content-Type'        => 'text/calendar; charset=utf-8',
+			'Content-Disposition' => 'attachment; filename=sherna_reservation.ics',
+		]);
 	}
 	
 	public function getBadges()

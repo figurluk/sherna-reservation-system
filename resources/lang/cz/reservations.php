@@ -11,6 +11,7 @@ return [
 	'your_badges'   => 'Vaše odznaky',
 	'active_reservations' => 'Aktivní rezervace',
 	'location'            => 'Poloha',
+	'reservation_for'=>'Rezervace pro: ',
 	'canceled'            => 'Zrušeno',
 	'from_date'           => 'Datum od',
 	'to_date'             => 'Datum do',

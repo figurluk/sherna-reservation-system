@@ -6,33 +6,86 @@ use App\Http\Controllers\Controller;
 use App\Models\Badge;
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
 	public function index()
 	{
-		$users = User::orderBy('surname')->paginate(20);
+		$email = null;
+		$name = null;
+		$surname = null;
+		$conditions = [];
 		
-		return view('admin.users.index', compact(['users']));
+		if (Session::get('admin_users_filter_email') != null) {
+			$conditions['email'] = Session::get('admin_users_filter_email');
+			$email = Session::get('admin_users_filter_email');
+		}
+		if (Session::get('admin_users_filter_name') != null) {
+			$conditions['name'] = Session::get('admin_users_filter_name');
+			$name = Session::get('admin_users_filter_name');
+		}
+		if (Session::get('admin_users_filter_surname') != null) {
+			$conditions['surname'] = Session::get('admin_users_filter_surname');
+			$surname = Session::get('admin_users_filter_surname');
+		}
+		
+		$users = User::where(function ( $q ) use ( $conditions ) {
+			foreach ($conditions as $key => $value) {
+				if ($key == 'email') {
+					$q->where('email', 'LIKE', '%' . $value . '%');
+				} elseif ($key == 'name') {
+					$q->where('name', 'LIKE', '%' . $value . '%');
+				} elseif ($key == 'surname') {
+					$q->where('surname', 'LIKE', '%' . $value . '%');
+				}
+			}
+		})->orderBy('surname')->paginate(20);
+		
+		return view('admin.users.index', compact('users','name','surname','email'));
+	}
+	
+	
+	public function filterEmail( Request $request )
+	{
+		Session::put('admin_users_filter_email', $request->email);
+		
+		return redirect()->action('Admin\UsersController@index');
+	}
+	
+	
+	public function filterName( Request $request )
+	{
+		Session::put('admin_users_filter_name', $request->name);
+		
+		return redirect()->action('Admin\UsersController@index');
+	}
+	
+	
+	public function filterSurname( Request $request )
+	{
+		Session::put('admin_users_filter_surname', $request->surname);
+		
+		return redirect()->action('Admin\UsersController@index');
 	}
 	
 	public function editBadges( $id )
 	{
 		$user = User::findOrFail($id);
 		
-		return view('admin.users.badges-edit',compact('user'));
+		return view('admin.users.badges-edit', compact('user'));
 	}
 	
-	public function storeBadge(Request $request, $userID )
+	public function storeBadge( Request $request, $userID )
 	{
 		$user = User::findOrFail($userID);
 		$badge = Badge::findOrFail($request->badge_id);
 		
 		$user->badges()->syncWithoutDetaching($request->badge_id);
 		
-		flash()->success('Badge '.$badge->name.' successfully added to user: '.$user->email.'.');
+		flash()->success('Badge ' . $badge->name . ' successfully added to user: ' . $user->email . '.');
 		
-		return redirect()->action('Admin\UsersController@editBadges',$user->id);
+		return redirect()->action('Admin\UsersController@editBadges', $user->id);
 	}
 	
 	public function removeBadge( $badgeID, $userID )
@@ -42,8 +95,8 @@ class UsersController extends Controller
 		
 		$user->badges()->detach($badgeID);
 		
-		flash()->success('Badge '.$badge->name.' successfully removed from user: '.$user->email.'.');
+		flash()->success('Badge ' . $badge->name . ' successfully removed from user: ' . $user->email . '.');
 		
-		return redirect()->action('Admin\UsersController@editBadges',$user->id);
+		return redirect()->action('Admin\UsersController@editBadges', $user->id);
 	}
 }

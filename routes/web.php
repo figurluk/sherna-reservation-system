@@ -32,6 +32,7 @@ Route::group(['before' => 'force.ssl'], function () {
 	Route::post('/reservation/check', 'API\APIController@checkReservation');
 	
 	Route::get('/uzivatel/rezervace', 'Client\ClientController@getReservations');
+	Route::get('/uzivatel/rezervace/{id}/ics', 'Client\ClientController@getReservationICS');
 	Route::get('/uzivatel/odznaky', 'Client\ClientController@getBadges');
 	
 	Route::get('/lang/{code}', 'Client\ClientController@changeLang');

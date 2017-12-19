@@ -7,6 +7,8 @@
  */
 
 return [
+	'yes'=>'Áno',
+	'no'=>'Nie',
 	'banner'  => [
 		'title' => 'Vitajte na strankách SHerne',
 	],

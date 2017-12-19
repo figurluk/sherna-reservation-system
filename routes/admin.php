@@ -70,6 +70,13 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
 		Route::post('/store', 'Admin\InventoryController@store');
 		Route::post('/update/{id}', 'Admin\InventoryController@update');
 		Route::post('/delete/{id}', 'Admin\InventoryController@delete');
+		
+		Route::get('/categories', 'Admin\InventoryController@indexCategories');
+		Route::get('/categories/create', 'Admin\InventoryController@createCategories');
+		Route::get('/categories/edit/{id}', 'Admin\InventoryController@editCategories');
+		Route::post('/categories/store', 'Admin\InventoryController@storeCategories');
+		Route::post('/categories/update/{id}', 'Admin\InventoryController@updateCategories');
+		Route::post('/categories/delete/{id}', 'Admin\InventoryController@deleteCategories');
 	});
 	Route::group(['prefix' => 'locations'], function () {
 		Route::get('/', 'Admin\LocationsController@index');
@@ -89,6 +96,10 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
 		Route::get('/{userID}/badges', 'Admin\UsersController@editBadges');
 		Route::get('/badges/{badgeID}/user/{userID}/remove', 'Admin\UsersController@removeBadge');
 		Route::post('/{userID}/badges/add', 'Admin\UsersController@storeBadge');
+		
+		Route::post('/filter/email', 'Admin\UsersController@filterEmail');
+		Route::post('/filter/name', 'Admin\UsersController@filterName');
+		Route::post('/filter/surname', 'Admin\UsersController@filterSurname');
 	});
 	
 	Route::group(['prefix' => 'admins'], function () {

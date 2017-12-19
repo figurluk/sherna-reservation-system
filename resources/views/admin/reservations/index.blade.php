@@ -18,6 +18,7 @@
 					<table class="table">
 						<thead>
 						<tr>
+							<th>#</th>
 							<th>Owner</th>
 							<th>Contact</th>
 							<th>Location</th>
@@ -30,9 +31,15 @@
 						</thead>
 						<tbody>
 						@foreach($reservations as $reservation)
-							<tr>
-								<td>{{$reservation->owner->surname}} {{$reservation->owner->name}}</td>
-								<td><a href="mailto:{{$reservation->owner->email}}">{{$reservation->owner->email}}</a>
+							<tr class="{{strtotime($reservation->end) < strtotime('now') ? 'success':''}}">
+								<th>{{$reservations->total() - ($loop->index) - ($reservations->perPage() * ($reservations->currentPage() - 1))}}</th>
+								<td>{{$reservation->ownerName()}}</td>
+								<td>
+									@if($reservation->owner==null)
+										{{$reservation->ownerEmail()}}
+									@else
+										<a href="mailto:{{$reservation->owner->email}}">{{$reservation->owner->email}}</a>
+									@endif
 								</td>
 								<td>{{$reservation->location->name }}</td>
 								<td>{{date('d.m.Y H:i',strtotime($reservation->day.' '.$reservation->start))}}</td>

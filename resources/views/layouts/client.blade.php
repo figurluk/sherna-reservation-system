@@ -10,9 +10,9 @@
 	<meta name="rights" content="SHerna">
 	<meta name="application-name" content="SHerna">
 	
-	<title>SHerna</title>
-	<meta property="og:title" content="SHerna"/>
-	<meta name="twitter:title" content="SHerna"/>
+	<title>Život je jen hra | SHerna</title>
+	<meta property="og:title" content="Život je jen hra | SHerna"/>
+	<meta name="twitter:title" content="Život je jen hra | SHerna"/>
 	
 	<meta name="keywords" content="silicon hill sherna virtual reality VR xbox playstation PS4 esport league gaming game film fun">
 	
@@ -98,6 +98,7 @@
 </script>
 
 <script type="text/javascript" src="{{asset('js/app.js')}}" charset="UTF-8"></script>
+@include('client.partials.cookies')
 
 @yield('scripts')
 </body>

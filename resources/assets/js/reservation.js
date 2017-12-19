@@ -79,9 +79,9 @@ $(document).ready(function () {
 
 	$('#calendar').fullCalendar({
 		header         : {
-			left  : 'prev,next today',
+			left  : 'prev,next',
 			center: 'title',
-			right : 'agendaWeek,agendaDay'
+			right : ''
 		},
 		views          : {
 			agendaWeek: {
@@ -90,6 +90,7 @@ $(document).ready(function () {
 		},
 		firstDay       : 1,
 		editable       : false,
+		nowIndicator   : true,
 		allDaySlot     : false,
 		timeFormat     : 'H:mm',
 		slotLabelFormat: "H:mm",

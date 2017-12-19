@@ -26,6 +26,9 @@
 							   rel="noopener">
 								<i class="fa fa-facebook"></i>
 							</a>
+							<a href="mailto:sherna@siliconhill.cz" class="envelope">
+								<i class="fa fa-envelope"></i>
+							</a>
 						</div>
 					</div>
 				

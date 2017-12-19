@@ -40,6 +40,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereLocationUid( $value )
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location whereReaderUid( $value )
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Console[] $consoles
+ * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Location opened()
  */
 class Location extends Model
 {

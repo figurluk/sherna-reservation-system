@@ -23,28 +23,40 @@
 	
 	<div class="container">
 		
-		
-		@if($page->code=='vybaveni')
-			<div class="row">
-				<div class="col-md-12">
-					<h2>
-						{{trans('general.content.games')}}
-					</h2>
-					
-					<ul>
-						@foreach(\App\Models\Game::orderBy('name','asc')->get() as $game)
-							<li>{{$game->name}} ({{$game->consoleType->name}})</li>
-						@endforeach
-					</ul>
-				</div>
-			</div>
-		@endif
-		
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
 				{!! $page->pageText()->ofLang(Config::get('app.locale'))->first()->content !!}
 			</div>
 		</div>
+		
+		
+		@if($page->code=='vybaveni')
+			@foreach(\App\Models\InventoryCategory::get() as $category)
+				<div class="row">
+					<div class="col-md-12">
+						<h2>
+							{{$category->texts()->ofLang(Config::get('app.locale'))->first()->name}}
+						</h2>
+						
+						<ul>
+							@foreach($category->items as $categoryItem)
+								<li>
+									{{$categoryItem->name}}
+									@if($category->id == 1)
+										<ul>
+											<li>{{trans('games.players')}} <span class="label label-default">{{$categoryItem->players}}</span></li>
+											<li>{{trans('games.vr')}} <span class="label label-{{$categoryItem->vr ? 'success' : 'danger'}}">{{$categoryItem->vr ? trans('general.yes') : trans('general.no')}}</span></li>
+											<li>{{trans('games.move')}} <span class="label label-{{$categoryItem->move ? 'success' : 'danger'}}">{{$categoryItem->move ? trans('general.yes') : trans('general.no')}}</span></li>
+											<li>{{trans('games.game_pad')}} <span class="label label-{{$categoryItem->game_pad ? 'success' : 'danger'}}">{{$categoryItem->game_pad ? trans('general.yes') : trans('general.no')}}</span></li>
+										</ul>
+									@endif
+								</li>
+							@endforeach
+						</ul>
+					</div>
+				</div>
+			@endforeach
+		@endif
 	</div>
 	
 	<br>
@@ -153,7 +165,7 @@
 							</div>
 						</div>
 						<div class="modal-footer">
-							<button class="btn btn-gray"
+							<button class="btn btn-primary"
 									data-dismiss="modal">{{trans('reservation-modal.cancel')}}</button>
 							<button name="submit" id="saveReservation"
 									class="btn btn-default">{{trans('reservation-modal.save')}}</button>
@@ -186,7 +198,7 @@
 					<div class="modal-footer">
 						<button id="deleteReservation" type="button"
 								class="btn btn-danger hidden">{{trans('reservation-modal.delete')}}</button>
-						<button type="button" class="btn btn-gray"
+						<button type="button" class="btn btn-primary"
 								data-dismiss="modal">{{trans('reservation-modal.cancel')}}</button>
 					</div>
 				</div>

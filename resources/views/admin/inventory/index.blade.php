@@ -18,6 +18,7 @@
                         <thead>
                         <tr>
                             <th>Name</th>
+                            <th>Category</th>
                             <th>Serial number</th>
                             <th>Inventory number</th>
                             <th>Location</th>
@@ -29,6 +30,7 @@
                         @foreach($inventoryItems as $inventoryItem)
                             <tr>
                                 <td>{{$inventoryItem->name}}</td>
+                                <td>{{$inventoryItem->category->texts()->ofLang('en')->first()->name}}</td>
                                 <td>{{$inventoryItem->serial_id}}</td>
                                 <td>{{$inventoryItem->inventory_id}}</td>
                                 <td>{{$inventoryItem->location->name}}</td>

@@ -1,9 +1,9 @@
 <?php return [
     'my-reservation'     =>
         [
-            'background-color' => '#dff0d8',
-            'border-color'     => '#d6e9c6',
-            'color'            => '#468847',
+            'background-color' => '#42bc4a',
+            'border-color'     => '#42bc4a',
+            'color'            => '#ffffff',
         ],
     'max-duration'       => '6',
     'duration-for-edit'  => '10',

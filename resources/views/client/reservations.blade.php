@@ -69,7 +69,7 @@
 													@if($activeReservation->end >= date('Y-m-d H:i:s') &&  date('Y-m-d H:i:s',strtotime('-'.config('calendar.renew_reservation').' minutes',strtotime($activeReservation->end))) <= date('Y-m-d H:i:s'))
 														<li class="twPc-ArrangeSizeFit">
 															<a class="btn btn-primary" href="#"
-															   data-toggle="modal" data-target="#createReservationModal"
+															   data-toggle="modal" data-target="#updateReservationModal"
 															   data-reservation-id="{{$activeReservation->id}}"
 															   title="{{date('d.m.Y H:i',strtotime($activeReservation->end))}}">
 																{{trans('reservation-modal.renew')}}
@@ -112,6 +112,8 @@
 								<td>{{$reservation->location->name}}</td>
 								<td>{{$reservation->canceled_at == null ? '-' : date('d.m.Y H:i',strtotime($reservation->canceled_at))}}</td>
 								<td>
+									<a class="btn btn-primary" href="{{action('Client\ClientController@getReservationICS',$reservation->id)}}"><i
+												class="fa fa-calendar"></i></a>
 									@if(date('Y-m-d H:i:s',strtotime($reservation->start,strtotime('- '.config('calendar.duration-for-edit').' minutes'))) > date('Y-m-d H:i:s'))
 										<a class="btn btn-danger btn-delete"
 										   href="{{action('Client\ClientController@getDeleteEvent',$reservation->id)}}">{{trans('reservation-modal.delete')}}</a>
