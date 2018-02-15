@@ -44,10 +44,18 @@
 									{{$categoryItem->name}}
 									@if($category->id == 1)
 										<ul>
-											<li>{{trans('games.players')}} <span class="label label-default">{{$categoryItem->players}}</span></li>
-											<li>{{trans('games.vr')}} <span class="label label-{{$categoryItem->vr ? 'success' : 'danger'}}">{{$categoryItem->vr ? trans('general.yes') : trans('general.no')}}</span></li>
-											<li>{{trans('games.move')}} <span class="label label-{{$categoryItem->move ? 'success' : 'danger'}}">{{$categoryItem->move ? trans('general.yes') : trans('general.no')}}</span></li>
-											<li>{{trans('games.game_pad')}} <span class="label label-{{$categoryItem->game_pad ? 'success' : 'danger'}}">{{$categoryItem->game_pad ? trans('general.yes') : trans('general.no')}}</span></li>
+											<li>{{trans('games.players')}} <span
+														class="label label-default">{{$categoryItem->players}}</span>
+											</li>
+											<li>{{trans('games.vr')}} <span
+														class="label label-{{$categoryItem->vr ? 'success' : 'danger'}}">{{$categoryItem->vr ? trans('general.yes') : trans('general.no')}}</span>
+											</li>
+											<li>{{trans('games.move')}} <span
+														class="label label-{{$categoryItem->move ? 'success' : 'danger'}}">{{$categoryItem->move ? trans('general.yes') : trans('general.no')}}</span>
+											</li>
+											<li>{{trans('games.game_pad')}} <span
+														class="label label-{{$categoryItem->game_pad ? 'success' : 'danger'}}">{{$categoryItem->game_pad ? trans('general.yes') : trans('general.no')}}</span>
+											</li>
 										</ul>
 									@endif
 								</li>
@@ -71,7 +79,7 @@
 								<p class="location_radio">
 									<input id="location{{$location->id}}" type="radio" name="location"
 										   value="{{$location->id}}"
-										   autocomplete="off" {{!$location->status->opened ? 'disabled':''}} {{$location->status->opened?'checked="checked"':''}}>
+										   autocomplete="off" {{$location->status->opened?'checked="checked"':''}}>
 									<label for="location{{$location->id}}">
 										<i class="location-state {{$location->status->opened ?'opened':'closed'}}">{{$location->status->opened ?trans('general.opened'):trans('general.closed')}}</i>
 										<i class="fa fa-building"></i> {{$location->name}}
@@ -86,8 +94,12 @@
 			<div class="row">
 				<div class="col-md-6 col-md-offset-3 text-center">
 					@if(Auth::check())
-						<a href="#" data-toggle="modal" data-target="#createReservationModal"
-						   class="btn btn-default">{{trans('reservation-modal.title')}}</a>
+						@if(Auth::user()->reservations()->futureActiveReservations()->count() > 0)
+							<span class="text-danger"><b>{{trans('general.future_reservations')}}</b></span>
+						@else
+							<a href="#" data-toggle="modal" data-target="#createReservationModal"
+							   class="btn btn-default">{{trans('reservation-modal.title')}}</a>
+						@endif
 					@else
 						<a href="{{action('Client\ClientController@getAuthorize')}}"
 						   class="btn btn-default">{{trans('reservation-modal.title')}}</a>
@@ -96,6 +108,12 @@
 			
 			</div>
 			<hr>
+		</div>
+		
+		<div class="container hidden" id="calendar-loader">
+			<div class="col-md-12 text-center">
+				<span class="fa fa-spinner fa-spin fa-2x"></span>
+			</div>
 		</div>
 		
 		<div class="container">

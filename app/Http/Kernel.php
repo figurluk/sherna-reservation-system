@@ -6,6 +6,7 @@ use App\Http\Middleware\AdminMiddleware;
 use App\Http\Middleware\LanguageMiddleware;
 use App\Http\Middleware\SSLMiddleware;
 use App\Http\Middleware\SuperAdminMiddleware;
+use App\Http\Middleware\SuperAdminOOUMiddleware;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -64,5 +65,6 @@ class Kernel extends HttpKernel
         'guest'       => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'    => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'super_admin' => SuperAdminMiddleware::class,
+		'super_admin_oou' => SuperAdminOOUMiddleware::class,
     ];
 }

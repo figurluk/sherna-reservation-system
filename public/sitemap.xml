@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset
+      xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+      xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+      xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9
+            http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
+<!-- created with Free Online Sitemap Generator www.xml-sitemaps.com -->
+
+<url>
+  <loc>https://sherna.siliconhill.cz/</loc>
+  <priority>1.00</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/o-sherne</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/clenove</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/navody</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/provozni-rad</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/vyrocni-spravy</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/rezervace</loc>
+  <priority>0.80</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/docs/SHerna_vyrocni_zprava_2014.pdf</loc>
+  <lastmod>2017-11-05T23:40:25+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/docs/SHerna_vyrocni_zprava_2015.pdf</loc>
+  <lastmod>2017-11-05T23:38:57+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+<url>
+  <loc>https://sherna.siliconhill.cz/docs/SHerna_vyrocni_zprava_2016.pdf</loc>
+  <lastmod>2017-11-05T23:40:31+00:00</lastmod>
+  <priority>0.64</priority>
+</url>
+</urlset>

@@ -111,6 +111,15 @@ class Reservation extends Model
 		});
 	}
 	
+	public function scopeFutureActiveReservations( $query )
+	{
+		return $query->where(function ( $q ) {
+			$q->where('start', '>=', date('Y-m-d H:i:s'))->orWhere(function ($q) {
+				$q->where('start', '<=', date('Y-m-d H:i:s'))->where('end', '>=', date('Y-m-d H:i:s'));
+			});
+		});
+	}
+	
 	public function location()
 	{
 		return $this->belongsTo(Location::class);

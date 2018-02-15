@@ -179,6 +179,10 @@ class ClientController extends Controller
 	
 	public function postCreateEvent( Request $request )
 	{
+		if (Auth::user()->reservations()->futureActiveReservations()->count() > 0) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('general.future_reservations')], 401);
+		}
+		
 		$this->validate($request,
 			[
 				'start'    => 'required|date|before:end',
@@ -296,7 +300,9 @@ class ClientController extends Controller
 	public function postDeleteEvent( Request $request )
 	{
 		$oldReservation = Reservation::find($request->reservation_id);
-		$oldReservation->delete();
+		if ($oldReservation != null) {
+			$oldReservation->delete();
+		}
 		
 		return response('ok');
 	}

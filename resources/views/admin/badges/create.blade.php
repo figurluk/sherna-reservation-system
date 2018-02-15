@@ -27,6 +27,15 @@
                                         <input type="text" class="form-control" id="input1" name="name" value="{{old('name')}}">
                                     </div>
                                 </div>
+                                <div class="form-group">
+                                    <div class="checkbox col-sm-offset-2">
+                                        <label>
+                                            <input type="hidden" name="system" value="0">
+                                            <input type="checkbox" name="system"
+                                                   value="1"> System badge
+                                        </label>
+                                    </div>
+                                </div>
                             </div>
                         
                         </div>

@@ -31,4 +31,5 @@ return [
 	'opened'   => 'otevřeno',
 	'closed'   => 'zavřeno',
 	'partners' => 'Partneři',
+	'future_reservations' => 'Máš aktivní rezervaci. Aby si mohl vytvořit novou rezervaci nesmíš mít žádnou aktivní.',
 ];

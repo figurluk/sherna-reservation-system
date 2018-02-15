@@ -10,6 +10,14 @@ use Illuminate\Support\Facades\Session;
 
 class UsersController extends Controller
 {
+	/**
+	 * AdminsController constructor.
+	 */
+	public function __construct()
+	{
+		$this->middleware(['super_admin_oou']);
+	}
+	
 	public function index()
 	{
 		$email = null;

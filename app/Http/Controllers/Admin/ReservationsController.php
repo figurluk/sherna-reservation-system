@@ -71,7 +71,7 @@ class ReservationsController extends Controller
 		
 		
 		$location = Location::find($request->location);
-		if (!$reservationExist && $location->isOpened()) {
+		if (!$reservationExist) {
 			if (Auth::user()->isSuperAdmin()) {
 				Reservation::create([
 					'tenant_uid'  => $request->tenant_uid,
@@ -93,15 +93,15 @@ class ReservationsController extends Controller
 			
 			return redirect()->action('Admin\ReservationsController@index');
 		} else {
-			if (!$location->isOpened()) {
-				flash()->error('This location is closed.');
-				
-				return redirect()->back()->withInput($request->all());
-			} else {
+//			if (!$location->isOpened()) {
+//				flash()->error('This location is closed.');
+//
+//				return redirect()->back()->withInput($request->all());
+//			} else {
 				flash()->error('Reservation in this time exist.');
 				
 				return redirect()->back()->withInput($request->all());
-			}
+//			}
 		}
 	}
 	

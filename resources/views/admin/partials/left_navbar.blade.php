@@ -35,7 +35,7 @@
 											class="fa fa-fw fa-user-secret"></i> Admins</a></li>
 						</ul>
 					</li>
-				@else
+				@elseif(Auth::user()->badges()->where('system',true)->where('name','OOU_signed')->exists())
 					<li><a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-fw fa-users"></i> Users</a>
 					</li>
 				@endif

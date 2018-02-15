@@ -11,7 +11,7 @@
 		
 		<div class="row">
 			<div class="col-md-12 col-xs-12">
-				@foreach(Auth::user()->badges as $badge)
+				@foreach(Auth::user()->badges()->where('system',false)->get() as $badge)
 					<h3><span class="label label-primary">{{$badge->name}}</span></h3>
 				@endforeach
 			</div>

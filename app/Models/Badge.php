@@ -46,6 +46,7 @@ class Badge extends Model
 	protected $dates = ['deleted_at'];
 	protected $fillable = [
 		'name',
+		'system'
 	];
 	
 	public function users()

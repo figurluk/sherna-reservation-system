@@ -39,7 +39,7 @@ footer {
 
   .footer-info {
 	text-align: justify;
-	padding: 50px 0px 25px 0px;
+	padding: 25px 0px 25px 0px;
   }
 
   .footer-top {
@@ -52,6 +52,18 @@ footer {
   .footer-bottom {
 	background: #808080;
 	padding: 25px 0;
+
+	.row {
+	  display: -ms-flexbox;
+	  display: -webkit-flex;
+	  display: flex;
+
+	  -ms-flex-align: center;
+	  -webkit-align-items: center;
+	  -webkit-box-align: center;
+
+	  align-items: center;
+	}
   }
 
   .footer-social {
@@ -76,6 +88,15 @@ footer {
 
 	  &.facebook {
 		background-color: #3b5998;
+	  }
+	  &.twitch {
+		background-color: #6441a4;
+	  }
+	  &.linkedin {
+		background-color: #0077b5;
+	  }
+	  &.github {
+		background-color: #999;
 	  }
 	}
   }

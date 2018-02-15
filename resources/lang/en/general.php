@@ -25,5 +25,6 @@ return [
 	],
 	'opened'  => 'opened',
 	'closed'  => 'closed',
-	'partners'=>'Partners'
+	'partners'=>'Partners',
+	'future_reservations' => 'You have active reservation. You do not have to be active in order to make a new reservation.',
 ];

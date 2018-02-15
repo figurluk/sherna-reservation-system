@@ -10,6 +10,7 @@ namespace App\Http\Controllers\API;
 
 
 use App\Http\Controllers\Controller;
+use App\Models\Admin;
 use App\Models\Location;
 use App\Models\Reservation;
 use App\Models\User;
@@ -29,7 +30,7 @@ class APIController extends Controller
 		]);
 		
 		$user = User::where('uid', $request->uid)->first();
-		if (( $user != null && $user->isAdmin() ) || ( in_array($request->uid, explode(',', env('SUPER_ADMINS'))) )) {
+		if (( $user != null && $user->isAdmin() ) || ( in_array($request->uid, explode(',', env('SUPER_ADMINS'))) ) || Admin::where('uid', $request->uid)->exists()) {
 			return response('true');
 		}
 		

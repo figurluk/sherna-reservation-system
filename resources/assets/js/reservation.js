@@ -192,8 +192,14 @@ $(document).ready(function () {
 });
 
 function reRenderCallendar() {
+	$('#calendar-loader').removeClass('hidden');
+	// $('#calendar').addClass('hidden');
 	$('#calendar').fullCalendar('removeEvents');
 	$('#calendar').fullCalendar('refetchEvents');
+	setTimeout(function () {
+		$('#calendar-loader').addClass('hidden');
+		// $('#calendar').removeClass('hidden');
+	},1000);
 }
 
 function updateEventAjax(event, revertFunc) {

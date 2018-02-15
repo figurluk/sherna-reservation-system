@@ -32,7 +32,8 @@ class BadgesController extends Controller
 		$this->validate($request, ['name' => 'required|string|max:255']);
 		
 		Badge::create([
-			'name' => $request->name,
+			'name'   => $request->name,
+			'system' => $request->system,
 		]);
 		
 		flash()->success('Badge successfully created.');
@@ -47,6 +48,7 @@ class BadgesController extends Controller
 		
 		$badge = Badge::findOrFail($id);
 		$badge->name = $request->name;
+		$badge->system = $request->system;
 		$badge->save();
 		
 		flash()->success('Badge successfully updated.');

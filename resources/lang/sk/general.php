@@ -7,28 +7,24 @@
  */
 
 return [
-	'yes'=>'Áno',
-	'no'=>'Nie',
-	'banner'  => [
+	'yes'                 => 'Áno',
+	'no'                  => 'Nie',
+	'banner'              => [
 		'title' => 'Vitajte na strankách SHerne',
 	],
-	'navbar'  => [
+	'navbar'              => [
 		'about-project' => 'O projekte',
 		'foto'          => 'Fotogaléria',
 		'login'         => 'Prihlásiť cez IS',
 	],
-	'footer'  => [
-		'text' => 'SHerna je projekt pod klubom Silicon Hill, ktorý sídli na Strahove. V súčasnej dobe je
-						projekt rozdelený medzi dve miestnosti. Jedna se nachádza na bloku 4 - 3. medziposchodie a druhá na
-						bloku 6 - 3. medziposchodie (v rekonštrukcii).
-						Miestnosti projektu môžu využívať členovia klubu Silicon Hill zdarma. Jedinou podmienkou je mať
-						aktívne sieťové členstvo. Môžete si tu zahrať hry na PlayStation 4 Pro - virtuálna realita,
-						ovladače, Xbox 360 a PlayStation 2. K dispozícii je aj počítač s emulátormi pre hry DOS.',
+	'footer'              => [
+		'text' => 'SHerna je projekt patriaci pod klub Silicon Hill, ktorý sídli na internátoch Strahov. V súčasnej dobe projekt  zahŕňa  dve miestnosti. Jedna sa  nachádza na bloku 4 - 3. medziposchodie a druhá na bloku 6 - 3. medziposchodie (v rekonštrukcii). Miestnosti projektu môžu využívať členovia klubu Silicon Hill  zdarma. Jedinou podmienkou je aktívne sieťové členstvo. Môžete si tu  zahrať hry na PlayStation 4 Pro (Virtuálna realita, ovládače, pohybové ovládače), Xbox 360 a PlayStation 2. K dispozícii je aj počítač s množstvom emulátorov pre hry DOS.',
 	],
-	'content' => [
+	'content'             => [
 		'games' => 'Hry',
 	],
-	'opened'  => 'otvorené',
-	'closed'  => 'zatvorené',
-	'partners'=>'Partneri'
+	'opened'              => 'otvorené',
+	'closed'              => 'zatvorené',
+	'partners'            => 'Partneri',
+	'future_reservations' => 'Máš aktívnu rezerváciu. Aby si mohol vytvoriť novú rezerváciu nesmieš mať žiadnu aktívnu.',
 ];
