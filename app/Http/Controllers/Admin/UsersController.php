@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Lukas Figura
+ * Date: 15/02/2017
+ * Time: 19:40
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -16,6 +22,7 @@ class UsersController extends Controller
 	public function __construct()
 	{
 		$this->middleware(['super_admin_oou']);
+		$this->middleware(['super_admin'])->only(['ban', 'unban']);
 	}
 	
 	public function index()
@@ -50,7 +57,7 @@ class UsersController extends Controller
 			}
 		})->orderBy('surname')->paginate(20);
 		
-		return view('admin.users.index', compact('users','name','surname','email'));
+		return view('admin.users.index', compact('users', 'name', 'surname', 'email'));
 	}
 	
 	
@@ -106,5 +113,29 @@ class UsersController extends Controller
 		flash()->success('Badge ' . $badge->name . ' successfully removed from user: ' . $user->email . '.');
 		
 		return redirect()->action('Admin\UsersController@editBadges', $user->id);
+	}
+	
+	public function ban( $userID )
+	{
+		$user = User::findOrFail($userID);
+		
+		$user->banned = true;
+		$user->save();
+		
+		flash()->success('User ' . $user->email . ' successfully banned.');
+		
+		return redirect()->action('Admin\UsersController@index');
+	}
+	
+	public function unban( $userID )
+	{
+		$user = User::findOrFail($userID);
+		
+		$user->banned = false;
+		$user->save();
+		
+		flash()->success('User ' . $user->email . ' successfully banned.');
+		
+		return redirect()->action('Admin\UsersController@index');
 	}
 }

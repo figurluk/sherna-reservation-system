@@ -738,3 +738,19 @@ $(document).on('click', '.btn-delete', function (ev) {
 		window.location.href = $(ev.target).attr('href');
 	})
 });
+
+$('#inventory-items h3').click(function (ev) {
+	var target = $(ev.target);
+
+	if (!target.is('h3')) {
+		target = target.closest('h3');
+	}
+
+	if (target.hasClass('collapsed')) {
+		target.find('.cursor').removeClass('fa-chevron-circle-down');
+		target.find('.cursor').addClass('fa-chevron-circle-up');
+	} else {
+		target.find('.cursor').removeClass('fa-chevron-circle-up');
+		target.find('.cursor').addClass('fa-chevron-circle-down');
+	}
+});

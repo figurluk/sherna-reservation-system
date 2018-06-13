@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Lukas Figura
+ * Date: 15/02/2017
+ * Time: 19:40
+ */
 
 namespace App\Http\Controllers\Client;
 
@@ -179,6 +185,12 @@ class ClientController extends Controller
 	
 	public function postCreateEvent( Request $request )
 	{
+		if (Auth::user()->banned) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('general.ban')], 401);
+		}
+		if (!Auth::user()->badges()->where('system',true)->where('name','Service_IS')->exists()) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('general.no_is_service')], 401);
+		}
 		if (Auth::user()->reservations()->futureActiveReservations()->count() > 0) {
 			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('general.future_reservations')], 401);
 		}
@@ -193,6 +205,12 @@ class ClientController extends Controller
 		
 		$startTime = date('Y-m-d H:i:s', strtotime($request->start));
 		$endTime = date('Y-m-d H:i:s', strtotime($request->end));
+		
+		$hours = (strtotime($endTime) - strtotime($startTime))/(60*60);
+		
+		if ($hours > config('calendar.max-duration')) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('reservation-modal.failed.too_long.text')], 401);
+		}
 		
 		$location = Location::find($request->location);
 		
@@ -261,6 +279,9 @@ class ClientController extends Controller
 	
 	public function postUpdateEvent( Request $request )
 	{
+		if (Auth::user()->banned) {
+			return response(['state' => 'failed', 'title' => trans('reservation-modal.failed.title'), 'text' => trans('general.ban')], 401);
+		}
 		$oldReservation = Reservation::find($request->reservation_id);
 		$reservationExist = Reservation::where('id', '!=', $request->reservation_id)
 			->whereNull('canceled_at')
@@ -319,7 +340,7 @@ class ClientController extends Controller
 	
 	public function postEvents( Request $request )
 	{
-		$reservations = Reservation::where('location_id', $request->location)->get(['id', 'start', 'end', 'note', 'tenant_uid'])->toArray();
+		$reservations = Reservation::where('location_id', $request->location)->whereNull('canceled_at')->get(['id', 'start', 'end', 'note', 'tenant_uid'])->toArray();
 		foreach ($reservations as $key => $reservation) {
 			$owner = User::where('uid', $reservation['tenant_uid'])->first();
 			if ($owner == null) {

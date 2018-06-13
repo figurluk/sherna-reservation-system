@@ -16,6 +16,7 @@ return [
 	'cancel'         => 'Zrušiť',
 	'delete'         => 'Zmazať',
 	'visitors_count' => 'Počet účastníkov',
+	'required_order' => 'Vytvorením rezervácie súhlasíš s prevádzkovým poriadkom.',
 	'console'        => 'Konzola',
 	'from_date'      => 'Dátum od',
 	'from_time'      => 'Čas od',
@@ -31,6 +32,9 @@ return [
 		],
 		'closed'   => [
 			'text' => "Táto miestnosť je zatvorená.",
+		],
+		'too_long' => [
+			'text' => 'Rezervácia prekračuje ' . config('calendar.max-duration') . ' hodín',
 		],
 	],
 ];

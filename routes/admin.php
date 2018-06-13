@@ -94,6 +94,8 @@ Route::group(['before' => 'force.ssl', 'middleware' => ['auth', 'admin']], funct
 	Route::group(['prefix' => 'users'], function () {
 		Route::get('/', 'Admin\UsersController@index');
 		Route::get('/{userID}/badges', 'Admin\UsersController@editBadges');
+		Route::get('/{userID}/ban', 'Admin\UsersController@ban');
+		Route::get('/{userID}/unban', 'Admin\UsersController@unban');
 		Route::get('/badges/{badgeID}/user/{userID}/remove', 'Admin\UsersController@removeBadge');
 		Route::post('/{userID}/badges/add', 'Admin\UsersController@storeBadge');
 		

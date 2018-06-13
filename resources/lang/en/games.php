@@ -9,6 +9,9 @@
 return [
 	'players'  => 'Players',
 	'vr'       => 'Virtual reality',
-	'move'     => 'Motion controllers',
+	'move'     => 'Motion controllers/Aim controller
+	',
 	'game_pad' => 'Game pad',
+	'kinect'   => 'Kinect',
+	'guitar'=>'Guitar'
 ];

@@ -26,6 +26,7 @@ mix.combine([
 mix.combine([
 	'resources/assets/css/bootstrap.css',
 	'resources/assets/css/mdb.css',
+	'public/css/flag-icon.min.css',
 	'resources/assets/css/client.css',
 	'resources/assets/css/jquery-ui.min.css',
 	'resources/assets/css/font-awesome.css'

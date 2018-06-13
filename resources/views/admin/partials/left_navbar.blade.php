@@ -54,6 +54,9 @@
 							<a href="{{action('Admin\InventoryController@index')}}"><i class="fa fa-fw fa-cubes"></i>
 								Inventory items</a>
 						</li>
+						
+						<li><a href="{{action('Admin\ConsolesController@index')}}"><i class="fa fa-fw fa-gamepad"></i>
+								Consoles</a></li>
 					</ul>
 				</li>
 				{{--<li><a href="{{action('Admin\ContestController@index')}}"><i class="fa fa-fw fa-sitemap"></i>--}}

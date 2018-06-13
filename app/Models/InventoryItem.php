@@ -64,6 +64,7 @@ class InventoryItem extends Model
 	protected $fillable = [
 		'inventory_category_id',
 		'location_id',
+		'console_id',
 		'name',
 		'serial_id',
 		'inventory_id',
@@ -71,13 +72,20 @@ class InventoryItem extends Model
 		'console',
 		'vr',
 		'game_pad',
+		'kinect',
 		'move',
 		'players',
+		'guitar'
 	];
 	
 	public function category()
 	{
 		return $this->belongsTo(InventoryCategory::class, 'inventory_category_id');
+	}
+	
+	public function consoleObj()
+	{
+		return $this->belongsTo(Console::class, 'console_id');
 	}
 	
 	public function location()

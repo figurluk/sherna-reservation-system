@@ -113,6 +113,17 @@
 									</td>
 								@endif
 								<td>
+									@if(Auth::user()->isSuperAdmin())
+										@if(!$user->banned)
+											<a class="btn btn-danger"
+											   href="{{action('Admin\UsersController@ban',$user->id)}}"><i
+														class="fa fa-ban"></i></a>
+										@else
+											<a class="btn btn-success"
+											   href="{{action('Admin\UsersController@unban',$user->id)}}"><i
+														class="fa fa-eraser"></i></a>
+										@endif
+									@endif
 									<a class="btn btn-primary"
 									   href="{{action('Admin\UsersController@editBadges',$user->id)}}"><i
 												class="fa fa-id-badge"></i></a>

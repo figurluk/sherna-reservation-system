@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Lukas Figura
+ * Date: 15/02/2017
+ * Time: 19:40
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -150,7 +156,8 @@ class ReservationsController extends Controller
 		
 		
 		$location = Location::find($request->location);
-		if (!$reservationExist && $location->isOpened()) {
+//		if (!$reservationExist && $location->isOpened()) {
+			if (!$reservationExist ) {
 			
 			$reservation = Reservation::findOrFail($id);
 			$reservation->location_id = $request->location;
@@ -168,15 +175,15 @@ class ReservationsController extends Controller
 			
 			return redirect()->action('Admin\ReservationsController@index');
 		} else {
-			if (!$location->isOpened()) {
-				flash()->error('This location is closed.');
-				
-				return redirect()->back()->withInput($request->all());
-			} else {
+//			if (!$location->isOpened()) {
+//				flash()->error('This location is closed.');
+//
+//				return redirect()->back()->withInput($request->all());
+//			} else {
 				flash()->error('Reservation in this time exist.');
 				
 				return redirect()->back()->withInput($request->all());
-			}
+//			}
 		}
 	}
 	

@@ -7,8 +7,8 @@
  */
 
 return [
-	'yes'=>'Yes',
-	'no'=>'No',
+	'yes'     => 'Yes',
+	'no'      => 'No',
 	'banner'  => [
 		'title' => 'Welcome on webpage of SHerna',
 	],
@@ -25,6 +25,11 @@ return [
 	],
 	'opened'  => 'opened',
 	'closed'  => 'closed',
-	'partners'=>'Partners',
+	'on_key'  => 'on key',
+	
+	'partners' => 'Partners',
+	
 	'future_reservations' => 'You have active reservation. You do not have to be active in order to make a new reservation.',
+	'no_is_service'       => 'To create a reservation, you must have an added service in the IS, see Operating Rules Article 3, point 2.',
+	'ban'                 => 'You have been banned for some reason. You can not create reservation now. For more information contact us on sherna@siliconhill.cz.',
 ];

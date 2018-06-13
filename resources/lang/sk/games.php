@@ -9,6 +9,8 @@
 return [
 	'players'  => 'Počet hráčov',
 	'vr'       => 'Virtuálna realita',
-	'move'     => 'Motion ovladače',
+	'move'     => 'Motion ovladače/Aim ovladač',
 	'game_pad' => 'Game pad',
+	'kinect'=>'Kinect',
+	'guitar'=>'Gitary'
 ];

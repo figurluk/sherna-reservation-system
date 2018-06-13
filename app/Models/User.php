@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Lukas Figura
+ * Date: 15/02/2017
+ * Time: 19:40
+ */
 
 namespace App\Models;
 
@@ -56,7 +62,8 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'uid', 'name', 'surname', 'email', 'block_number', 'image', 'role'
+        'uid', 'name', 'surname', 'email', 'block_number', 'image', 'role',
+		 'banned'
     ];
 
     protected $dates = ['deleted_at'];

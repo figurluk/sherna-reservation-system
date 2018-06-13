@@ -80,6 +80,18 @@
 									 id="games-options">
 									
 									<div class="form-group">
+										<label for="console_id" class="col-sm-2 control-label">Console</label>
+										<div class="col-sm-10">
+											<select name="console_id" id="console_id"
+													class="form-control">
+												@foreach(\App\Models\Console::get() as $console)
+													<option value="{{$console->id}}">{{$console->name}}</option>
+												@endforeach
+											</select>
+										</div>
+									</div>
+									
+									<div class="form-group">
 										<div class="checkbox col-sm-offset-2">
 											<label>
 												<input type="hidden" name="console" value="0">
@@ -95,6 +107,16 @@
 												<input type="hidden" name="vr" value="0">
 												<input type="checkbox" name="vr"
 													   value="1"> VR
+											</label>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<div class="checkbox col-sm-offset-2">
+											<label>
+												<input type="hidden" name="kinect" value="0">
+												<input type="checkbox" name="kinect"
+													   value="1"> Kinect
 											</label>
 										</div>
 									</div>
@@ -116,7 +138,18 @@
 											<label>
 												<input type="hidden" name="move" value="0">
 												<input type="checkbox" name="move"
-													   value="1"> Move
+													   value="1"> Move/Aim
+											</label>
+										</div>
+									</div>
+									
+									<div class="form-group">
+										<div class="checkbox col-sm-offset-2">
+											<label>
+												<input type="hidden" name="guitar" value="0">
+												<input type="checkbox" name="guitar"
+													   value="1"> Guitar
+												
 											</label>
 										</div>
 									</div>

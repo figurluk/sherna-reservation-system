@@ -1,4 +1,10 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: Lukas Figura
+ * Date: 15/02/2017
+ * Time: 19:40
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -14,7 +20,7 @@ class InventoryController extends Controller
 {
 	public function index()
 	{
-		$inventoryItems = InventoryItem::orderBy('id')->paginate(20);
+		$inventoryItems = InventoryItem::orderBy('name','asc')->paginate(20);
 		
 		return view('admin.inventory.index', compact(['inventoryItems']));
 	}

@@ -1,10 +1,19 @@
 {
-  "name": "laravel/laravel",
-  "description": "The Laravel Framework.",
+  "name": "sherna/reservation-system",
+  "description": "SHerna reservation system.",
   "keywords": [
-    "framework",
-    "laravel"
+    "sherna",
+    "reservation",
+    "web"
   ],
+  "authors": [
+	{
+	  "name": "Lukas Figura",
+	  "email": "figurluk@gmail.com",
+	  "role": "Developer, Architect"
+	}
+  ],
+  "homepage":"https://sherna.siliconhill.cz",
   "license": "MIT",
   "type": "project",
   "require": {

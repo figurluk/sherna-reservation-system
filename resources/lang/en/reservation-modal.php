@@ -16,6 +16,7 @@ return [
     'cancel'         => 'Cancel',
     'delete'         => 'Delete',
     'visitors_count' => 'Visitors count',
+	'required_order' => 'By creating a reservation, you agree with the operating order.',
     'console'        => 'Console',
     'from_date'      => 'Date from',
     'from_time'      => 'Time from',
@@ -31,6 +32,9 @@ return [
 		],
 		'closed'   => [
 			'text' => "This room is closed.",
+		],
+		'too_long' => [
+			'text' => 'Reservation exceed ' . config('calendar.max-duration') . ' hours.',
 		],
 	],
 ];

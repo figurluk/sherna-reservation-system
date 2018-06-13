@@ -26,7 +26,6 @@
 	
 	<!-- Styles -->
 	<link href="{{mix('css/client.css')}}" rel="stylesheet">
-	<link href="{{asset('css/flag-icon.min.css')}}" rel="stylesheet">
 	
 	<link rel="apple-touch-icon" sizes="57x57" href="{{asset('favicon/apple-icon-57x57.png')}}">
 	<link rel="apple-touch-icon" sizes="60x60" href="{{asset('favicon/apple-icon-60x60.png')}}">
@@ -43,6 +42,7 @@
 	<link rel="icon" type="image/png" sizes="16x16" href="{{asset('favicon/favicon-16x16.png')}}">
 	<link rel="manifest" href="{{asset('manifest.json')}}">
 	<link rel="alternate" hreflang="x-default" href="https://sherna.siliconhill.cz/">
+	<link rel="canonical" href="https://sherna.siliconhill.cz">
 	<meta name="msapplication-TileColor" content="#ffffff">
 	<meta name="msapplication-TileImage" content="{{asset('favicon/ms-icon-144x144.png')}}">
 	<meta name="theme-color" content="#ffffff">
