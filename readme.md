@@ -11,4 +11,4 @@
 
 ### License
 
-This project is licensed under the [MIT License](https://github.com/figurluk/sherna-reservation-system/blob/master/LICENSE) - see the LICENSE file for details
+This project is licensed under the [MIT License](https://github.com/figurluk/sherna-reservation-system/blob/master/LICENSE).
